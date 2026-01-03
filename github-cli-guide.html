@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub CLI - Guida Completa</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-orange: #d29922;
+            --accent-purple: #a371f7;
+            --border: #30363d;
+            --code-bg: #1a1f26;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--accent), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        nav.toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        nav.toc h2 {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        nav.toc ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        nav.toc a {
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.25rem 0;
+            display: block;
+            transition: color 0.2s;
+        }
+
+        nav.toc a:hover {
+            color: var(--accent-purple);
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-top: 1rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem;
+            color: var(--text);
+        }
+
+        h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 1rem 0 0.5rem;
+            color: var(--accent-purple);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .os-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 0;
+        }
+
+        .os-tab {
+            padding: 0.75rem 1.5rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-bottom: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: all 0.2s;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .os-tab:first-child {
+            margin-right: -1px;
+        }
+
+        .os-tab.active {
+            background: var(--bg-secondary);
+            color: var(--text);
+            border-bottom: 1px solid var(--bg-secondary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .os-tab:hover:not(.active) {
+            background: var(--border);
+        }
+
+        .os-content {
+            display: none;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 0 12px 12px 12px;
+            padding: 1.5rem;
+        }
+
+        .os-content.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .card.warning {
+            border-color: var(--accent-orange);
+            background: rgba(210, 153, 34, 0.1);
+        }
+
+        .card.success {
+            border-color: var(--accent-green);
+            background: rgba(63, 185, 80, 0.1);
+        }
+
+        .card.info {
+            border-color: var(--accent);
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        .card-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card.warning .card-title { color: var(--accent-orange); }
+        .card.success .card-title { color: var(--accent-green); }
+        .card.info .card-title { color: var(--accent); }
+
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        code {
+            font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        p code, li code {
+            background: var(--bg-tertiary);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.35rem 0.6rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .workflow-step {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-purple);
+        }
+
+        .workflow-step .step-num {
+            background: var(--accent-purple);
+            color: var(--bg);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .workflow-step .step-content {
+            flex: 1;
+        }
+
+        .workflow-step .step-title {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+        }
+
+        .workflow-step .step-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: var(--bg-tertiary);
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        td {
+            color: var(--text-muted);
+        }
+
+        td code {
+            color: var(--accent-green);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 2.5rem 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            h1 { font-size: 1.75rem; }
+            h2 { font-size: 1.4rem; }
+            pre { padding: 0.75rem; }
+            code { font-size: 0.8rem; }
+            .os-tabs { flex-direction: column; }
+            .os-tab { border-radius: 8px; border: 1px solid var(--border); }
+            .os-content { border-radius: 12px; margin-top: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐙 GitHub CLI</h1>
+            <p class="subtitle">Guida completa: installazione, autenticazione e workflow</p>
+        </header>
+
+        <nav class="toc">
+            <h2>📑 Indice</h2>
+            <ul>
+                <li><a href="#installazione">Installazione</a></li>
+                <li><a href="#autenticazione">Autenticazione</a></li>
+                <li><a href="#repo-nuova">Creare una repo</a></li>
+                <li><a href="#push-esistente">Push progetto esistente</a></li>
+                <li><a href="#comandi-utili">Comandi utili</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+            </ul>
+        </nav>
+
+        <!-- INSTALLAZIONE -->
+        <section id="installazione">
+            <h2>📦 Installazione</h2>
+
+            <div class="os-tabs">
+                <button class="os-tab active" onclick="showOS('windows')">🪟 Windows</button>
+                <button class="os-tab" onclick="showOS('macos')">🍎 macOS</button>
+            </div>
+
+            <div id="windows" class="os-content active">
+                <h3>Metodo consigliato: winget</h3>
+                <pre><code>winget install GitHub.cli</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+                
+                <div class="card info">
+                    <div class="card-title">💡 Dopo l'installazione</div>
+                    <p style="margin-bottom: 0;"><strong>Chiudi e riapri il terminale</strong> per aggiornare il PATH.</p>
+                </div>
+
+                <h3>Se hai già gh installato con .exe</h3>
+                <p>Prima di installare con winget, disinstalla la versione precedente:</p>
+                <ol>
+                    <li>Apri <code>Impostazioni</code> → <code>App</code> → <code>App installate</code></li>
+                    <li>Cerca "GitHub CLI"</li>
+                    <li>Click sui tre puntini → <code>Disinstalla</code></li>
+                    <li>Poi procedi con <code>winget install GitHub.cli</code></li>
+                </ol>
+
+                <h3>Verifica installazione</h3>
+                <pre><code>gh --version</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+            </div>
+
+            <div id="macos" class="os-content">
+                <h3>Metodo consigliato: Homebrew</h3>
+                <pre><code>brew install gh</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+                <div class="card info">
+                    <div class="card-title">💡 Non hai Homebrew?</div>
+                    <p style="margin-bottom: 0.5rem;">Installalo prima con:</p>
+                    <pre style="margin: 0;"><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+                </div>
+
+                <h3>Aggiornare gh</h3>
+                <pre><code>brew upgrade gh</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+                <h3>Verifica installazione</h3>
+                <pre><code>gh --version</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- AUTENTICAZIONE -->
+        <section id="autenticazione">
+            <h2>🔐 Autenticazione</h2>
+            
+            <p>Prima di poter usare gh, devi autenticarti con il tuo account GitHub:</p>
+
+            <pre><code>gh auth login</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+            <h3>Procedura guidata</h3>
+            <div class="workflow-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">Scegli l'host</div>
+                    <div class="step-desc">Seleziona <code>GitHub.com</code> (o Enterprise se usi quello aziendale)</div>
+                </div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">Protocollo preferito</div>
+                    <div class="step-desc">Scegli <code>HTTPS</code> (raccomandato) o <code>SSH</code></div>
+                </div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">Metodo di autenticazione</div>
+                    <div class="step-desc">Seleziona <code>Login with a web browser</code> — si aprirà il browser</div>
+                </div>
+            </div>
+            <div class="workflow-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">Copia il codice</div>
+                    <div class="step-desc">Il terminale mostra un codice one-time, incollalo nella pagina web</div>
+                </div>
+            </div>
+
+            <h3>Verifica autenticazione</h3>
+            <pre><code>gh auth status</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+            <div class="card success">
+                <div class="card-title">✓ Output atteso</div>
+                <pre style="margin: 0.5rem 0 0; background: transparent; border: none; padding: 0;"><code>github.com
+  ✓ Logged in to github.com as TUOUSERNAME
+  ✓ Git operations for github.com configured to use https protocol.</code></pre>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- CREARE REPO NUOVA -->
+        <section id="repo-nuova">
+            <h2>🆕 Creare una nuova repository</h2>
+
+            <h3>Opzione 1: Crea repo e clona in locale</h3>
+            <pre><code># Crea repo pubblica
+gh repo create nome-progetto --public --clone
+
+# Crea repo privata
+gh repo create nome-progetto --private --clone</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+            <h3>Opzione 2: Wizard interattivo</h3>
+            <pre><code>gh repo create</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+            <p>Ti guida passo passo nella configurazione.</p>
+
+            <h3>Opzioni utili</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Flag</th>
+                        <th>Descrizione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>--public</code></td>
+                        <td>Repository pubblica</td>
+                    </tr>
+                    <tr>
+                        <td><code>--private</code></td>
+                        <td>Repository privata</td>
+                    </tr>
+                    <tr>
+                        <td><code>--clone</code></td>
+                        <td>Clona subito in locale</td>
+                    </tr>
+                    <tr>
+                        <td><code>--description "testo"</code></td>
+                        <td>Aggiunge descrizione</td>
+                    </tr>
+                    <tr>
+                        <td><code>--gitignore node</code></td>
+                        <td>Aggiunge .gitignore (es: node, python)</td>
+                    </tr>
+                    <tr>
+                        <td><code>--license mit</code></td>
+                        <td>Aggiunge licenza</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Esempio completo</h3>
+            <pre><code>gh repo create mio-progetto \
+  --public \
+  --clone \
+  --description "Il mio progetto Node.js" \
+  --gitignore node \
+  --license mit</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- PUSH PROGETTO ESISTENTE -->
+        <section id="push-esistente">
+            <h2>📤 Push di un progetto locale esistente</h2>
+
+            <p>Hai già un progetto in locale e vuoi pubblicarlo su GitHub? Ecco la procedura:</p>
+
+            <div class="workflow-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <div class="step-title">Entra nella cartella del progetto</div>
+                    <pre style="margin: 0.5rem 0 0;"><code>cd /percorso/al/tuo/progetto</code></pre>
+                </div>
+            </div>
+
+            <div class="workflow-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <div class="step-title">Inizializza git (se non già fatto)</div>
+                    <pre style="margin: 0.5rem 0 0;"><code>git init</code></pre>
+                </div>
+            </div>
+
+            <div class="workflow-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <div class="step-title">Aggiungi e committa i file</div>
+                    <pre style="margin: 0.5rem 0 0;"><code>git add .
+git commit -m "Initial commit"</code></pre>
+                </div>
+            </div>
+
+            <div class="workflow-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                    <div class="step-title">Crea la repo su GitHub e collega</div>
+                    <pre style="margin: 0.5rem 0 0;"><code># Crea repo e imposta come remote (usa il nome della cartella)
+gh repo create --source=. --public --push
+
+# Oppure con nome custom
+gh repo create nome-repo --source=. --private --push</code></pre>
+                </div>
+            </div>
+
+            <div class="card success">
+                <div class="card-title">✓ Fatto!</div>
+                <p style="margin-bottom: 0;">Il comando <code>--push</code> fa automaticamente il push del branch corrente.</p>
+            </div>
+
+            <h3>Se la repo esiste già su GitHub</h3>
+            <p>Devi solo collegare il remote e pushare:</p>
+            <pre><code># Aggiungi il remote
+git remote add origin https://github.com/TUOUSERNAME/nome-repo.git
+
+# Push
+git push -u origin main</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+            <div class="card warning">
+                <div class="card-title">⚠ Branch main vs master</div>
+                <p style="margin-bottom: 0;">Se il tuo branch locale si chiama <code>master</code> ma GitHub usa <code>main</code>:<br>
+                <code>git branch -M main</code> rinomina il branch prima del push.</p>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- COMANDI UTILI -->
+        <section id="comandi-utili">
+            <h2>⚡ Comandi utili quotidiani</h2>
+
+            <h3>Repository</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Comando</th>
+                        <th>Descrizione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>gh repo list</code></td>
+                        <td>Lista le tue repo</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh repo clone owner/repo</code></td>
+                        <td>Clona una repo</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh repo view</code></td>
+                        <td>Info sulla repo corrente</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh repo view --web</code></td>
+                        <td>Apre la repo nel browser</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh repo fork owner/repo --clone</code></td>
+                        <td>Forka e clona</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh repo delete owner/repo</code></td>
+                        <td>Elimina repo (chiede conferma)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Pull Request</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Comando</th>
+                        <th>Descrizione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>gh pr create</code></td>
+                        <td>Crea una PR (wizard interattivo)</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh pr list</code></td>
+                        <td>Lista PR aperte</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh pr view 123</code></td>
+                        <td>Dettagli PR #123</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh pr checkout 123</code></td>
+                        <td>Checkout del branch della PR</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh pr merge 123</code></td>
+                        <td>Mergia la PR</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Issues</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Comando</th>
+                        <th>Descrizione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>gh issue create</code></td>
+                        <td>Crea una issue</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh issue list</code></td>
+                        <td>Lista issue aperte</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh issue view 42</code></td>
+                        <td>Dettagli issue #42</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh issue close 42</code></td>
+                        <td>Chiude issue #42</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Workflow (GitHub Actions)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Comando</th>
+                        <th>Descrizione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>gh run list</code></td>
+                        <td>Lista run recenti</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh run view</code></td>
+                        <td>Dettagli ultimo run</td>
+                    </tr>
+                    <tr>
+                        <td><code>gh run watch</code></td>
+                        <td>Watch live del run in corso</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Gist</h3>
+            <pre><code># Crea gist pubblico
+gh gist create file.js --public
+
+# Crea gist privato con più file
+gh gist create file1.js file2.py
+
+# Lista i tuoi gist
+gh gist list</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- TROUBLESHOOTING -->
+        <section id="troubleshooting">
+            <h2>🔧 Troubleshooting</h2>
+
+            <div class="card warning">
+                <div class="card-title">⚠ "gh" non riconosciuto come comando</div>
+                <p><strong>Windows:</strong> Chiudi e riapri il terminale. Se non basta, fai logout/login da Windows.</p>
+                <p><strong>macOS:</strong> Esegui <code>source ~/.zshrc</code> o riapri il terminale.</p>
+                <p style="margin-bottom: 0;"><strong>Verifica PATH:</strong> <code>where.exe gh</code> (Windows) o <code>which gh</code> (macOS)</p>
+            </div>
+
+            <div class="card warning">
+                <div class="card-title">⚠ Errore di autenticazione</div>
+                <p>Prova a riautenticarti:</p>
+                <pre style="margin: 0.5rem 0;"><code>gh auth logout
+gh auth login</code></pre>
+            </div>
+
+            <div class="card warning">
+                <div class="card-title">⚠ Permission denied (push)</div>
+                <p style="margin-bottom: 0;">Verifica di avere i permessi sulla repo e che l'autenticazione sia corretta:<br>
+                <code>gh auth status</code></p>
+            </div>
+
+            <div class="card warning">
+                <div class="card-title">⚠ Conflitto tra versioni (Windows)</div>
+                <p style="margin-bottom: 0;">Se hai installato gh sia con .exe che con winget, disinstalla entrambi da "App installate" e reinstalla solo con winget.</p>
+            </div>
+
+            <h3>Comandi di debug</h3>
+            <pre><code># Stato autenticazione
+gh auth status
+
+# Versione installata
+gh --version
+
+# Configurazione attuale
+gh config list
+
+# Aggiorna gh
+# Windows
+winget upgrade GitHub.cli
+
+# macOS
+brew upgrade gh</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+        </section>
+
+        <footer>
+            <p>Guida GitHub CLI • Gennaio 2026</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">
+                Documentazione ufficiale: <a href="https://cli.github.com/manual/" target="_blank">cli.github.com/manual</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function showOS(os) {
+            // Hide all content
+            document.querySelectorAll('.os-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.os-tab').forEach(el => el.classList.remove('active'));
+            
+            // Show selected
+            document.getElementById(os).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function copyCode(btn) {
+            const pre = btn.parentElement;
+            const code = pre.querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'Copiato!';
+                setTimeout(() => btn.textContent = 'Copia', 2000);
+            });
+        }
+    </script>
+</body>
+</html>
