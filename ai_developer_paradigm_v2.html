@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Nuovo Paradigma dello Sviluppatore AI - v2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        nav {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 2px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.9em;
+        }
+        
+        nav a:hover {
+            color: #764ba2;
+        }
+        
+        main {
+            padding: 40px;
+        }
+        
+        section {
+            margin-bottom: 60px;
+        }
+        
+        h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        h4 {
+            color: #555;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .danger-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        pre code {
+            background: none;
+            color: #f8f8f2;
+            padding: 0;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .tool-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .tool-card h4 {
+            margin-top: 0;
+            color: #667eea;
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .pros, .cons {
+            padding: 15px;
+            border-radius: 6px;
+        }
+        
+        .pros {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        
+        .cons {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .pros h4, .cons h4 {
+            margin-top: 0;
+        }
+        
+        footer {
+            background: #2d2d2d;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        .workflow-step {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .checklist li::before {
+            content: "☐ ";
+            margin-right: 10px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            nav {
+                position: static;
+            }
+            section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 20px;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            main, nav, footer {
+                padding: 20px;
+            }
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Il Nuovo Paradigma dello Sviluppatore AI</h1>
+            <p class="subtitle">Guida completa basata sulla visione di Andrej Karpathy</p>
+            <span class="version-badge">v2.0 - Production Ready Edition</span>
+            <p style="margin-top: 20px; opacity: 0.8;">Dicembre 2025</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#intro">Intro</a></li>
+                <li><a href="#visione">Visione</a></li>
+                <li><a href="#concetti">Concetti</a></li>
+                <li><a href="#tool-comparison">Tool</a></li>
+                <li><a href="#setup">Setup</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#testing">Testing</a></li>
+                <li><a href="#workflow">Workflow</a></li>
+                <li><a href="#policy">Policy</a></li>
+                <li><a href="#risorse">Risorse</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <section id="intro">
+                <h2>📌 Introduzione</h2>
+                
+                <div class="highlight-box">
+                    <h3>Il Messaggio di Andrej Karpathy</h3>
+                    <p><strong>"Non mi sono mai sentito così indietro come programmatore"</strong></p>
+                    <p>In un post del 26 dicembre 2025, Andrej Karpathy (co-fondatore di OpenAI, ex Director of AI a Tesla, founder di Eureka Labs) ha ammesso candidamente che l'AI rappresenta per lui una sorta di <strong>"tecnologia aliena senza manuale"</strong>.</p>
+                </div>
+                
+                <h3>Il contesto</h3>
+                <p>La professione del programmatore sta venendo <strong>"drasticamente rifatta"</strong> dall'intelligenza artificiale. Il contributo umano nel codice diventa sempre più sparso e frammentario. Non si tratta più solo di scrivere codice, ma di orchestrare sistemi AI, gestire contesti, e verificare output stocastici.</p>
+                
+                <div class="warning-box">
+                    <h4>⚠️ L'Avvertimento</h4>
+                    <p>Gli ingegneri software devono adattarsi rapidamente, altrimenti rischiano di essere lasciati indietro. Ma Karpathy è ottimista: chi impara a padroneggiare questi strumenti può diventare <strong>"10 volte più potente"</strong>.</p>
+                </div>
+                
+                <div class="info-box">
+                    <h4>ℹ️ Nota su questa guida v2.0</h4>
+                    <p>Questa versione aggiornata include:</p>
+                    <ul>
+                        <li>Correzioni su date, versioni e pricing (dicembre 2025)</li>
+                        <li>Nuove sezioni su Security, Testing e Compliance</li>
+                        <li>AI Change Policy e Decision Matrix</li>
+                        <li>Best practices per team di produzione</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="visione">
+                <h2>🎯 La Visione: Software 3.0</h2>
+                
+                <h3>L'evoluzione del software</h3>
+                
+                <div class="tool-card">
+                    <h4>Software 1.0</h4>
+                    <p>Gli ingegneri scrivono codice esplicito (C++, Python, JavaScript, etc.) con logica e algoritmi definiti manualmente.</p>
+                    <p><strong>Paradigma:</strong> Programmazione imperativa/dichiarativa tradizionale</p>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>Software 2.0</h4>
+                    <p>Gli sviluppatori curano dataset e addestrano reti neurali. La logica del programma è codificata nei pesi del modello appresi dagli esempi.</p>
+                    <p><strong>Paradigma:</strong> Machine Learning, Deep Learning</p>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>Software 3.0 (Oggi)</h4>
+                    <p>Gli sviluppatori (e anche gli utenti finali) forniscono istruzioni in linguaggio naturale agli LLM. Il "codice" è un prompt in inglese che guida il modello.</p>
+                    <p><strong>Paradigma:</strong> Prompt Engineering, Agent Orchestration</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <h4>La Nuova Complessità</h4>
+                    <p>Il nuovo vocabolario dello sviluppatore include:</p>
+                    <ul>
+                        <li><strong>Agents & subagents</strong> - entità AI autonome con obiettivi</li>
+                        <li><strong>Prompts & contexts</strong> - istruzioni e contesto per l'AI</li>
+                        <li><strong>Memory & modes</strong> - stato persistente e modalità operative</li>
+                        <li><strong>Permissions & tools</strong> - controllo accessi e integrazioni</li>
+                        <li><strong>Plugins & skills</strong> - estensioni funzionali</li>
+                        <li><strong>MCP, LSP</strong> - Model Context Protocol, Language Server Protocol</li>
+                        <li><strong>Workflows & IDE integrations</strong> - orchestrazione end-to-end</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="concetti">
+                <h2>🧠 Concetti Chiave</h2>
+                
+                <h3>1. L'Autonomy Slider</h3>
+                <p>Un concetto fondamentale: scegliere il giusto livello di autonomia dell'AI per ogni contesto. Non esiste un'unica modalità, ma uno spettro di autonomia.</p>
+                
+                <div class="workflow-step">
+                    <p><span class="step-number">1</span> <strong>Tab completion</strong> - Autonomia minima, suggerimenti inline</p>
+                </div>
+                <div class="workflow-step">
+                    <p><span class="step-number">2</span> <strong>Edit selection</strong> - Modifiche mirate su selezione</p>
+                </div>
+                <div class="workflow-step">
+                    <p><span class="step-number">3</span> <strong>File-level edits</strong> - Modifica interi file</p>
+                </div>
+                <div class="workflow-step">
+                    <p><span class="step-number">4</span> <strong>Multi-file composer</strong> - Edits coordinati su più file</p>
+                </div>
+                <div class="workflow-step">
+                    <p><span class="step-number">5</span> <strong>Agent mode</strong> - Autonomia massima, delega completa</p>
+                </div>
+                
+                <h3>2. Generation-Verification Loop</h3>
+                <p>Il nuovo workflow non è più "scrivi codice → esegui → debug", ma:</p>
+                <ol>
+                    <li><strong>AI genera</strong> codice/soluzione</li>
+                    <li><strong>Umano verifica</strong> correttezza, sicurezza, coerenza</li>
+                    <li><strong>Iterazione rapida</strong> basata su feedback</li>
+                </ol>
+                
+                <div class="success-box">
+                    <h4>✅ Due Principi per Collaborare con l'AI</h4>
+                    <ol>
+                        <li><strong>Rendere la verifica veloce e facile</strong>
+                            <ul>
+                                <li>Usa GUI: la visione è più veloce della lettura</li>
+                                <li>Diff tools visivi</li>
+                                <li>Preview immediati</li>
+                            </ul>
+                        </li>
+                        <li><strong>Tenere l'AI al guinzaglio</strong>
+                            <ul>
+                                <li>Non lasciare che generi 1000 righe non verificabili</li>
+                                <li>Chunk più piccoli, più verificabili</li>
+                                <li>Controllo umano sui punti critici</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                
+                <h3>3. System Prompt Learning</h3>
+                <p>Un nuovo paradigma di apprendimento per l'AI:</p>
+                <ul>
+                    <li><strong>Pretraining:</strong> per la conoscenza</li>
+                    <li><strong>Finetuning:</strong> per comportamenti abituali</li>
+                    <li><strong>System Prompt Learning:</strong> per "prendere appunti" espliciti su come risolvere problemi</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <p>L'AI dovrebbe scrivere un "libro per se stessa" su come approcciare problemi, più simile al modo in cui gli umani prendono appunti che all'addestramento tradizionale.</p>
+                </div>
+                
+                <h3>4. Mental Model degli LLM</h3>
+                <p>Necessità di costruire un modello mentale profondo per sistemi che sono:</p>
+                <ul>
+                    <li><strong>Stocastici</strong> - non deterministici</li>
+                    <li><strong>Fallibili</strong> - possono sbagliare</li>
+                    <li><strong>Opachi</strong> - difficili da debuggare</li>
+                    <li><strong>In evoluzione</strong> - cambiano costantemente</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <p><strong>Analogia di Karpathy:</strong> Lavorare con AI è come gestire un team di stagisti altamente capaci attraverso la telepatia - potenti ma caotici, brillanti ma imprevedibili.</p>
+                </div>
+            </section>
+            
+            <section id="tool-comparison">
+                <h2>🛠️ Scelta degli Strumenti</h2>
+                
+                <h3>La Grande Domanda: Quale IDE?</h3>
+                
+                <div class="tool-card">
+                    <h4>Cursor</h4>
+                    <p><strong>Il pioniere AI-native</strong></p>
+                    <div class="info-box" style="margin-top: 15px;">
+                        <p><strong>Pricing aggiornato (Dic 2025):</strong></p>
+                        <ul>
+                            <li>Free: uso base con limiti</li>
+                            <li>Pro: ~$20/mese con crediti inclusi</li>
+                            <li>Business: $40/utente/mese per team</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ PRO</h4>
+                            <ul>
+                                <li>Composer mode (multi-file AI editing)</li>
+                                <li>Context automatico intelligente</li>
+                                <li>Tab completion superiore</li>
+                                <li>UI/UX ottimizzata per AI</li>
+                                <li>@codebase search semantico</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>❌ CONTRO</h4>
+                            <ul>
+                                <li>Fork di VSCode (potenziale lag su feature)</li>
+                                <li>A pagamento dopo trial</li>
+                                <li>Meno estensioni testate</li>
+                                <li>Lock-in più forte</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>VSCode + Continue</h4>
+                    <p><strong>L'opzione open-source e familiare</strong></p>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ PRO</h4>
+                            <ul>
+                                <li>Zero learning curve (se usi già VSCode)</li>
+                                <li>Continue è gratis e open-source</li>
+                                <li>Tutte le tue estensioni funzionano</li>
+                                <li>Switch tra modelli (Claude, GPT, Ollama)</li>
+                                <li>Più stabile, Microsoft-backed</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>❌ CONTRO</h4>
+                            <ul>
+                                <li>AI "aggiunta" vs "nativa"</li>
+                                <li>Context management meno sofisticato</li>
+                                <li>No Composer mode (ancora)</li>
+                                <li>Più configurazione manuale</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>IntelliJ / WebStorm</h4>
+                    <p><strong>Il veterano enterprise</strong></p>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ PRO</h4>
+                            <ul>
+                                <li>Refactoring migliore in assoluto</li>
+                                <li>Type inference pazzesca</li>
+                                <li>Database integration nativa top</li>
+                                <li>Debugging superiore</li>
+                                <li>Enterprise-ready</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>❌ CONTRO</h4>
+                            <ul>
+                                <li>Pesante (RAM intensive)</li>
+                                <li>AI integration ancora indietro</li>
+                                <li>Copilot ok ma non ai livelli di Cursor</li>
+                                <li>Più costoso ($149/anno)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="success-box">
+                    <h3>🎯 Raccomandazione</h3>
+                    <h4>Percorso Graduale (Consigliato):</h4>
+                    <ol>
+                        <li><strong>Settimane 1-4:</strong> VSCode + Continue (gratis, zero learning curve)</li>
+                        <li><strong>Settimana 5:</strong> Aggiungi Aider per task automatizzati</li>
+                        <li><strong>Settimana 6-7:</strong> Trial Cursor (14 giorni gratis) se Continue ti sta stretto</li>
+                        <li><strong>Settimana 8:</strong> Decidi in base all'esperienza</li>
+                    </ol>
+                    
+                    <h4>Passa a Cursor solo se:</h4>
+                    <ul>
+                        <li>Composer mode (multi-file editing) ti serve davvero</li>
+                        <li>Lavori su codebase grandi dove context automatico fa differenza</li>
+                        <li>Il budget team lo permette ($40/utente/mese)</li>
+                    </ul>
+                </div>
+                
+                <h3>Altri Tool Essenziali</h3>
+                
+                <div class="tool-card">
+                    <h4>Aider - Git AI Agent</h4>
+                    <p>CLI tool che modifica codice e fa commits automatici. Perfetto per refactoring e task multi-file.</p>
+                    <ul>
+                        <li>Supporta Claude, GPT-4, e modelli locali</li>
+                        <li>Git integration nativa</li>
+                        <li>Context management intelligente</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>Claude Code / Agent SDK</h4>
+                    <p>Tool ufficiale Anthropic per delegare task di coding completi dal terminale.</p>
+                    <ul>
+                        <li>Autonomia molto alta, supervisione necessaria</li>
+                        <li>Integrato con MCP servers</li>
+                        <li>Best per task end-to-end ben definiti</li>
+                    </ul>
+                    <div class="info-box" style="margin-top: 10px;">
+                        <p><strong>Status:</strong> In beta/early access. Controlla <a href="https://claude.ai/code">claude.ai/code</a> per availability.</p>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>Claude Desktop + MCP</h4>
+                    <p>App desktop con Model Context Protocol per connettere AI a filesystem, GitHub, database, etc.</p>
+                    <ul>
+                        <li>MCP servers per estendere capabilities</li>
+                        <li>Privacy mode disponibile</li>
+                        <li>Perfetto per ricerca e documentazione</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="setup">
+                <h2>⚙️ Setup Pratico su Mac</h2>
+                
+                <h3><span class="step-number">1</span> Fondamentali</h3>
+                
+                <h4>Homebrew (se non installato)</h4>
+                <pre><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+                
+                <h4>Node.js - Versione Aggiornata</h4>
+                <pre><code># Verifica versione corrente
+node --version
+
+# Se < 20, aggiorna
+brew install node@24  # LTS attuale (Dic 2025)
+
+# Minimum: Node.js >= 20
+# Raccomandato: Node.js 24 LTS</code></pre>
+                
+                <div class="warning-box">
+                    <h4>⚠️ Versione Node.js</h4>
+                    <p>Mentre Node 18 è ancora supportato, nel 2025 la LTS è la versione 24. Per massima compatibilità con AI tools, usa almeno Node 20+.</p>
+                </div>
+                
+                <h3><span class="step-number">2</span> VSCode + Continue</h3>
+                
+                <h4>Installa estensioni</h4>
+                <pre><code># Continue (AI assistant)
+code --install-extension continue.continue
+
+# Opzionale: GitHub Copilot (se hai abbonamento)
+code --install-extension GitHub.copilot
+code --install-extension GitHub.copilot-chat
+
+# ESLint e Prettier (per validation)
+code --install-extension dbaeumer.vscode-eslint
+code --install-extension esbenp.prettier-vscode</code></pre>
+                
+                <h4>Configura Continue</h4>
+                <pre><code># Crea directory config
+mkdir -p ~/.continue
+touch ~/.continue/config.json</code></pre>
+                
+                <p>Contenuto di <code>~/.continue/config.json</code>:</p>
+                <pre><code>{
+  "models": [
+    {
+      "title": "Claude Sonnet 4",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-20250514",
+      "apiKey": "${ANTHROPIC_API_KEY}"
+    }
+  ],
+  "tabAutocompleteModel": {
+    "title": "Claude Sonnet 4",
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-20250514"
+  },
+  "contextProviders": [
+    {
+      "name": "code",
+      "params": {}
+    },
+    {
+      "name": "diff",
+      "params": {}
+    },
+    {
+      "name": "terminal",
+      "params": {}
+    },
+    {
+      "name": "problems",
+      "params": {}
+    }
+  ],
+  "allowAnonymousTelemetry": false
+}</code></pre>
+                
+                <h3><span class="step-number">3</span> Aider - AI Git Agent</h3>
+                
+                <pre><code># Installa con pipx (metodo pulito, raccomandato)
+brew install pipx
+pipx ensurepath
+pipx install aider-chat
+
+# Verifica installazione
+aider --version</code></pre>
+                
+                <h4>Configura Aider</h4>
+                <pre><code># Crea config file
+touch ~/.aider.conf.yml</code></pre>
+                
+                <p>Contenuto di <code>~/.aider.conf.yml</code>:</p>
+                <pre><code>model: claude-sonnet-4-20250514
+dark-mode: true
+pretty: true
+stream: true
+auto-commits: true
+dirty-commits: false
+attribute-commits: true
+edit-format: diff
+# Lint prima di commit (opzionale ma raccomandato)
+lint-cmd: "npm run lint"
+# Test prima di commit
+test-cmd: "npm test"</code></pre>
+                
+                <h3><span class="step-number">4</span> Claude Desktop + MCP</h3>
+                
+                <ol>
+                    <li>Scarica Claude Desktop da <a href="https://claude.ai/download">claude.ai/download</a></li>
+                    <li>Installa l'app</li>
+                    <li>Configura MCP servers</li>
+                </ol>
+                
+                <pre><code># Crea directory config
+mkdir -p ~/Library/Application\ Support/Claude/
+
+# Crea config file
+touch ~/Library/Application\ Support/Claude/claude_desktop_config.json</code></pre>
+                
+                <p>Contenuto di <code>claude_desktop_config.json</code> (esempio sicuro):</p>
+                <pre><code>{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/TUOUSERNAME/Projects"
+      ],
+      "env": {}
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  },
+  "globalShortcut": "CommandOrControl+Shift+Space"
+}</code></pre>
+                
+                <div class="danger-box">
+                    <h4>🔒 Security MCP Best Practices</h4>
+                    <ul>
+                        <li><strong>Read-only quando possibile:</strong> limita MCP a lettura se non serve scrittura</li>
+                        <li><strong>Sandbox paths:</strong> non dare accesso a tutta la home directory</li>
+                        <li><strong>Token con scope minimo:</strong> GitHub token solo con permessi necessari</li>
+                        <li><strong>Audit logging:</strong> monitora cosa fa l'AI con MCP</li>
+                        <li><strong>Versioning:</strong> specifica versioni MCP server, non "latest"</li>
+                    </ul>
+                </div>
+                
+                <h3><span class="step-number">5</span> Configurazione Progetto</h3>
+                
+                <h4>File .cursorrules (o .continuerules)</h4>
+                <p>Crea questo file nella root del tuo progetto per dare "istruzioni permanenti" all'AI:</p>
+                
+                <pre><code># .cursorrules (o .continuerules)
+
+You are an expert Node.js developer working with MongoDB.
+
+Tech stack:
+- Node.js 24 LTS
+- MongoDB with Mongoose
+- Express.js for APIs
+- Modern ES6+ syntax
+- TypeScript (if applicable)
+
+Code style:
+- Use async/await over callbacks
+- Prefer arrow functions
+- Use descriptive variable names
+- Add JSDoc comments for complex functions
+- Follow ESLint and Prettier configs
+
+When writing code:
+- ALWAYS handle errors properly with try/catch
+- NEVER expose sensitive data or credentials
+- Validate all MongoDB queries and user input
+- Consider performance for database operations
+- Write modular, reusable code
+- Add logging for critical paths
+- Consider edge cases and error scenarios
+
+Security:
+- Never commit API keys, passwords, or secrets
+- Validate and sanitize all inputs
+- Use parameterized queries (prevent injection)
+- Follow OWASP best practices
+
+Testing:
+- Suggest Jest for unit tests when relevant
+- Write tests for critical business logic
+- Consider edge cases and error paths
+- Test security validations
+
+Before committing:
+- Run linter (npm run lint)
+- Run tests (npm test)
+- Verify no secrets in code
+- Check diff size (max 300 lines without explicit approval)</code></pre>
+
+                <h3><span class="step-number">6</span> Variabili d'Ambiente Sicure</h3>
+                
+                <pre><code># Setup .env file
+touch .env
+echo ".env" >> .gitignore
+echo "node_modules/" >> .gitignore
+
+# Setup API keys in .env
+echo "ANTHROPIC_API_KEY=your_key_here" >> .env
+echo "GITHUB_TOKEN=your_token_here" >> .env
+
+# Setup environment loader
+npm install dotenv</code></pre>
+                
+                <h4>In package.json aggiungi script:</h4>
+                <pre><code>{
+  "scripts": {
+    "dev": "node -r dotenv/config server.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  }
+}</code></pre>
+                
+                <h3><span class="step-number">7</span> Verifica Setup</h3>
+                
+                <pre><code># VSCode installato?
+which code
+
+# Estensione Continue attiva?
+code --list-extensions | grep continue
+
+# Aider funziona?
+aider --version
+
+# Node.js versione corretta?
+node --version  # deve essere >= 20
+
+# Git configurato?
+git --version
+git config --global user.name
+git config --global user.email
+
+# ESLint presente?
+npm list eslint</code></pre>
+                
+                <div class="success-box">
+                    <h4>✅ Setup Completo!</h4>
+                    <p>Ora hai tutti gli strumenti per iniziare a lavorare con il nuovo paradigma AI-assisted development in modo sicuro e production-ready.</p>
+                </div>
+            </section>
+            
+            <section id="security">
+                <h2>🔒 Security & Compliance</h2>
+                
+                <div class="danger-box">
+                    <h3>⚠️ CRITICAL: Cosa NON deve mai lasciare il repository</h3>
+                    <ul>
+                        <li>API keys, passwords, tokens, certificati</li>
+                        <li>Dati personali (PII): email, telefoni, indirizzi utenti reali</li>
+                        <li>Credenziali database (connection strings con password)</li>
+                        <li>Chiavi di crittografia, salt, secrets</li>
+                        <li>Informazioni proprietarie del business</li>
+                    </ul>
+                </div>
+                
+                <h3>1. Gestione Secrets</h3>
+                
+                <h4>Setup .gitignore completo</h4>
+                <pre><code># .gitignore
+
+# Secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.p12
+config/secrets.json
+
+# AI tools temp files
+.aider*
+.cursor/
+.continue/
+*.ai-temp
+
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db</code></pre>
+                
+                <h4>Environment variables template</h4>
+                <pre><code># .env.example (committa questo, non .env)
+ANTHROPIC_API_KEY=your_key_here
+MONGODB_URI=mongodb://localhost:27017/yourdb
+JWT_SECRET=generate_random_secret
+NODE_ENV=development</code></pre>
+                
+                <h3>2. Privacy Mode per AI Tools</h3>
+                
+                <div class="warning-box">
+                    <h4>Quando usare Privacy Mode</h4>
+                    <ul>
+                        <li>Lavori su codice proprietario</li>
+                        <li>Manipoli dati sensibili</li>
+                        <li>Compliance GDPR/HIPAA richiesta</li>
+                        <li>Policy aziendale lo richiede</li>
+                    </ul>
+                </div>
+                
+                <h4>Continue: Privacy Settings</h4>
+                <pre><code>// ~/.continue/config.json
+{
+  "allowAnonymousTelemetry": false,
+  "disableIndexing": false,  // true per privacy max
+  "disableSessionStorage": false  // true per no persistenza
+}</code></pre>
+                
+                <h4>Cursor: Privacy Mode</h4>
+                <p>Settings → Privacy → Enable Privacy Mode (impedisce upload di codice)</p>
+                
+                <h4>Claude Desktop: Privacy</h4>
+                <p>Settings → Privacy → Limit data retention. Non condividere conversazioni con dati sensibili.</p>
+                
+                <h3>3. Code Review Checklist per AI-Generated Code</h3>
+                
+                <ul class="checklist">
+                    <li>Nessun hardcoded secret o credential</li>
+                    <li>Input validation presente su tutti gli endpoint</li>
+                    <li>Parameterized queries (no string interpolation per SQL/MongoDB)</li>
+                    <li>Error messages non espongono dettagli interni</li>
+                    <li>Logging non include dati sensibili</li>
+                    <li>CORS configurato correttamente</li>
+                    <li>Rate limiting implementato</li>
+                    <li>Authentication/Authorization verificate</li>
+                </ul>
+                
+                <h3>4. Audit Trail</h3>
+                
+                <p>Setup git hooks per tracciare AI-generated commits:</p>
+                
+                <pre><code># .git/hooks/prepare-commit-msg
+#!/bin/bash
+
+# Aggiungi tag per AI commits
+if [ -f .aider.commit ]; then
+  echo "[AI-ASSISTED]" >> "$1"
+fi</code></pre>
+                
+                <h3>5. Compliance Considerations</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Tool Permesso</th>
+                            <th>Tool Proibito</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Codice open-source pubblico</td>
+                            <td>Tutti (Continue, Cursor, Copilot)</td>
+                            <td>Nessuno</td>
+                        </tr>
+                        <tr>
+                            <td>Codice proprietario con Privacy Mode</td>
+                            <td>Continue (self-hosted), Cursor (privacy on)</td>
+                            <td>Cloud tools senza opt-out</td>
+                        </tr>
+                        <tr>
+                            <td>Dati GDPR/HIPAA</td>
+                            <td>Solo self-hosted / on-premise</td>
+                            <td>Tutti i cloud-based AI</td>
+                        </tr>
+                        <tr>
+                            <td>Settore finanziario regolamentato</td>
+                            <td>Previa approvazione compliance</td>
+                            <td>Qualsiasi tool non approvato</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="info-box">
+                    <h4>📋 Checklist Compliance Team</h4>
+                    <ol>
+                        <li>Ottieni approvazione security/legal per AI tools</li>
+                        <li>Documenta quali tool sono permessi per quale tipo di codice</li>
+                        <li>Training team su security best practices con AI</li>
+                        <li>Setup audit logging per AI usage</li>
+                        <li>Review periodica dei tool e policy (trimestrale)</li>
+                    </ol>
+                </div>
+            </section>
+            
+            <section id="testing">
+                <h2>🧪 Testing & Validation</h2>
+                
+                <div class="highlight-box">
+                    <h3>Regola Fondamentale</h3>
+                    <p><strong>Mai committare codice AI-generated senza test verdi.</strong></p>
+                    <p>L'AI può scrivere codice che "sembra giusto" ma contiene bug sottili. I test sono la tua rete di sicurezza.</p>
+                </div>
+                
+                <h3>1. Setup Testing Framework</h3>
+                
+                <pre><code># Installa Jest (Node.js testing)
+npm install --save-dev jest @types/jest
+
+# Se usi TypeScript
+npm install --save-dev ts-jest @types/node
+
+# Setup supertest per API testing
+npm install --save-dev supertest @types/supertest</code></pre>
+                
+                <h4>jest.config.js</h4>
+                <pre><code>module.exports = {
+  testEnvironment: 'node',
+  coverageDirectory: 'coverage',
+  collectCoverageFrom: [
+    'src/**/*.{js,ts}',
+    '!src/**/*.test.{js,ts}',
+    '!src/types/**'
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70
+    }
+  }
+};</code></pre>
+                
+                <h3>2. Test Strategy per AI-Generated Code</h3>
+                
+                <h4>Livelli di Testing</h4>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo Test</th>
+                            <th>Quando</th>
+                            <th>Tool</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Lint</strong></td>
+                            <td>Prima di ogni commit</td>
+                            <td>ESLint</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Type Check</strong></td>
+                            <td>Prima di ogni commit</td>
+                            <td>TypeScript / JSDoc</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unit Tests</strong></td>
+                            <td>Per ogni funzione critica</td>
+                            <td>Jest</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Integration Tests</strong></td>
+                            <td>Per API endpoints</td>
+                            <td>Jest + Supertest</td>
+                        </tr>
+                        <tr>
+                            <td><strong>E2E Tests</strong></td>
+                            <td>Feature complesse</td>
+                            <td>Playwright / Cypress</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>3. Golden Tests per AI Output</h3>
+                
+                <p>Tecnica per catturare regressioni in output AI:</p>
+                
+                <pre><code>// tests/golden/user-service.golden.test.js
+
+const { createUser } = require('../../src/services/user');
+
+describe('User Service Golden Tests', () => {
+  test('createUser should maintain expected structure', async () => {
+    const input = {
+      email: 'test@example.com',
+      name: 'Test User'
+    };
+    
+    const result = await createUser(input);
+    
+    // Snapshot test - rileva cambi strutturali
+    expect(result).toMatchSnapshot();
+    
+    // Explicit assertions sui campi critici
+    expect(result).toHaveProperty('id');
+    expect(result).toHaveProperty('email', input.email);
+    expect(result).toHaveProperty('createdAt');
+    expect(result.password).toBeUndefined(); // no password in response
+  });
+});</code></pre>
+                
+                <h3>4. CI/CD Integration</h3>
+                
+                <h4>.github/workflows/ai-code-quality.yml</h4>
+                <pre><code>name: AI Code Quality Check
+
+on: [push, pull_request]
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '24'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Lint
+        run: npm run lint
+      
+      - name: Type Check
+        run: npm run type-check  # se usi TypeScript
+      
+      - name: Unit Tests
+        run: npm test -- --coverage
+      
+      - name: Check Coverage Threshold
+        run: npm run test:coverage:check
+      
+      - name: Security Audit
+        run: npm audit --audit-level=moderate</code></pre>
+                
+                <h3>5. Pre-commit Hooks</h3>
+                
+                <pre><code># Installa husky per git hooks
+npm install --save-dev husky lint-staged
+
+# Setup
+npx husky install
+
+# Crea pre-commit hook
+npx husky add .husky/pre-commit "npx lint-staged"</code></pre>
+                
+                <h4>package.json - lint-staged config</h4>
+                <pre><code>{
+  "lint-staged": {
+    "*.{js,ts}": [
+      "eslint --fix",
+      "jest --bail --findRelatedTests",
+      "git add"
+    ]
+  }
+}</code></pre>
+                
+                <h3>6. Validation Rules</h3>
+                
+                <div class="danger-box">
+                    <h4>🚫 Non Committare Se:</h4>
+                    <ul>
+                        <li>Diff > 300 righe senza esplicita review umana</li>
+                        <li>Test coverage < 70% per nuovo codice</li>
+                        <li>Lint errors presenti</li>
+                        <li>Type errors (se TypeScript)</li>
+                        <li>Security audit fallisce</li>
+                        <li>CI/CD pipeline è red</li>
+                    </ul>
+                </div>
+                
+                <h3>7. Testing Prompt per AI</h3>
+                
+                <p>Quando chiedi all'AI di scrivere codice, includi sempre la richiesta di test:</p>
+                
+                <div class="success-box">
+                    <h4>✅ Good Prompt Example</h4>
+                    <pre><code>Create a user authentication endpoint with the following requirements:
+- POST /api/auth/login
+- Validate email and password
+- Return JWT token on success
+- Handle errors appropriately
+
+IMPORTANT: Also write Jest tests that cover:
+- Successful login
+- Invalid credentials
+- Missing fields
+- SQL injection attempts
+- Rate limiting</code></pre>
+                </div>
+            </section>
+            
+            <section id="workflow">
+                <h2>🔄 Workflow Quotidiano</h2>
+                
+                <h3>Scenario 1: Coding Normale</h3>
+                <div class="workflow-step">
+                    <h4>Apri progetto in VSCode</h4>
+                    <pre><code>cd /tuo/progetto
+code .</code></pre>
+                    <p><strong>Usa Continue per:</strong></p>
+                    <ul>
+                        <li><kbd>Tab</kbd> - autocomplete inline</li>
+                        <li><kbd>Cmd+L</kbd> - chat sidebar con l'AI</li>
+                        <li><kbd>Cmd+I</kbd> - edit su selezione</li>
+                        <li>Highlight codice → <kbd>Cmd+I</kbd> → chiedi modifiche</li>
+                    </ul>
+                </div>
+                
+                <h3>Scenario 2: Refactoring / Feature Complesse</h3>
+                <div class="workflow-step">
+                    <h4>Usa Aider per task automatizzati</h4>
+                    <pre><code>cd /tuo/progetto
+aider
+
+# Esempi di comandi in Aider:
+# "Refactor this module to use async/await"
+# "Add comprehensive error handling to all database operations"
+# "Create a new API endpoint for user authentication with tests"
+# "Write unit tests for the payment service"</code></pre>
+                    <p><strong>Vantaggi:</strong></p>
+                    <ul>
+                        <li>Fa commits automatici con messaggi descrittivi</li>
+                        <li>Gestisce Git branch</li>
+                        <li>Modifica multipli file coordinati</li>
+                        <li>Mantiene context del codebase</li>
+                        <li>Può eseguire lint e test prima di commit</li>
+                    </ul>
+                </div>
+                
+                <h3>Scenario 3: Task End-to-End</h3>
+                <div class="workflow-step">
+                    <h4>Usa Claude Code (se disponibile)</h4>
+                    <pre><code>claude-code "Build a complete user management system with:
+- CRUD operations
+- Authentication with JWT
+- Role-based access control
+- MongoDB persistence
+- Comprehensive tests
+- API documentation"</code></pre>
+                    <p><strong>Nota:</strong> Autonomia massima, review critica necessaria.</p>
+                </div>
+                
+                <h3>Scenario 4: Ricerca / Documentazione</h3>
+                <div class="workflow-step">
+                    <h4>Usa Claude Desktop con MCP</h4>
+                    <p>Apri Claude Desktop e sfrutta gli MCP servers configurati:</p>
+                    <ul>
+                        <li>"Cerca nel codebase tutte le funzioni che interagiscono con MongoDB"</li>
+                        <li>"Trova i file modificati nell'ultima settimana su GitHub"</li>
+                        <li>"Genera documentazione API per il modulo auth"</li>
+                        <li>"Analizza le performance delle query database più usate"</li>
+                    </ul>
+                </div>
+                
+                <h3>L'Autonomy Slider in Pratica</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Tool</th>
+                            <th>Autonomia</th>
+                            <th>Verification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fix typo, piccole modifiche</td>
+                            <td>Continue Tab</td>
+                            <td>⚫ Minima</td>
+                            <td>Visual scan</td>
+                        </tr>
+                        <tr>
+                            <td>Scrivere funzione singola</td>
+                            <td>Continue Cmd+I</td>
+                            <td>⚫⚫ Bassa</td>
+                            <td>Lint + quick test</td>
+                        </tr>
+                        <tr>
+                            <td>Refactor modulo</td>
+                            <td>Aider</td>
+                            <td>⚫⚫⚫ Media</td>
+                            <td>Full test suite</td>
+                        </tr>
+                        <tr>
+                            <td>Nuova feature multi-file</td>
+                            <td>Aider + verifica</td>
+                            <td>⚫⚫⚫⚫ Alta</td>
+                            <td>Tests + manual QA</td>
+                        </tr>
+                        <tr>
+                            <td>Ristrutturazione architetturale</td>
+                            <td>Claude + planning umano</td>
+                            <td>⚫⚫⚫⚫⚫ Massima</td>
+                            <td>Full review + tests + staging</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="warning-box">
+                    <h4>⚠️ Regola d'Oro</h4>
+                    <p><strong>Più alta l'autonomia, più critica e approfondita dev'essere la verifica.</strong></p>
+                    <p>Mai accettare diff > 300 righe senza review manuale completa. Chunk più piccoli = verifica più affidabile e debug più semplice.</p>
+                </div>
+                
+                <h3>Best Practices Giornaliere</h3>
+                
+                <ol>
+                    <li><strong>Mattina:</strong> Review del codice generato il giorno prima
+                        <ul>
+                            <li>Rileggi con mente fresca</li>
+                            <li>Esegui test suite completa</li>
+                            <li>Verifica edge cases</li>
+                            <li>Check security implications</li>
+                        </ul>
+                    </li>
+                    <li><strong>Durante il giorno:</strong> Usa lo slider appropriato
+                        <ul>
+                            <li>Task ripetitivi/boilerplate → autonomia alta</li>
+                            <li>Logica business critica → autonomia bassa, supervisione stretta</li>
+                            <li>Operazioni su dati sensibili → sempre review manuale</li>
+                        </ul>
+                    </li>
+                    <li><strong>Prima di ogni commit:</strong>
+                        <ul>
+                            <li>Lint passing</li>
+                            <li>Tests green</li>
+                            <li>No secrets nel diff</li>
+                            <li>Commit message descrittivo</li>
+                        </ul>
+                    </li>
+                    <li><strong>Sera:</strong> Commit consapevoli
+                        <ul>
+                            <li>Review diff completi</li>
+                            <li>Squash commits se necessario</li>
+                            <li>Non committare codice non compreso</li>
+                            <li>Update documentation se necessario</li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+            
+            <section id="policy">
+                <h2>📋 AI Change Policy & Decision Matrix</h2>
+                
+                <div class="highlight-box">
+                    <h3>AI Change Policy Template</h3>
+                    <p>Policy da adottare a livello team/organizzazione</p>
+                </div>
+                
+                <h3>1. Dimensione Diff Limits</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Dimensione</th>
+                            <th>Processo</th>
+                            <th>Review</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1-50 righe</td>
+                            <td>Self-review + auto-merge se tests green</td>
+                            <td>Post-commit review ok</td>
+                        </tr>
+                        <tr>
+                            <td>51-150 righe</td>
+                            <td>Self-review + PR</td>
+                            <td>1 peer review richiesto</td>
+                        </tr>
+                        <tr>
+                            <td>151-300 righe</td>
+                            <td>Mandatory PR + test evidence</td>
+                            <td>2 peer reviews</td>
+                        </tr>
+                        <tr>
+                            <td>300+ righe</td>
+                            <td>Split in chunks O senior approval</td>
+                            <td>Architecture review</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>2. Test Requirements</h3>
+                
+                <ul class="checklist">
+                    <li>Unit tests per ogni nuova funzione pubblica</li>
+                    <li>Integration tests per nuovi endpoints</li>
+                    <li>Coverage minimo 70% per nuovo codice</li>
+                    <li>Security tests per codice che tocca auth/input validation</li>
+                    <li>Golden/snapshot tests per output critici</li>
+                </ul>
+                
+                <h3>3. Security Checklist</h3>
+                
+                <ul class="checklist">
+                    <li>No secrets nel codice (verified con grep/tools)</li>
+                    <li>Input validation presente</li>
+                    <li>Parameterized queries (no string concat)</li>
+                    <li>Error handling non espone dettagli interni</li>
+                    <li>Logging non include PII/secrets</li>
+                    <li>CORS/auth verificati per nuovi endpoints</li>
+                </ul>
+                
+                <h3>4. Decision Matrix: Quale Tool Usare</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Situazione</th>
+                            <th>Tool Consigliato</th>
+                            <th>Autonomia</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Autocomplete while coding</td>
+                            <td>Continue Tab / Copilot</td>
+                            <td>Minima</td>
+                            <td>Sempre attivo, low friction</td>
+                        </tr>
+                        <tr>
+                            <td>Explain error / debug</td>
+                            <td>Continue Chat</td>
+                            <td>Info-only</td>
+                            <td>Non modifica codice</td>
+                        </tr>
+                        <tr>
+                            <td>Refactor singola funzione</td>
+                            <td>Continue Cmd+I</td>
+                            <td>Bassa</td>
+                            <td>Review immediata</td>
+                        </tr>
+                        <tr>
+                            <td>Refactor module/file</td>
+                            <td>Aider</td>
+                            <td>Media</td>
+                            <td>Con tests pre-configurati</td>
+                        </tr>
+                        <tr>
+                            <td>Feature multi-file</td>
+                            <td>Aider o Cursor Composer</td>
+                            <td>Alta</td>
+                            <td>Chunked, con tests</td>
+                        </tr>
+                        <tr>
+                            <td>Complete new service</td>
+                            <td>Claude Code (se disponibile)</td>
+                            <td>Massima</td>
+                            <td>Solo con senior review</td>
+                        </tr>
+                        <tr>
+                            <td>Ricerca codebase</td>
+                            <td>Claude Desktop + MCP</td>
+                            <td>Read-only</td>
+                            <td>No modifications</td>
+                        </tr>
+                        <tr>
+                            <td>Documentazione API</td>
+                            <td>Claude Chat / Aider</td>
+                            <td>Media</td>
+                            <td>Verify accuracy</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>5. PR Template per AI-Generated Code</h3>
+                
+                <pre><code>## AI-Assisted Change
+
+### Tool Used
+- [ ] Continue
+- [ ] Aider
+- [ ] Cursor Composer
+- [ ] Claude Code
+- [ ] Other: ___________
+
+### Autonomy Level
+- [ ] Low (tab complete / small edits)
+- [ ] Medium (single file refactor)
+- [ ] High (multi-file feature)
+- [ ] Very High (complete service/module)
+
+### Verification Checklist
+- [ ] All tests passing (link to CI run)
+- [ ] Lint clean
+- [ ] No secrets in code (verified)
+- [ ] Security review done (if applicable)
+- [ ] Manual testing performed
+- [ ] Edge cases considered
+- [ ] Error handling verified
+- [ ] Performance acceptable
+
+### Changes Summary
+<!-- Describe what was changed and why -->
+
+### AI Prompt Used
+<!-- Optional: include the prompt given to AI for transparency -->
+
+### Manual Changes
+<!-- List any manual modifications made after AI generation -->
+
+### Risk Assessment
+- [ ] Low risk (minor changes, well tested)
+- [ ] Medium risk (significant changes, good coverage)
+- [ ] High risk (critical path, needs extra scrutiny)
+</code></pre>
+                
+                <h3>6. Changelog Trimestrale</h3>
+                
+                <p>Documenta e review ogni trimestre:</p>
+                <ul>
+                    <li>Quali tool AI sono stati usati e con che frequenza</li>
+                    <li>Incidents/bugs causati da AI-generated code</li>
+                    <li>Time saved vs time spent in review</li>
+                    <li>Update su nuovi tool disponibili</li>
+                    <li>Policy adjustments necessari</li>
+                </ul>
+            </section>
+            
+            <section id="risorse">
+                <h2>📚 Risorse per Approfondire</h2>
+                
+                <h3>Video e Talk di Karpathy (2024-2025)</h3>
+                <ul>
+                    <li><strong>YC AI Startup School 2024</strong> - Il talk "Software 3.0" (<a href="https://www.youtube.com/watch?v=zjkBMFhNj_g">YouTube</a>)</li>
+                    <li><strong>YouTube Channel</strong> - <a href="https://www.youtube.com/@AndrejKarpathy">@AndrejKarpathy</a></li>
+                    <li><strong>State of GPT</strong> (Microsoft Build 2023) - Fundamentals ancora validi</li>
+                    <li><strong>Dwarkesh Podcast 2024</strong> - Eureka Labs vision e futuro dell'educazione</li>
+                </ul>
+                
+                <h3>Documentazione Tool (aggiornata)</h3>
+                <ul>
+                    <li><strong>Continue:</strong> <a href="https://docs.continue.dev">docs.continue.dev</a></li>
+                    <li><strong>Aider:</strong> <a href="https://aider.chat">aider.chat</a></li>
+                    <li><strong>MCP:</strong> <a href="https://modelcontextprotocol.io">modelcontextprotocol.io</a> + <a href="https://github.com/modelcontextprotocol/servers">MCP Servers</a></li>
+                    <li><strong>Cursor:</strong> <a href="https://cursor.sh/docs">cursor.sh/docs</a></li>
+                    <li><strong>Claude Code:</strong> <a href="https://claude.ai/code">claude.ai/code</a> (early access)</li>
+                </ul>
+                
+                <h3>Security & Best Practices</h3>
+                <ul>
+                    <li><strong>OWASP Top 10:</strong> <a href="https://owasp.org/www-project-top-ten/">owasp.org/www-project-top-ten/</a></li>
+                    <li><strong>Node.js Security Best Practices:</strong> <a href="https://nodejs.org/en/docs/guides/security/">nodejs.org security guide</a></li>
+                    <li><strong>npm audit:</strong> Built-in security scanning</li>
+                    <li><strong>Snyk:</strong> Automated security scanning per dependencies</li>
+                </ul>
+                
+                <h3>Testing Resources</h3>
+                <ul>
+                    <li><strong>Jest Documentation:</strong> <a href="https://jestjs.io">jestjs.io</a></li>
+                    <li><strong>Testing Best Practices:</strong> <a href="https://github.com/goldbergyoni/javascript-testing-best-practices">JavaScript Testing Best Practices</a></li>
+                    <li><strong>Supertest:</strong> API testing library</li>
+                </ul>
+                
+                <h3>Blog e Articoli</h3>
+                <ul>
+                    <li><strong>Software 2.0</strong> - Karpathy's original essay (2017) - still relevant</li>
+                    <li><strong>Latent Space</strong> - <a href="https://www.latent.space">latent.space</a> (AI Engineer community)</li>
+                    <li><strong>The AI Engineer</strong> - Newsletter by swyx</li>
+                    <li><strong>Simon Willison's Blog</strong> - <a href="https://simonwillison.net">simonwillison.net</a> (AI tools, LLMs)</li>
+                </ul>
+                
+                <h3>Community</h3>
+                <ul>
+                    <li><strong>Discord Continue</strong> - Community di Continue users</li>
+                    <li><strong>Reddit r/aiprogramming</strong> - Discussioni AI-assisted dev</li>
+                    <li><strong>Twitter/X:</strong> 
+                        <ul>
+                            <li><a href="https://twitter.com/karpathy">@karpathy</a> (Andrej Karpathy)</li>
+                            <li><a href="https://twitter.com/swyx">@swyx</a> (Shawn Wang - AI Engineer)</li>
+                            <li><a href="https://twitter.com/simonw">@simonw</a> (Simon Willison - AI tools)</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <h3>Corsi e Learning</h3>
+                <ul>
+                    <li><strong>CS231n</strong> - Karpathy's Stanford course (free online)</li>
+                    <li><strong>LLM University</strong> - Cohere's free course</li>
+                    <li><strong>Prompt Engineering Guide</strong> - <a href="https://www.promptingguide.ai">promptingguide.ai</a></li>
+                    <li><strong>Anthropic Prompt Library</strong> - Real-world examples</li>
+                </ul>
+            </section>
+            
+            <section>
+                <h2>🎯 Conclusioni</h2>
+                
+                <div class="highlight-box">
+                    <h3>I Takeaway Fondamentali v2.0</h3>
+                    <ol>
+                        <li><strong>L'AI non sostituisce il programmatore</strong>, ma lo trasforma in orchestratore di sistemi intelligenti</li>
+                        <li><strong>Il nuovo skillset</strong> include prompt engineering, context management, verifica di output stocastici, e SECURITY</li>
+                        <li><strong>L'Autonomy Slider</strong> è il tuo controllo: parti basso, aumenta con esperienza e fiducia</li>
+                        <li><strong>La verifica umana</strong> è PIÙ critica che mai - testing e security sono non negoziabili</li>
+                        <li><strong>Gradualità</strong>: VSCode + Continue è un ottimo inizio production-ready</li>
+                        <li><strong>Security first</strong>: mai committare secrets, sempre validare input, privacy mode quando serve</li>
+                        <li><strong>Test everything</strong>: codice AI senza test è codice a rischio</li>
+                        <li><strong>Policy & Process</strong>: servono guardrail chiari, non solo tool</li>
+                    </ol>
+                </div>
+                
+                <div class="success-box">
+                    <h3>Il Tuo Piano d'Azione Completo</h3>
+                    <ol>
+                        <li><strong>Settimana 1:</strong> Setup VSCode + Continue + ESLint + Jest</li>
+                        <li><strong>Settimana 2-3:</strong> Usa Continue per coding quotidiano, sempre con lint/test</li>
+                        <li><strong>Settimana 4:</strong> Aggiungi Aider per refactoring, configura pre-commit hooks</li>
+                        <li><strong>Settimana 5-6:</strong> Setup MCP con Claude Desktop, privacy mode configurato</li>
+                        <li><strong>Settimana 7:</strong> Trial Cursor (opzionale), confronta con Continue</li>
+                        <li><strong>Settimana 8:</strong> Stabilisci tuo workflow, documenta policy team</li>
+                        <li><strong>Mese 2+:</strong> Ottimizza, condividi best practices, review trimestrale</li>
+                    </ol>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Ricorda le Parole di Karpathy</h4>
+                    <p><em>"I have a sense that I could be 10X more powerful if I just properly string together what has become available."</em></p>
+                    <p>Il potere non sta solo negli strumenti, ma nel saperli orchestrare efficacemente CON I GIUSTI GUARDRAIL. Costruisci il tuo mental model, sperimenta in modo sicuro, e trova il workflow che funziona per te e il tuo team.</p>
+                </div>
+                
+                <div class="info-box">
+                    <h4>📝 Feedback & Updates</h4>
+                    <p>Questa guida verrà aggiornata trimestralmente con:</p>
+                    <ul>
+                        <li>Nuovi tool e versioni</li>
+                        <li>Best practices emergenti</li>
+                        <li>Security updates</li>
+                        <li>Case studies reali</li>
+                    </ul>
+                    <p><strong>Versione attuale: 2.0 (Dicembre 2025)</strong></p>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p><strong>Il Nuovo Paradigma dello Sviluppatore AI</strong></p>
+            <p>v2.0 - Production Ready Edition</p>
+            <p style="margin-top: 20px; opacity: 0.7;">Basato sulla visione di Andrej Karpathy</p>
+            <p style="margin-top: 10px; opacity: 0.7;">Guida creata: Dicembre 2025</p>
+            <p style="margin-top: 10px; opacity: 0.7;">Per Giuseppe - Node.js Developer @ Skeldon</p>
+        </footer>
+    </div>
+</body>
+</html>

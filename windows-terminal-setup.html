@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Terminal Setup - Guida Completa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #0d1117;
+            color: #c9d1d9;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #58a6ff;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        .subtitle {
+            color: #8b949e;
+            margin-bottom: 40px;
+        }
+        .step {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        .step-number {
+            background: #238636;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+        h2 {
+            color: #f0f6fc;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+        p {
+            color: #8b949e;
+            margin-bottom: 12px;
+        }
+        pre {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 12px 0;
+        }
+        code {
+            font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+            color: #79c0ff;
+            font-size: 14px;
+        }
+        .note {
+            background: #161b22;
+            border-left: 4px solid #58a6ff;
+            padding: 12px 16px;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        .note-title {
+            color: #58a6ff;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .warning {
+            border-left-color: #d29922;
+        }
+        .warning .note-title {
+            color: #d29922;
+        }
+        .profile-box {
+            background: #0d1117;
+            border: 2px solid #238636;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .profile-box h3 {
+            color: #238636;
+            margin-bottom: 12px;
+        }
+        .copy-hint {
+            color: #8b949e;
+            font-size: 12px;
+            margin-top: 8px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #30363d;
+            color: #8b949e;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Windows Terminal Setup</h1>
+        <p class="subtitle">Guida per configurare PowerShell 7 con autocompletamento, Oh My Posh e icone</p>
+
+        <div class="step">
+            <h2><span class="step-number">1</span>Installa PowerShell 7</h2>
+            <p>Apri il terminale e lancia:</p>
+            <pre><code>winget install Microsoft.PowerShell</code></pre>
+            <p>Chiudi e riapri Windows Terminal. Ora vedrai "PowerShell" come nuovo profilo.</p>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">2</span>Abilita esecuzione script</h2>
+            <p>Apri PowerShell 7 <strong>come amministratore</strong> ed esegui:</p>
+            <pre><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code></pre>
+            <p>Conferma con <code>Y</code> quando richiesto.</p>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">3</span>Installa Oh My Posh</h2>
+            <pre><code>winget install JanDeDobbeleer.OhMyPosh</code></pre>
+            <p>Testa che funzioni:</p>
+            <pre><code>oh-my-posh init pwsh | Invoke-Expression</code></pre>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">4</span>Installa un Nerd Font</h2>
+            <p>Necessario per visualizzare le icone nel prompt:</p>
+            <pre><code>oh-my-posh font install</code></pre>
+            <p>Scegli <strong>CaskaydiaCove</strong> o <strong>FiraCode</strong>.</p>
+            <div class="note">
+                <div class="note-title">Configurazione Font</div>
+                Vai in Windows Terminal → Settings → Profiles → Defaults → Appearance → Font face e seleziona il font installato (es. "CaskaydiaCove Nerd Font").
+            </div>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">5</span>Installa Terminal-Icons</h2>
+            <pre><code>Install-Module -Name Terminal-Icons -Repository PSGallery -Force</code></pre>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">6</span>Crea il file $PROFILE</h2>
+            <p>Questo file viene eseguito ad ogni avvio di PowerShell:</p>
+            <pre><code>New-Item -Path $PROFILE -Type File -Force
+notepad $PROFILE</code></pre>
+            
+            <div class="profile-box">
+                <h3>📄 Contenuto del $PROFILE</h3>
+                <pre><code># Oh My Posh
+oh-my-posh init pwsh | Invoke-Expression
+
+# PSReadLine - Autocompletamento
+Set-PSReadLineOption -PredictionSource HistoryAndPlugin
+Set-PSReadLineOption -PredictionViewStyle ListView
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+
+# Terminal Icons
+Import-Module Terminal-Icons</code></pre>
+                <p class="copy-hint">Copia questo contenuto nel file e salva.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">7</span>Imposta PowerShell 7 come default</h2>
+            <p><strong>In Windows Terminal:</strong></p>
+            <p>Settings → Startup → Default profile → seleziona "PowerShell"</p>
+            
+            <p style="margin-top: 16px;"><strong>In VS Code:</strong></p>
+            <p>Apri settings.json e aggiungi:</p>
+            <pre><code>{
+    "terminal.integrated.defaultProfile.windows": "PowerShell"
+}</code></pre>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">8</span>Riavvia e verifica</h2>
+            <p>Chiudi tutto e riapri Windows Terminal. Verifica con:</p>
+            <pre><code># Versione PowerShell (deve essere 7.x)
+$PSVersionTable.PSVersion
+
+# Versione PSReadLine (deve essere 2.2+)
+Get-Module PSReadLine</code></pre>
+        </div>
+
+        <div class="note warning">
+            <div class="note-title">⚠️ Troubleshooting</div>
+            <p>Se PSReadLine non supporta <code>-PredictionSource</code>, aggiornalo manualmente:</p>
+            <pre><code>Install-Module PSReadLine -Force -SkipPublisherCheck</code></pre>
+        </div>
+
+        <footer>
+            Generato da Claude • Setup testato su Windows 11 con PowerShell 7
+        </footer>
+    </div>
+</body>
+</html>
+</code></pre>

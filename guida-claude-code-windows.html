@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installazione Claude Code su Windows</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #d4a574;
+            --accent-light: #e8c9a8;
+            --border: #30363d;
+            --code-bg: #1a1f26;
+            --success: #3fb950;
+            --warning: #d29922;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--accent-light);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2.5rem 0 1rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h2 .step-number {
+            background: var(--accent);
+            color: var(--bg);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--text);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .card.warning {
+            border-color: var(--warning);
+            background: rgba(210, 153, 34, 0.1);
+        }
+
+        .card.success {
+            border-color: var(--success);
+            background: rgba(63, 185, 80, 0.1);
+        }
+
+        .card-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card.warning .card-title {
+            color: var(--warning);
+        }
+
+        .card.success .card-title {
+            color: var(--success);
+        }
+
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        code {
+            font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Consolas, monospace;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        p code, li code {
+            background: var(--bg-tertiary);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 0.35rem 0.6rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--border);
+            color: var(--text);
+        }
+
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+        }
+
+        .checklist li::before {
+            content: "☐";
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .benefit {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .benefit-title {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .benefit-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 2.5rem 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            h2 {
+                font-size: 1.25rem;
+            }
+
+            pre {
+                padding: 0.75rem;
+            }
+
+            code {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Installazione Claude Code</h1>
+            <p class="subtitle">Guida per Windows con nvm-windows</p>
+        </header>
+
+        <section>
+            <h2><span class="step-number">1</span>Installa nvm-windows</h2>
+            
+            <p>nvm-windows è un version manager per Node.js che permette di installare e gestire multiple versioni di Node senza problemi di permessi.</p>
+
+            <h3>Download</h3>
+            <p>Scarica <code>nvm-setup.exe</code> dall'ultima release:</p>
+            <p><a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank">github.com/coreybutler/nvm-windows/releases</a></p>
+
+            <h3>Installazione</h3>
+            <ul class="checklist">
+                <li>Esegui <code>nvm-setup.exe</code></li>
+                <li>Accetta le opzioni di default</li>
+                <li>Chiudi e riapri il terminale dopo l'installazione</li>
+            </ul>
+
+            <div class="benefits">
+                <div class="benefit">
+                    <div class="benefit-title">Multiple versioni</div>
+                    <div class="benefit-desc">Switcha tra Node 18, 20, 22 a seconda del progetto</div>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-title">Niente admin</div>
+                    <div class="benefit-desc">Installa pacchetti globali senza permessi elevati</div>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-title">Aggiornamenti puliti</div>
+                    <div class="benefit-desc">Un comando per aggiornare Node</div>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-title">Rollback facile</div>
+                    <div class="benefit-desc">Torna alla versione precedente se qualcosa si rompe</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section>
+            <h2><span class="step-number">2</span>Installa Node.js</h2>
+            
+            <p>Apri PowerShell e installa la versione LTS (Long Term Support) di Node.js:</p>
+
+            <pre><code>nvm install lts
+nvm use lts</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+            <h3>Verifica l'installazione</h3>
+            <pre><code>node --version
+npm --version</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+            <div class="card success">
+                <div class="card-title">✓ Output atteso</div>
+                <p style="margin-bottom: 0;">Dovresti vedere i numeri di versione, es. <code>v22.x.x</code> e <code>10.x.x</code></p>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section>
+            <h2><span class="step-number">3</span>Installa Claude Code</h2>
+            
+            <p>Con npm disponibile, installa Claude Code globalmente:</p>
+
+            <pre><code>npm install -g @anthropic-ai/claude-code</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+            <h3>Verifica l'installazione</h3>
+            <pre><code>claude --help</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+            <div class="card success">
+                <div class="card-title">✓ Installazione completata</div>
+                <p style="margin-bottom: 0;">Il comando <code>claude</code> è ora disponibile in qualsiasi terminale.</p>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section>
+            <h2><span class="step-number">4</span>Primi passi con Claude Code</h2>
+            
+            <h3>Autenticazione</h3>
+            <p>Al primo avvio, Claude Code ti chiederà di autenticarti con il tuo account Anthropic:</p>
+            <pre><code>claude</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+            <h3>Comandi utili</h3>
+            <pre><code># Avvia una sessione interattiva
+claude
+
+# Esegui un comando singolo
+claude "spiega questo codice"
+
+# Mostra la versione
+claude --version
+
+# Mostra tutti i comandi disponibili
+claude --help</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+        </section>
+
+        <div class="divider"></div>
+
+        <section>
+            <h2>Troubleshooting</h2>
+
+            <div class="card warning">
+                <div class="card-title">⚠ "nvm" non riconosciuto</div>
+                <p style="margin-bottom: 0;">Chiudi completamente il terminale e riaprilo. Se non funziona, prova a fare logout/login da Windows.</p>
+            </div>
+
+            <div class="card warning">
+                <div class="card-title">⚠ "claude" non riconosciuto dopo l'installazione</div>
+                <p>Verifica che npm abbia installato correttamente:</p>
+                <pre style="margin: 0.5rem 0;"><code>npm list -g @anthropic-ai/claude-code</code></pre>
+                <p style="margin-bottom: 0;">Se il pacchetto è presente, riavvia il terminale.</p>
+            </div>
+
+            <div class="card warning">
+                <div class="card-title">⚠ Errori di permessi</div>
+                <p style="margin-bottom: 0;">Con nvm-windows non dovresti avere problemi di permessi. Se ne hai, verifica di non aver installato Node anche tramite l'installer ufficiale (può creare conflitti).</p>
+            </div>
+
+            <h3>Comandi utili per debug</h3>
+            <pre><code># Verifica quale Node stai usando
+nvm list
+
+# Verifica il PATH di npm
+npm config get prefix
+
+# Reinstalla Claude Code
+npm uninstall -g @anthropic-ai/claude-code
+npm install -g @anthropic-ai/claude-code</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+        </section>
+
+        <div class="divider"></div>
+
+        <section>
+            <h2>Aggiornamenti</h2>
+            
+            <h3>Aggiornare Node.js</h3>
+            <pre><code>nvm install lts
+nvm use lts</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+
+            <h3>Aggiornare Claude Code</h3>
+            <pre><code>npm update -g @anthropic-ai/claude-code</code><button class="copy-btn" onclick="copyCode(this)">Copia</button></pre>
+        </section>
+
+        <footer>
+            <p>Guida generata il 30 Dicembre 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyCode(btn) {
+            const pre = btn.parentElement;
+            const code = pre.querySelector('code').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                btn.textContent = 'Copiato!';
+                setTimeout(() => btn.textContent = 'Copia', 2000);
+            });
+        }
+    </script>
+</body>
+</html>

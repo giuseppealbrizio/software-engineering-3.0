@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UV Cheatsheet</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #0d1117;
+            color: #e6edf3;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #58a6ff;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            text-align: center;
+            color: #8b949e;
+            margin-bottom: 2rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+        .card h2 {
+            color: #7ee787;
+            font-size: 1.1rem;
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #30363d;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card h2::before {
+            content: "▸";
+            color: #58a6ff;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 0.4rem 0;
+            vertical-align: top;
+        }
+        td:first-child {
+            width: 55%;
+            padding-right: 1rem;
+        }
+        code {
+            background: #0d1117;
+            color: #79c0ff;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace;
+            font-size: 0.85rem;
+        }
+        .desc {
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+        .tip {
+            background: #1c2128;
+            border-left: 3px solid #f0883e;
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-radius: 0 6px 6px 0;
+        }
+        .tip-title {
+            color: #f0883e;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .mental-model {
+            background: #1c2128;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .mental-model h3 {
+            color: #d2a8ff;
+            margin: 0 0 1rem 0;
+        }
+        .mental-model ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+        .mental-model li {
+            margin-bottom: 0.5rem;
+            color: #e6edf3;
+        }
+        .mental-model li code {
+            color: #7ee787;
+        }
+        footer {
+            text-align: center;
+            color: #484f58;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #30363d;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>⚡ UV Cheatsheet</h1>
+    <p class="subtitle">Il gestore Python ultrarapido scritto in Rust</p>
+
+    <div class="grid">
+        <div class="card">
+            <h2>Gestione Progetti</h2>
+            <table>
+                <tr><td><code>uv init</code></td><td class="desc">Crea nuovo progetto</td></tr>
+                <tr><td><code>uv init --lib</code></td><td class="desc">Crea come libreria</td></tr>
+                <tr><td><code>uv sync</code></td><td class="desc">Sincronizza dipendenze</td></tr>
+                <tr><td><code>uv lock</code></td><td class="desc">Aggiorna lockfile</td></tr>
+                <tr><td><code>uv run script.py</code></td><td class="desc">Esegue script</td></tr>
+                <tr><td><code>uv run pytest</code></td><td class="desc">Esegue comando nel venv</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Dipendenze</h2>
+            <table>
+                <tr><td><code>uv add requests</code></td><td class="desc">Aggiunge dipendenza</td></tr>
+                <tr><td><code>uv add 'requests>=2.28'</code></td><td class="desc">Con vincolo versione</td></tr>
+                <tr><td><code>uv add --dev pytest</code></td><td class="desc">Dipendenza dev</td></tr>
+                <tr><td><code>uv add --group test pytest</code></td><td class="desc">In gruppo specifico</td></tr>
+                <tr><td><code>uv remove requests</code></td><td class="desc">Rimuove dipendenza</td></tr>
+                <tr><td><code>uv tree</code></td><td class="desc">Albero dipendenze</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Gestione Python</h2>
+            <table>
+                <tr><td><code>uv python list</code></td><td class="desc">Versioni disponibili</td></tr>
+                <tr><td><code>uv python install 3.12</code></td><td class="desc">Installa versione</td></tr>
+                <tr><td><code>uv python install 3.11 3.12</code></td><td class="desc">Installa multiple</td></tr>
+                <tr><td><code>uv python uninstall 3.11</code></td><td class="desc">Rimuove versione</td></tr>
+                <tr><td><code>uv python pin 3.12</code></td><td class="desc">Fissa per progetto</td></tr>
+                <tr><td><code>uv python find</code></td><td class="desc">Trova interprete attivo</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Ambienti Virtuali</h2>
+            <table>
+                <tr><td><code>uv venv</code></td><td class="desc">Crea .venv</td></tr>
+                <tr><td><code>uv venv --python 3.11</code></td><td class="desc">Con versione specifica</td></tr>
+                <tr><td><code>uv venv myenv</code></td><td class="desc">Nome personalizzato</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Modalità pip (senza progetto)</h2>
+            <table>
+                <tr><td><code>uv pip install requests</code></td><td class="desc">Installa nel venv</td></tr>
+                <tr><td><code>uv pip install -r req.txt</code></td><td class="desc">Da requirements</td></tr>
+                <tr><td><code>uv pip uninstall requests</code></td><td class="desc">Disinstalla</td></tr>
+                <tr><td><code>uv pip list</code></td><td class="desc">Lista pacchetti</td></tr>
+                <tr><td><code>uv pip freeze</code></td><td class="desc">Output requirements</td></tr>
+                <tr><td><code>uv pip compile req.in</code></td><td class="desc">Genera lockfile</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Tool Globali</h2>
+            <table>
+                <tr><td><code>uv tool install ruff</code></td><td class="desc">Installa CLI globale</td></tr>
+                <tr><td><code>uv tool upgrade ruff</code></td><td class="desc">Aggiorna tool</td></tr>
+                <tr><td><code>uv tool list</code></td><td class="desc">Lista installati</td></tr>
+                <tr><td><code>uv tool uninstall ruff</code></td><td class="desc">Rimuove tool</td></tr>
+                <tr><td><code>uvx ruff check .</code></td><td class="desc">Esegue senza installare</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Script Standalone</h2>
+            <table>
+                <tr><td><code>uv run --with requests script.py</code></td><td class="desc">Con dipendenza temp</td></tr>
+                <tr><td><code>uv add --script script.py requests</code></td><td class="desc">Dipendenza inline</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Cache e Manutenzione</h2>
+            <table>
+                <tr><td><code>uv cache clean</code></td><td class="desc">Pulisce cache</td></tr>
+                <tr><td><code>uv cache prune</code></td><td class="desc">Rimuove non usati</td></tr>
+                <tr><td><code>uv cache dir</code></td><td class="desc">Mostra path cache</td></tr>
+                <tr><td><code>uv self update</code></td><td class="desc">Aggiorna uv</td></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="mental-model">
+        <h3>🧠 Modello Mentale</h3>
+        <ul>
+            <li><code>uv python ...</code> → gestione interpreti Python</li>
+            <li><code>uv add/remove</code> → dipendenze del progetto</li>
+            <li><code>uv run</code> → esegui qualsiasi cosa nel contesto del progetto</li>
+            <li><code>uv tool</code> → CLI globali (ruff, black, mypy...)</li>
+            <li><code>uv pip</code> → modalità classica compatibile pip</li>
+        </ul>
+    </div>
+
+    <div class="tip">
+        <div class="tip-title">💡 Tip</div>
+        <code>uv run</code> crea automaticamente il venv se non esiste e installa le dipendenze.<br>
+        È il modo più semplice per lavorare: basta <code>uv run python script.py</code> e sei operativo.
+    </div>
+
+    <footer>
+        Help rapido: <code>uv --help</code> o <code>uv add --help</code>
+    </footer>
+</body>
+</html>

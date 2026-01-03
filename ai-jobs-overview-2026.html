@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI, Lavoro e Futuro dei Programmatori - Overview 2026</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-yellow: #d29922;
+            --accent-red: #f85149;
+            --accent-purple: #a371f7;
+            --border: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .meta {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: var(--bg-secondary);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: var(--accent);
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: var(--text);
+            margin: 1.5rem 0 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tldr {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.1), rgba(163, 113, 247, 0.1));
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tldr h3 {
+            color: var(--accent);
+            margin-top: 0;
+        }
+
+        .quote-box {
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--accent-purple);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .quote-box .source {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .warning-box {
+            background: rgba(248, 81, 73, 0.1);
+            border: 1px solid var(--accent-red);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .warning-box .title {
+            color: var(--accent-red);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-box {
+            background: rgba(63, 185, 80, 0.1);
+            border: 1px solid var(--accent-green);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .success-box .title {
+            color: var(--accent-green);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th {
+            background: var(--bg-tertiary);
+            color: var(--text);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        tr:hover td {
+            background: var(--bg-tertiary);
+        }
+
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: var(--bg-tertiary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin: 0.25rem;
+            color: var(--text);
+        }
+
+        .skill-tag.core {
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .skill-tag.important {
+            border: 1px solid var(--accent-yellow);
+            color: var(--accent-yellow);
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .comparison-col {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .comparison-col.bad {
+            border-top: 3px solid var(--accent-red);
+        }
+
+        .comparison-col.good {
+            border-top: 3px solid var(--accent-green);
+        }
+
+        .comparison-col h4 {
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .comparison-col.bad h4 {
+            color: var(--accent-red);
+        }
+
+        .comparison-col.good h4 {
+            color: var(--accent-green);
+        }
+
+        .book-card {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .book-card h4 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .book-card .author {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-card p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .number-stat {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .stat-card {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .meta {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 AI, Lavoro e Futuro dei Programmatori</h1>
+            <p class="subtitle">Analisi delle previsioni di Geoffrey Hinton e direzioni di carriera nel tech 2026</p>
+            <div class="meta">
+                <span class="meta-item">📅 3 Gennaio 2026</span>
+                <span class="meta-item">👤 Giuseppe @ Skeldon</span>
+                <span class="meta-item">📍 Overview Conversazione</span>
+            </div>
+        </header>
+
+        <!-- TL;DR -->
+        <div class="tldr">
+            <h3>⚡ TL;DR</h3>
+            <p style="margin-bottom: 0.5rem;"><strong>La notizia virale:</strong> "Geoffrey Hinton prevede la fine dei programmatori nel 2026"</p>
+            <p style="margin-bottom: 0.5rem;"><strong>Cosa ha detto realmente:</strong> "Very few people needed for software engineering projects" — servono meno persone, non zero</p>
+            <p style="margin-bottom: 0;"><strong>Il takeaway:</strong> Il mercato si restringe, chi resta deve valere di più. La transizione è verso orchestrazione e verifica, non estinzione.</p>
+        </div>
+
+        <!-- SEZIONE 1: Hinton Reality Check -->
+        <h2>📰 1. Il Clickbait vs La Realtà</h2>
+        
+        <div class="section">
+            <div class="comparison">
+                <div class="comparison-col bad">
+                    <h4>❌ Titoli Italiani (Clickbait)</h4>
+                    <ul>
+                        <li>"Fine dei programmatori nel 2026"</li>
+                        <li>"Sviluppatori obsoleti"</li>
+                        <li>"I programmatori sono finiti"</li>
+                    </ul>
+                </div>
+                <div class="comparison-col good">
+                    <h4>✅ Cosa ha detto Hinton (CNN)</h4>
+                    <ul>
+                        <li>"Very few people needed" — pochi, non zero</li>
+                        <li>"Replace many jobs" — molti, non tutti</li>
+                        <li>"Capabilities to replace" — capacità, non certezza</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quote-box">
+                <p><em>"I think we're going to see AI get even better. It's already extremely good. We're going to see it having the capabilities to replace many, many jobs."</em></p>
+                <p class="source">— Geoffrey Hinton, CNN State of the Union, 28 Dicembre 2025</p>
+            </div>
+
+            <h3>Il dato concreto</h3>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="number-stat">-30%</div>
+                    <div class="label">Job openings dal lancio di ChatGPT</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number-stat">11.7%</div>
+                    <div class="label">Lavori già automatizzabili (MIT)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number-stat">7x</div>
+                    <div class="label">Aumento domanda AI fluency in 2 anni</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEZIONE 2: Cosa cambia realmente -->
+        <h2>🔄 2. Cosa Cambia Realmente</h2>
+
+        <div class="section">
+            <div class="section-title">📉 Lavori a rischio</div>
+            <ul>
+                <li><strong>Entry-level roles</strong> — la vera preoccupazione di Hinton. Meno opportunità di "gavetta"</li>
+                <li><strong>Task ripetitivi</strong> — data entry, customer support base, content moderation</li>
+                <li><strong>Routine cognitive work</strong> — boilerplate, CRUD senza architettura</li>
+                <li><strong>Manufacturing workers</strong> — 2 milioni entro il 2026 (MIT/Boston University)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <div class="section-title">📈 Lavori in crescita</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ruolo</th>
+                        <th>Perché</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AI/ML Engineers</td>
+                        <td>Qualcuno deve costruire e mantenere questi sistemi</td>
+                    </tr>
+                    <tr>
+                        <td>Senior Developers con AI skills</td>
+                        <td>Verificare codice AI richiede esperienza reale</td>
+                    </tr>
+                    <tr>
+                        <td>Security Engineers</td>
+                        <td>Più automazione = più superficie d'attacco</td>
+                    </tr>
+                    <tr>
+                        <td>Platform/DevOps</td>
+                        <td>L'infrastruttura non si gestisce da sola</td>
+                    </tr>
+                    <tr>
+                        <td>Quality Assurance</td>
+                        <td>Verifica output AI è critica</td>
+                    </tr>
+                    <tr>
+                        <td>Robot Management & Maintenance</td>
+                        <td>I robot richiedono supervisione umana costante</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="warning-box">
+            <div class="title">⚠️ Il Pattern Chiave</div>
+            <p style="margin-bottom: 0;">L'esecuzione si automatizza → L'orchestrazione resta umana → La manutenzione diventa critica</p>
+        </div>
+
+        <!-- SEZIONE 3: Robotica -->
+        <h2>🦾 3. Programmare Robot nel 2026</h2>
+
+        <div class="section">
+            <div class="section-title">Lo Stack Tecnico Richiesto</div>
+            
+            <h3>Linguaggi</h3>
+            <div>
+                <span class="skill-tag core">C++ (core real-time)</span>
+                <span class="skill-tag core">Python (perception, AI)</span>
+                <span class="skill-tag important">Rust (emerging, safety)</span>
+            </div>
+
+            <h3>Framework & Tools</h3>
+            <div>
+                <span class="skill-tag core">ROS 2</span>
+                <span class="skill-tag core">Gazebo</span>
+                <span class="skill-tag important">MoveIt 2</span>
+                <span class="skill-tag important">OpenCV</span>
+                <span class="skill-tag">TensorFlow</span>
+                <span class="skill-tag">PX4/ArduPilot</span>
+            </div>
+
+            <h3>Competenze Richieste</h3>
+            <ul>
+                <li>Forte competenza in Python e librerie di data analysis</li>
+                <li>Forte competenza in C/C++</li>
+                <li>Esperienza con ROS/ROS2 framework</li>
+                <li>Competenza in ambienti di sviluppo Linux</li>
+                <li>Conoscenza di cinematica, dinamica, sistemi di controllo</li>
+            </ul>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="number-stat">$119K</div>
+                    <div class="label">Salario medio US (+ $44K bonus)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number-stat">$73B</div>
+                    <div class="label">Mercato robotica industriale 2029</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🔀 Transizione da Web a Robotica</div>
+            
+            <h3>Cosa hai già</h3>
+            <ul>
+                <li>✅ Python (in apprendimento) — usato in perception e AI</li>
+                <li>✅ Mentalità da sviluppatore senior</li>
+                <li>✅ Esperienza con sistemi complessi</li>
+            </ul>
+
+            <h3>Cosa ti manca</h3>
+            <ul>
+                <li>❌ C++ fluente (il core della robotica real-time)</li>
+                <li>❌ ROS 2 (il "framework" della robotica)</li>
+                <li>❌ Linux embedded / sistemi real-time</li>
+                <li>❌ Fondamenti di cinematica, dinamica, controllo</li>
+            </ul>
+
+            <div class="warning-box">
+                <div class="title">⚠️ Reality Check</div>
+                <p style="margin-bottom: 0;">Passare da web development a robotica è un <strong>cambio di carriera significativo</strong>, non un'estensione naturale. Richiede 6-12 mesi di studio dedicato e mani sporche con hardware reale o simulatori.</p>
+            </div>
+        </div>
+
+        <!-- SEZIONE 4: Libri Consigliati -->
+        <h2>📚 4. Libri Python per AI</h2>
+
+        <div class="section">
+            <div class="book-card" style="border-left-color: var(--accent-green);">
+                <h4>🥇 #1 — Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow</h4>
+                <p class="author">Aurélien Géron (3ª edizione)</p>
+                <p>Approccio pratico, code-first. Costruisci modelli imparando la logica dietro gli algoritmi. Perfetto per chi viene da sviluppo e vuole costruire cose, non studiare teoria.</p>
+            </div>
+
+            <div class="book-card">
+                <h4>🥈 #2 — Deep Learning with Python</h4>
+                <p class="author">François Chollet (2ª edizione, 2021)</p>
+                <p>Scritto dal creatore di Keras. Spiegazioni intuitive, illustrazioni a colori, esempi Python/Keras/TensorFlow. Stile accessibile e aggiornato.</p>
+            </div>
+
+            <div class="book-card">
+                <h4>🥉 #3 — Python Machine Learning</h4>
+                <p class="author">Sebastian Raschka & Vahid Mirjalili (3ª edizione)</p>
+                <p>Bilancia teoria e pratica. Copre algoritmi core, model evaluation, feature engineering, PCA, clustering, e architetture neurali avanzate.</p>
+            </div>
+
+            <h3>Ordine di Lettura</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fase</th>
+                        <th>Libro</th>
+                        <th>Quando</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Hands-On ML (Géron)</td>
+                        <td>Ora — mentre fai i 100 script Python</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Python ML (Raschka)</td>
+                        <td>Dopo le basi — approfondisce</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Deep Learning with Python (Chollet)</td>
+                        <td>Quando vuoi entrare nel deep learning</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="book-card" style="border-left-color: var(--accent-purple);">
+                <h4>📦 Bonus: Designing Machine Learning Systems</h4>
+                <p class="author">Chip Huyen</p>
+                <p>Per quando vuoi capire i sistemi in produzione. Tratta AI come problema di sistemi: data pipeline, versioning modelli, monitoring, deployment. Allineato con la tua mentalità "production-ready".</p>
+            </div>
+        </div>
+
+        <!-- SEZIONE 5: Takeaways -->
+        <h2>🎯 5. Conclusioni e Azioni</h2>
+
+        <div class="success-box">
+            <div class="title">✅ Per Te Specificamente</div>
+            <p>Sei un senior Node.js developer che sta attivamente costruendo competenze di verifica e orchestrazione AI. Non sei un junior che scrive boilerplate. Non sei il target di questo "allarme" — sei la risposta.</p>
+        </div>
+
+        <div class="section">
+            <div class="section-title">La Domanda Giusta</div>
+            <p>Non è "i programmatori sono finiti?" — è <strong>"quale tipo di programmatore sei?"</strong></p>
+            
+            <div class="comparison">
+                <div class="comparison-col bad">
+                    <h4>❌ A Rischio</h4>
+                    <ul>
+                        <li>Scrive solo CRUD</li>
+                        <li>Non capisce l'architettura</li>
+                        <li>Accetta codice AI senza verifica</li>
+                        <li>Non investe in nuove skill</li>
+                    </ul>
+                </div>
+                <div class="comparison-col good">
+                    <h4>✅ Più Valore di Prima</h4>
+                    <ul>
+                        <li>Verifica e orchestra</li>
+                        <li>Capisce quando l'AI sbaglia</li>
+                        <li>Costruisce sistemi, non solo codice</li>
+                        <li>Impara continuamente</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">🚀 Prossimi Passi</div>
+            <ol>
+                <li><strong>Continua il percorso Python</strong> — i 100 script sono la base giusta</li>
+                <li><strong>Inizia "Hands-On ML" di Géron</strong> — mentre procedi con Python</li>
+                <li><strong>Mantieni il paradigma Karpathy</strong> — generation-verification loop, autonomy slider</li>
+                <li><strong>Se la robotica ti interessa seriamente</strong> — valuta un piano strutturato per C++ e ROS 2</li>
+                <li><strong>Review mensile</strong> — il mercato cambia velocemente, aggiorna la roadmap</li>
+            </ol>
+        </div>
+
+        <div class="quote-box">
+            <p><em>"Il vero skill non è imparare tool specifici. È diventare bravo a imparare tool nuovi, velocemente, continuamente."</em></p>
+            <p class="source">— Dalla tua Roadmap AI Developer 2026</p>
+        </div>
+
+        <footer>
+            <p><strong>Overview Conversazione</strong> — AI, Lavoro e Futuro dei Programmatori</p>
+            <p>Generato il 3 Gennaio 2026</p>
+            <p style="margin-top: 1rem; opacity: 0.7;">Fonti: CNN, Fortune, McKinsey, Deloitte, TechCrunch, DataCamp</p>
+        </footer>
+    </div>
+</body>
+</html>

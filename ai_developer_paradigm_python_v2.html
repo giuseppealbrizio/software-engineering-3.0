@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Nuovo Paradigma dello Sviluppatore AI - Python Edition v2.0</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #306998 0%, #FFD43B 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        nav {
+            background: #f8f9fa;
+            padding: 20px 40px;
+            border-bottom: 2px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        nav a {
+            color: #306998;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.9em;
+        }
+        
+        nav a:hover {
+            color: #FFD43B;
+        }
+        
+        main {
+            padding: 40px;
+        }
+        
+        section {
+            margin-bottom: 60px;
+        }
+        
+        h2 {
+            color: #306998;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #306998;
+        }
+        
+        h3 {
+            color: #FFD43B;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        h4 {
+            color: #555;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box {
+            background: #e8f4f8;
+            border-left: 4px solid #306998;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .danger-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        pre code {
+            background: none;
+            color: #f8f8f2;
+            padding: 0;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #306998;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .tool-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .tool-card h4 {
+            margin-top: 0;
+            color: #306998;
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .pros, .cons {
+            padding: 15px;
+            border-radius: 6px;
+        }
+        
+        .pros {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+        
+        .cons {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .pros h4, .cons h4 {
+            margin-top: 0;
+        }
+        
+        footer {
+            background: #2d2d2d;
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        .workflow-step {
+            background: #f8f9fa;
+            border-left: 4px solid #306998;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th {
+            background: #306998;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .checklist li::before {
+            content: "☐ ";
+            margin-right: 10px;
+            color: #306998;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            nav {
+                position: static;
+            }
+            section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 20px;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+            main, nav, footer {
+                padding: 20px;
+            }
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐍 Il Nuovo Paradigma dello Sviluppatore AI</h1>
+            <p class="subtitle">Python Edition - L'ecosistema nativo per AI</p>
+            <span class="version-badge">v2.0 - Production Ready Edition</span>
+            <p style="margin-top: 20px; opacity: 0.8;">Dicembre 2025</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#intro">Intro</a></li>
+                <li><a href="#perche-python">Perché Python</a></li>
+                <li><a href="#tool-comparison">Tool</a></li>
+                <li><a href="#setup">Setup</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#testing">Testing</a></li>
+                <li><a href="#workflow">Workflow</a></li>
+                <li><a href="#frameworks">AI Frameworks</a></li>
+                <li><a href="#policy">Policy</a></li>
+                <li><a href="#risorse">Risorse</a></li>
+            </ul>
+        </nav>
+        
+        <main>
+            <section id="intro">
+                <h2>📌 Introduzione</h2>
+                
+                <div class="highlight-box">
+                    <h3>Il Messaggio di Andrej Karpathy</h3>
+                    <p><strong>"Non mi sono mai sentito così indietro come programmatore"</strong></p>
+                    <p>In un post del 26 dicembre 2025, Andrej Karpathy ha descritto l'AI come <strong>"tecnologia aliena senza manuale"</strong>. E Python è il linguaggio con cui questa "tecnologia aliena" parla nativamente.</p>
+                </div>
+                
+                <h3>Il contesto Python-AI</h3>
+                <p>Python non è solo il linguaggio dominante per AI/ML - è l'<strong>ecosistema nativo</strong> in cui l'intera rivoluzione AI sta accadendo. Ogni major LLM SDK, framework, e tool è Python-first.</p>
+                
+                <div class="info-box">
+                    <h4>ℹ️ Questa Guida Python Edition</h4>
+                    <p>Versione specializzata per sviluppatori Python che include:</p>
+                    <ul>
+                        <li>Setup con Poetry, uv, pyenv</li>
+                        <li>Type hints e mypy integration</li>
+                        <li>pytest e testing moderno</li>
+                        <li>Ruff per linting velocissimo</li>
+                        <li>FastAPI + SQLAlchemy patterns</li>
+                        <li>LangChain, CrewAI, e AI frameworks</li>
+                        <li>Security per Python (bandit, safety)</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="perche-python">
+                <h2>🐍 Perché Python Governa l'AI</h2>
+                
+                <h3>I Numeri Parlano Chiaro</h3>
+                
+                <div class="tool-card">
+                    <h4>Ecosistema AI/ML</h4>
+                    <ul>
+                        <li><strong>99%</strong> dei paper ML usa Python</li>
+                        <li><strong>PyTorch, TensorFlow, JAX</strong> - tutti Python-first</li>
+                        <li><strong>Hugging Face</strong> - ecosystem completamente Python</li>
+                        <li><strong>LangChain, LlamaIndex</strong> - nati in Python</li>
+                        <li><strong>OpenAI, Anthropic SDKs</strong> - Python è il tier 1</li>
+                    </ul>
+                </div>
+                
+                <h3>Vantaggi per AI Development</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspetto</th>
+                            <th>Python</th>
+                            <th>Altri Linguaggi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SDK AI</td>
+                            <td>✅ Nativi, completi, aggiornati</td>
+                            <td>⚠️ Wrapper, lag features</td>
+                        </tr>
+                        <tr>
+                            <td>ML Libraries</td>
+                            <td>✅ PyTorch, TF, scikit-learn</td>
+                            <td>❌ Limitati o assenti</td>
+                        </tr>
+                        <tr>
+                            <td>Community</td>
+                            <td>✅ Enorme, attiva, bleeding-edge</td>
+                            <td>⚠️ Più piccole</td>
+                        </tr>
+                        <tr>
+                            <td>Prototyping</td>
+                            <td>✅ Velocissimo, REPL</td>
+                            <td>⚠️ Più verbose</td>
+                        </tr>
+                        <tr>
+                            <td>Notebooks</td>
+                            <td>✅ Jupyter nativo</td>
+                            <td>⚠️ Supporto limitato</td>
+                        </tr>
+                        <tr>
+                            <td>Type Safety</td>
+                            <td>⚠️ Opzionale (mypy)</td>
+                            <td>✅ Spesso nativa</td>
+                        </tr>
+                        <tr>
+                            <td>Performance</td>
+                            <td>⚠️ Più lento (ma NumPy/C bindings)</td>
+                            <td>✅ Più veloce</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="success-box">
+                    <h3>✅ Il Verdetto</h3>
+                    <p>Per AI/ML development, Python è <strong>indispensabile</strong>. Anche se conosci altri linguaggi, Python è il tuo passaporto per l'ecosistema AI.</p>
+                </div>
+                
+                <h3>Python Moderno (2025)</h3>
+                
+                <p>Il Python di oggi è molto diverso da quello di 5-10 anni fa:</p>
+                <ul>
+                    <li><strong>Type hints</strong> obbligatori (PEP 484+)</li>
+                    <li><strong>Pattern matching</strong> (Python 3.10+)</li>
+                    <li><strong>Async/await</strong> maturo e diffuso</li>
+                    <li><strong>Dataclasses e Pydantic</strong> per data validation</li>
+                    <li><strong>uv e rye</strong> - package manager velocissimi</li>
+                    <li><strong>Ruff</strong> - linter 100x più veloce di pylint</li>
+                </ul>
+            </section>
+            
+            <section id="tool-comparison">
+                <h2>🛠️ Tool per Python AI Development</h2>
+                
+                <h3>IDE & Coding Assistants</h3>
+                
+                <div class="tool-card">
+                    <h4>VSCode + Continue</h4>
+                    <p><strong>Scelta raccomandata per iniziare</strong></p>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ PRO</h4>
+                            <ul>
+                                <li>Python extension Microsoft eccellente</li>
+                                <li>Jupyter notebooks integrati</li>
+                                <li>Continue gratis e open-source</li>
+                                <li>Debugging top-tier</li>
+                                <li>Remote development (SSH, containers)</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>❌ CONTRO</h4>
+                            <ul>
+                                <li>Configurazione iniziale più complessa</li>
+                                <li>Meno "magic" di PyCharm</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>PyCharm Professional + AI Assistant</h4>
+                    <p><strong>La suite completa enterprise</strong></p>
+                    <div class="info-box" style="margin-top: 15px;">
+                        <p><strong>Pricing:</strong> $249/anno professional, free per studenti/open-source</p>
+                    </div>
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ PRO</h4>
+                            <ul>
+                                <li>Refactoring Python migliore in assoluto</li>
+                                <li>Database tools integrati</li>
+                                <li>Scientific mode (Jupyter, NumPy)</li>
+                                <li>Django/Flask/FastAPI support nativo</li>
+                                <li>AI Assistant sempre più potente</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>❌ CONTRO</h4>
+                            <ul>
+                                <li>Pesante su risorse</li>
+                                <li>A pagamento</li>
+                                <li>AI integration ancora dietro a Cursor</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>Cursor</h4>
+                    <p><strong>AI-first, Python supported</strong></p>
+                    <p>Stesso discorso della versione Node.js - Composer mode eccellente, ma fork di VSCode quindi potrebbe essere dietro su feature Python-specific.</p>
+                </div>
+                
+                <h3>Python-Specific AI Tools</h3>
+                
+                <div class="tool-card">
+                    <h4>Aider - Python Native</h4>
+                    <p>Aider è scritto in Python e ha supporto eccellente per ecosistema Python.</p>
+                    <ul>
+                        <li>Capisce virtual environments</li>
+                        <li>Integrazione con pytest</li>
+                        <li>Type hints aware</li>
+                        <li>Poetry/pip/pipenv support</li>
+                    </ul>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>GitHub Copilot</h4>
+                    <p>Eccellente per Python:</p>
+                    <ul>
+                        <li>Addestrato su moltissimo codice Python</li>
+                        <li>Buono con pandas, numpy, requests</li>
+                        <li>Suggerimenti type hints</li>
+                    </ul>
+                </div>
+                
+                <h3>Notebooks AI-Enhanced</h3>
+                
+                <div class="tool-card">
+                    <h4>Jupyter + Copilot</h4>
+                    <p>VSCode Jupyter + GitHub Copilot = combo perfetta per data exploration</p>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>Google Colab + Gemini</h4>
+                    <p>Free GPU + AI assistant integrato</p>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>Cursor Notebook Mode</h4>
+                    <p>Jupyter notebooks con Composer - interessante per ML prototyping</p>
+                </div>
+            </section>
+            
+            <section id="setup">
+                <h2>⚙️ Setup Python Moderno su Mac</h2>
+                
+                <h3><span class="step-number">1</span> Python Version Management</h3>
+                
+                <h4>Opzione A: pyenv (Raccomandato)</h4>
+                <pre><code># Installa pyenv
+brew install pyenv
+
+# Setup shell (zsh)
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+
+# Reload shell
+source ~/.zshrc
+
+# Installa Python 3.12 (LTS attuale)
+pyenv install 3.12
+
+# Set come default
+pyenv global 3.12
+
+# Verifica
+python --version  # deve essere 3.12.x</code></pre>
+                
+                <h4>Opzione B: uv (Nuovo, Velocissimo)</h4>
+                <pre><code># uv è un package manager Python scritto in Rust - 10-100x più veloce
+brew install uv
+
+# Installa Python
+uv python install 3.12
+
+# Crea virtual environment
+uv venv
+
+# Attiva
+source .venv/bin/activate</code></pre>
+                
+                <div class="info-box">
+                    <h4>Python Versions (Dic 2025)</h4>
+                    <p><strong>Raccomandato: Python 3.12</strong> (current stable)</p>
+                    <p>Minimum: Python 3.10 (per pattern matching e nuove features)</p>
+                    <p>Python 3.13: in beta, non per produzione ancora</p>
+                </div>
+                
+                <h3><span class="step-number">2</span> Package Management</h3>
+                
+                <h4>Poetry (Opzione Moderna)</h4>
+                <pre><code># Installa Poetry
+curl -sSL https://install.python-poetry.org | python3 -
+
+# Aggiungi a PATH
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+
+# Verifica
+poetry --version</code></pre>
+                
+                <h4>Setup nuovo progetto con Poetry</h4>
+                <pre><code># Crea nuovo progetto
+poetry new my-ai-project
+cd my-ai-project
+
+# Oppure in progetto esistente
+poetry init
+
+# Aggiungi dependencies
+poetry add anthropic openai langchain fastapi
+
+# Dev dependencies
+poetry add --group dev pytest ruff mypy black
+
+# Attiva virtual environment
+poetry shell</code></pre>
+                
+                <h4>pyproject.toml esempio</h4>
+                <pre><code>[tool.poetry]
+name = "my-ai-project"
+version = "0.1.0"
+description = "AI-powered application"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+python = "^3.12"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+anthropic = "^0.40.0"
+fastapi = "^0.115.0"
+uvicorn = "^0.32.0"
+pydantic = "^2.10.0"
+sqlalchemy = "^2.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.0"
+ruff = "^0.8.0"
+mypy = "^1.13.0"
+black = "^24.10.0"
+pytest-cov = "^6.0.0"
+pytest-asyncio = "^0.24.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=src --cov-report=html"</code></pre>
+                
+                <h3><span class="step-number">3</span> VSCode Setup per Python</h3>
+                
+                <pre><code># Estensioni essenziali
+code --install-extension ms-python.python
+code --install-extension ms-python.vscode-pylance
+code --install-extension continue.continue
+code --install-extension charliermarsh.ruff
+code --install-extension ms-toolsai.jupyter
+
+# Opzionali ma utili
+code --install-extension GitHub.copilot
+code --install-extension GitHub.copilot-chat
+code --install-extension tamasfe.even-better-toml</code></pre>
+                
+                <h4>VSCode settings.json per Python</h4>
+                <pre><code>{
+  // Python
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.terminal.activateEnvironment": true,
+  
+  // Linting con Ruff (velocissimo)
+  "ruff.enable": true,
+  "ruff.lint.run": "onSave",
+  "ruff.format.args": ["--line-length", "100"],
+  
+  // Type checking
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+  
+  // Testing
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  
+  // Formatting
+  "editor.formatOnSave": true,
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  }
+}</code></pre>
+                
+                <h3><span class="step-number">4</span> Aider per Python</h3>
+                
+                <pre><code># Già installato? Usa quello
+aider --version
+
+# Oppure installa con uv (più veloce)
+uv tool install aider-chat
+
+# Config per Python
+touch ~/.aider.conf.yml</code></pre>
+                
+                <h4>~/.aider.conf.yml per Python</h4>
+                <pre><code>model: claude-sonnet-4-20250514
+dark-mode: true
+pretty: true
+stream: true
+auto-commits: true
+dirty-commits: false
+attribute-commits: true
+edit-format: diff
+
+# Python specific
+lint-cmd: "ruff check ."
+test-cmd: "pytest"
+auto-lint: true
+auto-test: false  # true se vuoi test automatici</code></pre>
+                
+                <h3><span class="step-number">5</span> Configurazione Progetto</h3>
+                
+                <h4>.cursorrules (o .continuerules) per Python</h4>
+                <pre><code># .cursorrules
+
+You are an expert Python developer working with modern Python 3.12+.
+
+Tech stack:
+- Python 3.12+
+- FastAPI for APIs
+- SQLAlchemy 2.0 for ORM
+- Pydantic v2 for validation
+- pytest for testing
+- Type hints everywhere
+
+Code style:
+- ALWAYS use type hints (mypy strict mode)
+- Use dataclasses or Pydantic models
+- Prefer async/await for I/O operations
+- Follow PEP 8 (enforced by ruff)
+- Max line length: 100
+- Use descriptive variable names
+
+When writing code:
+- ALWAYS add type hints to function signatures
+- Use Pydantic for data validation
+- Handle errors with proper exception types
+- Use context managers (with statements)
+- Prefer pathlib over os.path
+- Use f-strings for formatting
+- NEVER use mutable default arguments
+
+Security:
+- Never commit API keys or secrets
+- Validate all inputs with Pydantic
+- Use parameterized queries with SQLAlchemy
+- Follow OWASP Python Security
+- Use secrets module for random values
+
+Testing:
+- Use pytest for all tests
+- Write tests using arrange-act-assert pattern
+- Use fixtures for setup
+- Test edge cases and error paths
+- Aim for >80% coverage
+
+AI/ML specific:
+- Use type hints even for tensors/arrays
+- Document model architectures
+- Version datasets and models
+- Log hyperparameters
+- Handle GPU/CPU fallback
+
+Before committing:
+- Run: ruff check . && ruff format .
+- Run: mypy .
+- Run: pytest
+- Verify no secrets
+- Check diff size (<300 lines)</code></pre>
+                
+                <h3><span class="step-number">6</span> Environment Variables</h3>
+                
+                <pre><code># .env file
+ANTHROPIC_API_KEY=your_key_here
+OPENAI_API_KEY=your_key_here
+DATABASE_URL=postgresql://localhost/mydb
+ENVIRONMENT=development
+
+# .env.example (commit questo)
+ANTHROPIC_API_KEY=sk-ant-xxxxx
+OPENAI_API_KEY=sk-xxxxx
+DATABASE_URL=postgresql://localhost/mydb
+ENVIRONMENT=development</code></pre>
+                
+                <h4>Carica con python-dotenv</h4>
+                <pre><code># poetry add python-dotenv
+
+# In main.py o config.py
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+if not ANTHROPIC_API_KEY:
+    raise ValueError("ANTHROPIC_API_KEY not set")</code></pre>
+                
+                <h3><span class="step-number">7</span> Verifica Setup</h3>
+                
+                <pre><code># Python version
+python --version  # >= 3.12
+
+# Poetry
+poetry --version
+
+# Virtual env attivo?
+which python  # deve puntare a .venv
+
+# Packages installati?
+poetry show
+
+# Ruff funziona?
+ruff check .
+
+# mypy funziona?
+mypy --version
+
+# pytest funziona?
+pytest --version</code></pre>
+                
+                <div class="success-box">
+                    <h4>✅ Setup Python Completo!</h4>
+                    <p>Ora hai un ambiente Python moderno, type-safe, con AI tools integrati.</p>
+                </div>
+            </section>
+            
+            <section id="security">
+                <h2>🔒 Security Python-Specific</h2>
+                
+                <h3>1. Secrets Management</h3>
+                
+                <h4>.gitignore per Python</h4>
+                <pre><code># .gitignore
+
+# Secrets
+.env
+.env.local
+*.key
+*.pem
+config/secrets.py
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+
+# AI tools
+.aider*
+.cursor/
+.continue/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb  # se non vuoi committare notebooks</code></pre>
+                
+                <h3>2. Security Scanning Tools</h3>
+                
+                <pre><code># Installa security tools
+poetry add --group dev bandit safety pip-audit
+
+# Bandit - scan per vulnerabilità
+bandit -r src/
+
+# Safety - check dependencies vulnerabili
+safety check
+
+# pip-audit - audit dependencies
+pip-audit</code></pre>
+                
+                <h4>Integra in pre-commit</h4>
+                <pre><code># .pre-commit-config.yaml
+repos:
+  - repo: https://github.com/PyCQA/bandit
+    rev: '1.7.10'
+    hooks:
+      - id: bandit
+        args: ['-c', 'pyproject.toml']
+        
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: 'v0.8.0'
+    hooks:
+      - id: ruff
+      - id: ruff-format</code></pre>
+                
+                <h3>3. Input Validation con Pydantic</h3>
+                
+                <pre><code>from pydantic import BaseModel, EmailStr, Field, validator
+from typing import Optional
+
+class UserCreate(BaseModel):
+    email: EmailStr  # valida email automaticamente
+    username: str = Field(..., min_length=3, max_length=50)
+    age: Optional[int] = Field(None, ge=0, le=150)
+    
+    @validator('username')
+    def username_alphanumeric(cls, v):
+        if not v.isalnum():
+            raise ValueError('must be alphanumeric')
+        return v
+
+# FastAPI endpoint
+from fastapi import FastAPI, HTTPException
+
+app = FastAPI()
+
+@app.post("/users")
+async def create_user(user: UserCreate):
+    # Pydantic ha già validato tutto
+    # Se arriviamo qui, i dati sono sicuri
+    return {"email": user.email}</code></pre>
+                
+                <h3>4. SQL Injection Prevention</h3>
+                
+                <pre><code># ❌ MAI COSÌ (SQL injection vulnerability)
+query = f"SELECT * FROM users WHERE email = '{email}'"
+db.execute(query)
+
+# ✅ SEMPRE COSÌ (SQLAlchemy ORM)
+from sqlalchemy import select
+stmt = select(User).where(User.email == email)
+result = await session.execute(stmt)
+
+# ✅ OPPURE con parametri (raw SQL)
+query = "SELECT * FROM users WHERE email = :email"
+result = db.execute(query, {"email": email})</code></pre>
+                
+                <h3>5. Secure Random Values</h3>
+                
+                <pre><code># ❌ MAI random module per security
+import random
+token = random.randint(1000, 9999)  # INSICURO!
+
+# ✅ SEMPRE secrets module
+import secrets
+token = secrets.token_urlsafe(32)
+api_key = secrets.token_hex(32)</code></pre>
+                
+                <div class="danger-box">
+                    <h4>🚫 Python Security Checklist</h4>
+                    <ul class="checklist">
+                        <li>No eval(), exec(), o __import__ dinamici</li>
+                        <li>No pickle da fonti non fidate</li>
+                        <li>Valida sempre con Pydantic</li>
+                        <li>Use secrets, non random per crypto</li>
+                        <li>Parametrizza SQL queries</li>
+                        <li>No shell=True in subprocess</li>
+                        <li>Sanitizza file uploads</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="testing">
+                <h2>🧪 Testing Python Moderno</h2>
+                
+                <h3>1. Setup pytest</h3>
+                
+                <pre><code># poetry add --group dev pytest pytest-cov pytest-asyncio pytest-mock
+
+# pyproject.toml
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--cov=src",
+    "--cov-report=html",
+    "--cov-report=term-missing",
+    "--cov-fail-under=80"
+]
+asyncio_mode = "auto"</code></pre>
+                
+                <h3>2. Test Structure</h3>
+                
+                <pre><code># tests/test_user_service.py
+
+import pytest
+from src.services.user import UserService
+from src.models import User
+
+@pytest.fixture
+async def user_service():
+    """Setup user service for tests."""
+    service = UserService()
+    await service.initialize()
+    yield service
+    await service.cleanup()
+
+@pytest.fixture
+def sample_user_data():
+    """Sample user data for testing."""
+    return {
+        "email": "test@example.com",
+        "username": "testuser",
+        "age": 25
+    }
+
+class TestUserService:
+    """Tests for UserService."""
+    
+    async def test_create_user_success(
+        self, 
+        user_service: UserService,
+        sample_user_data: dict
+    ):
+        """Test successful user creation."""
+        # Arrange
+        email = sample_user_data["email"]
+        
+        # Act
+        user = await user_service.create_user(**sample_user_data)
+        
+        # Assert
+        assert user.email == email
+        assert user.id is not None
+        assert user.created_at is not None
+    
+    async def test_create_user_duplicate_email(
+        self,
+        user_service: UserService,
+        sample_user_data: dict
+    ):
+        """Test creating user with duplicate email fails."""
+        # Arrange
+        await user_service.create_user(**sample_user_data)
+        
+        # Act & Assert
+        with pytest.raises(ValueError, match="Email already exists"):
+            await user_service.create_user(**sample_user_data)
+    
+    @pytest.mark.parametrize("invalid_email", [
+        "notanemail",
+        "@example.com",
+        "test@",
+        ""
+    ])
+    async def test_create_user_invalid_email(
+        self,
+        user_service: UserService,
+        sample_user_data: dict,
+        invalid_email: str
+    ):
+        """Test creating user with invalid email fails."""
+        sample_user_data["email"] = invalid_email
+        
+        with pytest.raises(ValueError):
+            await user_service.create_user(**sample_user_data)</code></pre>
+                
+                <h3>3. Testing AI-Generated Code</h3>
+                
+                <h4>Property-Based Testing con Hypothesis</h4>
+                <pre><code># poetry add --group dev hypothesis
+
+from hypothesis import given, strategies as st
+
+@given(st.emails())
+def test_email_validation_property(email: str):
+    """Property test: all valid emails should be accepted."""
+    user_data = {"email": email, "username": "test"}
+    # Questo deve sempre passare per email valide
+    validate_user(user_data)
+
+@given(st.text(min_size=1, max_size=100))
+def test_username_never_crashes(username: str):
+    """Property test: any string input shouldn't crash."""
+    # Può fallire validation, ma non deve crashare
+    try:
+        validate_username(username)
+    except ValueError:
+        pass  # Expected for invalid input</code></pre>
+                
+                <h3>4. Snapshot Testing</h3>
+                
+                <pre><code># poetry add --group dev syrupy
+
+def test_api_response_structure(snapshot):
+    """Snapshot test to catch unexpected API changes."""
+    response = api.get_user(user_id=1)
+    assert response == snapshot</code></pre>
+                
+                <h3>5. Coverage Requirements</h3>
+                
+                <pre><code># Esegui tests con coverage
+pytest --cov=src --cov-report=html
+
+# Apri report
+open htmlcov/index.html
+
+# Fail se coverage < 80%
+pytest --cov=src --cov-fail-under=80</code></pre>
+                
+                <h3>6. Type Checking come Test</h3>
+                
+                <pre><code># mypy è parte dei test!
+# pyproject.toml
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+# In CI/CD
+- name: Type Check
+  run: mypy src/</code></pre>
+                
+                <div class="warning-box">
+                    <h4>⚠️ Testing Rules per AI Code</h4>
+                    <ul>
+                        <li>Ogni funzione pubblica → unit test</li>
+                        <li>Ogni endpoint API → integration test</li>
+                        <li>Type hints → mypy strict mode</li>
+                        <li>Coverage minimo 80%</li>
+                        <li>Property tests per logica complessa</li>
+                        <li>Snapshot tests per output stabili</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section id="workflow">
+                <h2>🔄 Workflow Python + AI</h2>
+                
+                <h3>Scenario 1: Data Science / ML Prototyping</h3>
+                
+                <div class="workflow-step">
+                    <h4>Jupyter + Copilot</h4>
+                    <pre><code># In VSCode
+# 1. Apri .ipynb file
+# 2. GitHub Copilot attivo
+# 3. Type hints anche nei notebook!
+
+import pandas as pd
+from typing import DataFrame
+
+def clean_data(df: pd.DataFrame) -> pd.DataFrame:
+    """Clean and preprocess data."""
+    # Copilot suggerisce i passi comuni
+    ...</code></pre>
+                </div>
+                
+                <h3>Scenario 2: FastAPI Development</h3>
+                
+                <div class="workflow-step">
+                    <h4>Continue + Type Hints</h4>
+                    <pre><code># Continue capisce context FastAPI
+# Cmd+L: "Create CRUD endpoints for User model"
+
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
+from typing import List
+
+app = FastAPI()
+
+@app.get("/users", response_model=List[UserResponse])
+async def get_users(
+    skip: int = 0,
+    limit: int = 100,
+    db: AsyncSession = Depends(get_db)
+) -> List[UserResponse]:
+    """Get list of users."""
+    # AI genera con type hints corretti
+    ...</code></pre>
+                </div>
+                
+                <h3>Scenario 3: LangChain Development</h3>
+                
+                <div class="workflow-step">
+                    <h4>Aider per Agent Chains</h4>
+                    <pre><code>aider
+
+# "Create a LangChain agent that:
+# - Uses Claude Sonnet 4
+# - Has tools for web search and calculations
+# - Maintains conversation history
+# - Uses Pydantic for structured output"
+
+# Aider genera tutto con type hints e tests</code></pre>
+                </div>
+                
+                <h3>Tool Selection Matrix (Python)</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Best Tool</th>
+                            <th>Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jupyter notebook exploration</td>
+                            <td>VSCode + Copilot</td>
+                            <td>Native Jupyter support</td>
+                        </tr>
+                        <tr>
+                            <td>FastAPI endpoint</td>
+                            <td>Continue Cmd+I</td>
+                            <td>Capisce Pydantic models</td>
+                        </tr>
+                        <tr>
+                            <td>Refactor module</td>
+                            <td>Aider</td>
+                            <td>Mantiene type hints</td>
+                        </tr>
+                        <tr>
+                            <td>Write tests</td>
+                            <td>Copilot/Continue</td>
+                            <td>Suggerisce fixtures</td>
+                        </tr>
+                        <tr>
+                            <td>Data pipeline</td>
+                            <td>Cursor Composer</td>
+                            <td>Multi-file coordination</td>
+                        </tr>
+                        <tr>
+                            <td>ML training script</td>
+                            <td>Continue + Jupyter</td>
+                            <td>Iterative development</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <section id="frameworks">
+                <h2>🤖 AI Frameworks Python</h2>
+                
+                <h3>LLM SDKs</h3>
+                
+                <div class="tool-card">
+                    <h4>Anthropic Python SDK</h4>
+                    <pre><code>poetry add anthropic
+
+from anthropic import Anthropic
+
+client = Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+
+message = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "Hello, Claude!"}
+    ]
+)
+
+print(message.content[0].text)</code></pre>
+                </div>
+                
+                <h3>Orchestration Frameworks</h3>
+                
+                <div class="tool-card">
+                    <h4>LangChain</h4>
+                    <pre><code>poetry add langchain langchain-anthropic
+
+from langchain_anthropic import ChatAnthropic
+from langchain_core.prompts import ChatPromptTemplate
+
+llm = ChatAnthropic(
+    model="claude-sonnet-4-20250514",
+    temperature=0
+)
+
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are a helpful assistant."),
+    ("user", "{input}")
+])
+
+chain = prompt | llm
+response = chain.invoke({"input": "Hello!"})</code></pre>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>LlamaIndex</h4>
+                    <p>Per RAG (Retrieval-Augmented Generation)</p>
+                    <pre><code>poetry add llama-index llama-index-llms-anthropic
+
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+from llama_index.llms.anthropic import Anthropic
+
+llm = Anthropic(model="claude-sonnet-4-20250514")
+
+documents = SimpleDirectoryReader("data").load_data()
+index = VectorStoreIndex.from_documents(documents)
+
+query_engine = index.as_query_engine(llm=llm)
+response = query_engine.query("What is this about?")</code></pre>
+                </div>
+                
+                <div class="tool-card">
+                    <h4>CrewAI</h4>
+                    <p>Multi-agent orchestration</p>
+                    <pre><code>poetry add crewai crewai-tools
+
+from crewai import Agent, Task, Crew
+
+researcher = Agent(
+    role="Researcher",
+    goal="Research AI trends",
+    llm="claude-sonnet-4-20250514"
+)
+
+writer = Agent(
+    role="Writer",
+    goal="Write about AI",
+    llm="claude-sonnet-4-20250514"
+)
+
+crew = Crew(agents=[researcher, writer])
+result = crew.kickoff()</code></pre>
+                </div>
+                
+                <h3>Validation & Structured Output</h3>
+                
+                <div class="tool-card">
+                    <h4>Instructor</h4>
+                    <p>Pydantic models da LLM output</p>
+                    <pre><code>poetry add instructor
+
+import instructor
+from anthropic import Anthropic
+from pydantic import BaseModel
+
+class User(BaseModel):
+    name: str
+    age: int
+    email: str
+
+client = instructor.from_anthropic(Anthropic())
+
+user = client.messages.create(
+    model="claude-sonnet-4-20250514",
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "Extract: John Doe, 30, john@example.com"}
+    ],
+    response_model=User
+)
+
+print(user.name)  # "John Doe" - type-safe!</code></pre>
+                </div>
+            </section>
+            
+            <section id="policy">
+                <h2>📋 Python Development Policy</h2>
+                
+                <h3>Type Hints Policy</h3>
+                
+                <div class="danger-box">
+                    <h4>🚫 Type Hints Obbligatori</h4>
+                    <p><strong>Mai committare codice senza type hints.</strong></p>
+                    <pre><code># ❌ Rifiutato in PR
+def process_data(data):
+    return data.upper()
+
+# ✅ Accettato
+def process_data(data: str) -> str:
+    return data.upper()
+
+# ✅ Per casi complessi
+from typing import TypedDict, Optional, List
+
+class UserDict(TypedDict):
+    name: str
+    age: int
+    email: Optional[str]
+
+def get_users() -> List[UserDict]:
+    ...</code></pre>
+                </div>
+                
+                <h3>Diff Size Limits (Python specific)</h3>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Diff Size</th>
+                            <th>Requirement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1-100 righe</td>
+                            <td>Self-review + ruff + mypy + pytest</td>
+                        </tr>
+                        <tr>
+                            <td>101-200 righe</td>
+                            <td>+ 1 peer review</td>
+                        </tr>
+                        <tr>
+                            <td>201-300 righe</td>
+                            <td>+ 2 peer reviews + security check</td>
+                        </tr>
+                        <tr>
+                            <td>300+ righe</td>
+                            <td>Split or senior architect approval</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Pre-commit Checklist</h3>
+                
+                <ul class="checklist">
+                    <li>ruff check . --fix</li>
+                    <li>ruff format .</li>
+                    <li>mypy . (must pass strict mode)</li>
+                    <li>pytest --cov=src --cov-fail-under=80</li>
+                    <li>bandit -r src/ (no security issues)</li>
+                    <li>No secrets in code</li>
+                    <li>All type hints present</li>
+                    <li>Docstrings for public functions</li>
+                </ul>
+                
+                <h3>CI/CD Pipeline Python</h3>
+                
+                <pre><code># .github/workflows/python-ci.yml
+name: Python CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      
+      - name: Install dependencies
+        run: poetry install
+      
+      - name: Lint with Ruff
+        run: poetry run ruff check .
+      
+      - name: Format check
+        run: poetry run ruff format --check .
+      
+      - name: Type check with mypy
+        run: poetry run mypy .
+      
+      - name: Test with pytest
+        run: poetry run pytest --cov=src --cov-fail-under=80
+      
+      - name: Security check
+        run: poetry run bandit -r src/</code></pre>
+            </section>
+            
+            <section id="risorse">
+                <h2>📚 Risorse Python + AI</h2>
+                
+                <h3>Documentazione Ufficiale</h3>
+                <ul>
+                    <li><strong>Anthropic Python SDK:</strong> <a href="https://github.com/anthropics/anthropic-sdk-python">GitHub</a></li>
+                    <li><strong>LangChain Python:</strong> <a href="https://python.langchain.com">python.langchain.com</a></li>
+                    <li><strong>FastAPI:</strong> <a href="https://fastapi.tiangolo.com">fastapi.tiangolo.com</a></li>
+                    <li><strong>Pydantic:</strong> <a href="https://docs.pydantic.dev">docs.pydantic.dev</a></li>
+                </ul>
+                
+                <h3>Tools & Libraries</h3>
+                <ul>
+                    <li><strong>Poetry:</strong> <a href="https://python-poetry.org">python-poetry.org</a></li>
+                    <li><strong>Ruff:</strong> <a href="https://docs.astral.sh/ruff/">docs.astral.sh/ruff</a></li>
+                    <li><strong>pytest:</strong> <a href="https://docs.pytest.org">docs.pytest.org</a></li>
+                    <li><strong>mypy:</strong> <a href="https://mypy.readthedocs.io">mypy.readthedocs.io</a></li>
+                </ul>
+                
+                <h3>Learning Resources</h3>
+                <ul>
+                    <li><strong>Python Type Checking:</strong> RealPython guide</li>
+                    <li><strong>FastAPI Tutorial:</strong> Official docs</li>
+                    <li><strong>LangChain Academy:</strong> Free courses</li>
+                    <li><strong>Pydantic Tutorial:</strong> Official tutorial</li>
+                </ul>
+                
+                <h3>Community</h3>
+                <ul>
+                    <li><strong>r/Python:</strong> General Python</li>
+                    <li><strong>r/MachineLearning:</strong> ML discussions</li>
+                    <li><strong>LangChain Discord:</strong> AI framework help</li>
+                    <li><strong>FastAPI Discord:</strong> API development</li>
+                </ul>
+            </section>
+            
+            <section>
+                <h2>🎯 Conclusioni Python Edition</h2>
+                
+                <div class="highlight-box">
+                    <h3>Perché Python per AI</h3>
+                    <p>Python non è solo "un buon linguaggio" per AI - è <strong>il linguaggio</strong>. Ogni breakthrough, ogni nuovo framework, ogni paper di ricerca: tutto nasce in Python.</p>
+                </div>
+                
+                <div class="success-box">
+                    <h3>Il Tuo Stack Python + AI</h3>
+                    <ol>
+                        <li><strong>Fondamenta:</strong> Python 3.12+ + pyenv + Poetry</li>
+                        <li><strong>IDE:</strong> VSCode + Continue (o Cursor)</li>
+                        <li><strong>Quality:</strong> Ruff + mypy + pytest</li>
+                        <li><strong>AI Tools:</strong> Aider + Copilot</li>
+                        <li><strong>Frameworks:</strong> FastAPI + Pydantic + LangChain</li>
+                        <li><strong>Type Safety:</strong> Type hints everywhere, mypy strict</li>
+                    </ol>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>Python Best Practices 2025</h4>
+                    <ul>
+                        <li><strong>Type hints:</strong> non negoziabili</li>
+                        <li><strong>Pydantic:</strong> per ogni input/output</li>
+                        <li><strong>async/await:</strong> per I/O operations</li>
+                        <li><strong>Poetry/uv:</strong> non più pip requirements.txt</li>
+                        <li><strong>Ruff:</strong> sostituisce black + isort + flake8</li>
+                        <li><strong>pytest:</strong> con coverage >80%</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h4>📝 Prossimi Passi</h4>
+                    <ol>
+                        <li>Setup Python 3.12 + Poetry</li>
+                        <li>Clone un progetto di esempio con AI</li>
+                        <li>Prova LangChain con Claude</li>
+                        <li>Build una FastAPI app AI-powered</li>
+                        <li>Sperimenta con Jupyter + Copilot</li>
+                    </ol>
+                    <p><strong>Versione: 2.0 Python Edition (Dicembre 2025)</strong></p>
+                </div>
+            </section>
+        </main>
+        
+        <footer>
+            <p><strong>🐍 Il Nuovo Paradigma dello Sviluppatore AI - Python Edition</strong></p>
+            <p>v2.0 - Production Ready</p>
+            <p style="margin-top: 20px; opacity: 0.7;">Python: il linguaggio nativo dell'ecosistema AI</p>
+            <p style="margin-top: 10px; opacity: 0.7;">Guida creata: Dicembre 2025</p>
+            <p style="margin-top: 10px; opacity: 0.7;">Per Giuseppe - Esplorando il futuro AI-first</p>
+        </footer>
+    </div>
+</body>
+</html>
