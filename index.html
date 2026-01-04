@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Engineering 3.0</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-purple: #a371f7;
+            --accent-green: #3fb950;
+            --accent-orange: #d29922;
+            --border-color: #30363d;
+            --card-hover: #1f2428;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 4rem 0 3rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Filter tabs */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: var(--bg-primary);
+        }
+
+        /* Cards grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .card-badge {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 1rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-article {
+            background: rgba(163, 113, 247, 0.2);
+            color: var(--accent-purple);
+        }
+
+        .badge-guide {
+            background: rgba(63, 185, 80, 0.2);
+            color: var(--accent-green);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header {
+                padding: 2rem 0;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Hidden class for filtering */
+        .card.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🚀</div>
+            <h1>Software Engineering 3.0</h1>
+            <p class="tagline">Raccolta di articoli e guide sul mondo dello sviluppo software nell'era dell'AI</p>
+        </header>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">Tutti</button>
+            <button class="filter-btn" data-filter="article">Articoli</button>
+            <button class="filter-btn" data-filter="guide">Guide</button>
+        </div>
+
+        <div class="cards-grid">
+            <!-- Articles -->
+            <a href="articles/ai-developer-paradigm-v2.html" class="card" data-type="article">
+                <div class="card-header">
+                    <span class="card-icon">🧠</span>
+                    <span class="card-badge badge-article">Articolo</span>
+                </div>
+                <h2 class="card-title">Il Nuovo Paradigma dello Sviluppatore AI</h2>
+                <p class="card-description">Come l'intelligenza artificiale sta trasformando il ruolo del developer e le competenze richieste nel mercato.</p>
+                <div class="card-footer">
+                    <span>📄</span>
+                    <span>Analisi</span>
+                </div>
+            </a>
+
+            <a href="articles/ai-developer-paradigm-python-v2.html" class="card" data-type="article">
+                <div class="card-header">
+                    <span class="card-icon">🐍</span>
+                    <span class="card-badge badge-article">Articolo</span>
+                </div>
+                <h2 class="card-title">Il Nuovo Paradigma - Python Edition</h2>
+                <p class="card-description">Focus specifico sull'ecosistema Python e come prepararsi al futuro AI-first dello sviluppo software.</p>
+                <div class="card-footer">
+                    <span>📄</span>
+                    <span>Analisi</span>
+                </div>
+            </a>
+
+            <a href="articles/ai-developer-roadmap-2026-v3.html" class="card" data-type="article">
+                <div class="card-header">
+                    <span class="card-icon">🗺️</span>
+                    <span class="card-badge badge-article">Articolo</span>
+                </div>
+                <h2 class="card-title">Roadmap AI Developer 2026</h2>
+                <p class="card-description">Percorso completo per diventare un AI Developer: competenze, strumenti e tappe fondamentali.</p>
+                <div class="card-footer">
+                    <span>📄</span>
+                    <span>Roadmap</span>
+                </div>
+            </a>
+
+            <a href="articles/ai-jobs-overview-2026.html" class="card" data-type="article">
+                <div class="card-header">
+                    <span class="card-icon">💼</span>
+                    <span class="card-badge badge-article">Articolo</span>
+                </div>
+                <h2 class="card-title">AI, Lavoro e Futuro dei Programmatori</h2>
+                <p class="card-description">Overview 2026: impatto dell'AI sul mercato del lavoro tech e prospettive per i developer.</p>
+                <div class="card-footer">
+                    <span>📄</span>
+                    <span>Overview</span>
+                </div>
+            </a>
+
+            <a href="articles/memory-war-enterprise.html" class="card" data-type="article">
+                <div class="card-header">
+                    <span class="card-icon">⚔️</span>
+                    <span class="card-badge badge-article">Articolo</span>
+                </div>
+                <h2 class="card-title">The Memory War That Will Define AI</h2>
+                <p class="card-description">Analisi strategica sulla competizione per la memoria nell'AI enterprise e le sue implicazioni.</p>
+                <div class="card-footer">
+                    <span>📄</span>
+                    <span>Analisi Strategica</span>
+                </div>
+            </a>
+
+            <a href="articles/python-fundamentals-to-generative.html" class="card" data-type="article">
+                <div class="card-header">
+                    <span class="card-icon">✨</span>
+                    <span class="card-badge badge-article">Articolo</span>
+                </div>
+                <h2 class="card-title">Da Python Fundamentals a Generative Programming</h2>
+                <p class="card-description">Il percorso evolutivo: dai fondamenti di Python alla programmazione generativa con AI.</p>
+                <div class="card-footer">
+                    <span>📄</span>
+                    <span>Percorso</span>
+                </div>
+            </a>
+
+            <a href="articles/welcome-to-the-machine-analysis.html" class="card" data-type="article">
+                <div class="card-header">
+                    <span class="card-icon">🤖</span>
+                    <span class="card-badge badge-article">Articolo</span>
+                </div>
+                <h2 class="card-title">Welcome to the Machine</h2>
+                <p class="card-description">Analisi approfondita e implicazioni dell'integrazione uomo-macchina nel lavoro.</p>
+                <div class="card-footer">
+                    <span>📄</span>
+                    <span>Analisi</span>
+                </div>
+            </a>
+
+            <!-- Guides -->
+            <a href="guides/claude-code-setup-macos.html" class="card" data-type="guide">
+                <div class="card-header">
+                    <span class="card-icon">🍎</span>
+                    <span class="card-badge badge-guide">Guida</span>
+                </div>
+                <h2 class="card-title">Installazione Claude Code su macOS</h2>
+                <p class="card-description">Setup completo di Claude Code su macOS con fnm/nvm, configurazione zsh e troubleshooting.</p>
+                <div class="card-footer">
+                    <span>📖</span>
+                    <span>Tutorial</span>
+                </div>
+            </a>
+
+            <a href="guides/claude-code-setup-windows.html" class="card" data-type="guide">
+                <div class="card-header">
+                    <span class="card-icon">🪟</span>
+                    <span class="card-badge badge-guide">Guida</span>
+                </div>
+                <h2 class="card-title">Installazione Claude Code su Windows</h2>
+                <p class="card-description">Setup completo di Claude Code su Windows con fnm/nvm, PowerShell e troubleshooting.</p>
+                <div class="card-footer">
+                    <span>📖</span>
+                    <span>Tutorial</span>
+                </div>
+            </a>
+
+            <a href="guides/github-cli-guide.html" class="card" data-type="guide">
+                <div class="card-header">
+                    <span class="card-icon">🐙</span>
+                    <span class="card-badge badge-guide">Guida</span>
+                </div>
+                <h2 class="card-title">GitHub CLI - Guida Completa</h2>
+                <p class="card-description">Padroneggia gh: comandi essenziali, workflow, alias e integrazioni avanzate.</p>
+                <div class="card-footer">
+                    <span>📖</span>
+                    <span>Tutorial</span>
+                </div>
+            </a>
+
+            <a href="guides/uv-cheatsheet.html" class="card" data-type="guide">
+                <div class="card-header">
+                    <span class="card-icon">⚡</span>
+                    <span class="card-badge badge-guide">Guida</span>
+                </div>
+                <h2 class="card-title">UV Cheatsheet</h2>
+                <p class="card-description">Riferimento rapido per uv: il package manager Python ultra-veloce scritto in Rust.</p>
+                <div class="card-footer">
+                    <span>📖</span>
+                    <span>Cheatsheet</span>
+                </div>
+            </a>
+
+            <a href="guides/windows-terminal-setup.html" class="card" data-type="guide">
+                <div class="card-header">
+                    <span class="card-icon">💻</span>
+                    <span class="card-badge badge-guide">Guida</span>
+                </div>
+                <h2 class="card-title">Windows Terminal Setup</h2>
+                <p class="card-description">Configurazione completa di Windows Terminal: temi, font, profili e personalizzazioni.</p>
+                <div class="card-footer">
+                    <span>📖</span>
+                    <span>Tutorial</span>
+                </div>
+            </a>
+        </div>
+
+        <footer>
+            <p>Software Engineering 3.0 &bull; Ultimo aggiornamento: Gennaio 2026</p>
+            <p style="margin-top: 0.5rem;">
+                <a href="https://github.com" target="_blank">GitHub</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.dataset.filter;
+
+                // Filter cards
+                cards.forEach(card => {
+                    if (filter === 'all' || card.dataset.type === filter) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
