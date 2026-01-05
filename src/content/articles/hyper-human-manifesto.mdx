@@ -1,0 +1,233 @@
+---
+title: "The Hyper-Human Manifesto 2.0"
+description: "From Aspirations to Operations - Come lavorare davvero con l'AI dopo due anni di pratica"
+icon: "🧠"
+tag: "Manifesto"
+date: 2026-01-05
+---
+
+import InfoBox from '../../components/InfoBox.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
+import Quote from '../../components/Quote.astro';
+import Checklist from '../../components/Checklist.astro';
+import VersionBadge from '../../components/VersionBadge.astro';
+
+<VersionBadge version="Version 2.0 — 2025" />
+
+---
+
+## Why 2.0?
+
+<InfoBox type="highlight" title="From Maps to Territory">
+In 2023, I co-wrote the original Hyper-Human Manifesto with one of the first publicly available AIs. It was a declaration of intent—ten principles about how humans and AI *should* work together. Collaboration. Ethics. Empowerment. Accessibility.
+
+I believed every word. I still do.
+
+But reading it today feels like reading a travel guide written by someone who studied maps but never took the trip.
+</InfoBox>
+
+**In 2023, we were asking:** "Will AI replace us or help us?"
+
+**In 2025, we're asking:** "How do I configure my autonomy slider for this specific task?"
+
+The question changed because we started actually using these tools—daily, in production, with real stakes. And what I learned in two years of building software with AI forced me to rewrite the manifesto. Not because the principles were wrong, but because they weren't *operational*.
+
+This is the Hyper-Human Manifesto 2.0. **Same destination. Different vehicle.**
+
+---
+
+## I. From Collaboration to Generation-Verification
+
+<ComparisonTable
+  leftTitle="2023 Version"
+  rightTitle="2025 Version"
+  leftColor="blue"
+  rightColor="green"
+  leftItems={[
+    "\"Encourage a symbiotic relationship between humans and AI, where each complements the other's strengths.\""
+  ]}
+  rightItems={[
+    "The relationship has a name now. It's called the Generation-Verification Loop."
+  ]}
+/>
+
+AI generates. You verify. That's the symbiosis.
+
+But here's what two years taught me: the loop only works if the chunks are small enough to actually verify. Accept a 500-line diff from AI and you're not collaborating—you're rubber-stamping. Your verification becomes theatrical.
+
+<InfoBox type="warning" title="Operational Principle">
+Never accept a diff larger than 300 lines without breaking it down. Small chunks equal reliable verification. Large chunks equal false confidence.
+</InfoBox>
+
+The symbiosis is real, but it requires discipline to maintain.
+
+---
+
+## II. From Continuous Learning to Fundamentals for Verification
+
+<ComparisonTable
+  leftTitle="2023 Version"
+  rightTitle="2025 Version"
+  leftColor="blue"
+  rightColor="green"
+  leftItems={[
+    "\"Promote a culture of continuous learning, helping individuals adapt to the ever-changing landscape of AI.\""
+  ]}
+  rightItems={[
+    "Learning has a new purpose. You don't learn fundamentals to write code anymore. You learn them to verify AI output."
+  ]}
+/>
+
+This is counterintuitive. If AI can generate code instantly, why spend months learning the basics?
+
+Because without fundamentals, you can't tell good output from garbage. You become dependent on AI being right—and it isn't always right. The verification half of the loop collapses.
+
+<InfoBox type="warning" title="Operational Principle">
+Learn enough to catch the lies. You don't need to write a sorting algorithm from memory. But you need to recognize when AI gives you O(n²) when O(n log n) was possible.
+</InfoBox>
+
+Fundamentals aren't about production anymore. They're about quality control.
+
+---
+
+## III. From Empowerment to the Autonomy Slider
+
+<ComparisonTable
+  leftTitle="2023 Version"
+  rightTitle="2025 Version"
+  leftColor="blue"
+  rightColor="green"
+  leftItems={[
+    "\"AI serves as a tool to empower individuals, fostering creativity, problem-solving, and decision-making.\""
+  ]}
+  rightItems={[
+    "Empowerment isn't binary. It's a slider."
+  ]}
+/>
+
+Andrej Karpathy introduced this concept, and it changed how I work: the **Autonomy Slider** represents how much independence you give AI on any task. Low autonomy means AI suggests, you decide everything. High autonomy means AI executes entire workflows while you review outcomes.
+
+The mistake is starting with high autonomy. Every developer I know who burned out on AI tools made the same error: they gave AI too much freedom before they understood its failure modes.
+
+<InfoBox type="warning" title="Operational Principle">
+Start with the slider low. Increase it only as you learn the tool's patterns—both strengths and blind spots. This isn't about trust. It's about calibrated trust.
+</InfoBox>
+
+You earn the right to high autonomy. You don't start there.
+
+---
+
+## IV. From Ethics to Quality Gates
+
+<ComparisonTable
+  leftTitle="2023 Version"
+  rightTitle="2025 Version"
+  leftColor="blue"
+  rightColor="green"
+  leftItems={[
+    "\"Adhere to ethical guidelines that ensure AI respects human values and promotes fairness.\""
+  ]}
+  rightItems={[
+    "Ethics are necessary but insufficient. You need Quality Gates—non-negotiable checkpoints that AI-generated code must pass before it touches production."
+  ]}
+/>
+
+<InfoBox type="success" title="My Quality Gates">
+- Lint passing before every commit
+- Test coverage minimum 80%
+- No secrets in code (ever)
+- Type hints mandatory
+- Security scan (npm audit, bandit, or equivalent)
+</InfoBox>
+
+These aren't suggestions. They're walls. AI-generated code that doesn't pass doesn't ship.
+
+Why does this matter? Because AI optimizes for what you ask, not for what you need. Ask for "working code" and you'll get working code—that leaks credentials, ignores edge cases, and fails silently under load.
+
+<InfoBox type="warning" title="Operational Principle">
+Define your gates before you start generating. The gates are your ethics made concrete.
+</InfoBox>
+
+---
+
+## V. From Human-Centric Design to the Right Question
+
+<ComparisonTable
+  leftTitle="2023 Version"
+  rightTitle="2025 Version"
+  leftColor="blue"
+  rightColor="green"
+  leftItems={[
+    "\"Design AI systems with the user in mind, focusing on usability, efficiency, and effectiveness.\""
+  ]}
+  rightItems={[
+    "The most human-centric thing you can do is ask the right question."
+  ]}
+/>
+
+Here's what I didn't understand in 2023: AI makes execution so cheap that the bottleneck shifts entirely to problem selection. You can generate ten solutions in the time it used to take to write one. Which means picking the *right* problem becomes the entire game.
+
+<InfoBox type="info" title="The Shift">
+**The old question was:** "How do I write this code?"
+
+**The new question is:** "Should this code exist at all?"
+</InfoBox>
+
+<InfoBox type="warning" title="Operational Principle">
+Before generating anything, spend more time than feels necessary asking whether you should. The cost of building the wrong thing used to be high enough to force careful evaluation. Now you have to force it yourself.
+</InfoBox>
+
+This is the real skill of the Hyper-Human era. Not prompting. Not tooling. Judgment about what deserves to exist.
+
+---
+
+## VI. From Global Cooperation to Showing Your Work
+
+<ComparisonTable
+  leftTitle="2023 Version"
+  rightTitle="2025 Version"
+  leftColor="blue"
+  rightColor="green"
+  leftItems={[
+    "\"Promote global cooperation and dialogue on AI policy, standards, and best practices.\""
+  ]}
+  rightItems={[
+    "The best thing you can contribute to global progress is transparency about what actually works."
+  ]}
+/>
+
+The AI discourse is polluted with hype, fear, and theory. What's missing is practitioners showing their real workflows—including failures. What tools they actually use. What they tried and abandoned. What quality gates they enforce. What broke in production.
+
+<InfoBox type="warning" title="Operational Principle">
+Document your process publicly. Not to build an audience. To contribute signal to a conversation drowning in noise.
+</InfoBox>
+
+This manifesto is my attempt to do that. Not commandments from a mountain. Notes from the field.
+
+---
+
+## The Real Shift
+
+The original manifesto ended with a call to "join the Hyper-Human movement." It was inspiring. It was also vague.
+
+Here's the concrete version:
+
+The Hyper-Human is not someone who uses AI. Everyone uses AI now.
+
+The Hyper-Human is someone who has **developed calibrated judgment** about when to trust AI, when to verify, when to override, and when to step back and ask whether the whole task is worth doing.
+
+This judgment can't be downloaded. It can't be prompted. It develops only through deliberate practice—through thousands of cycles of the generation-verification loop, with quality gates enforced, with the autonomy slider consciously adjusted.
+
+The 2023 manifesto asked: *Can humans and AI work together?*
+
+The answer is yes. We proved it.
+
+<Quote>
+The 2025 question is harder: Can you develop the judgment to work with AI well?
+
+**That's on you.**
+</Quote>
+
+---
+
+*This document, like its predecessor, was co-created through collaboration between human insight and artificial intelligence. The difference is that this time, I knew exactly where to set the autonomy slider.*

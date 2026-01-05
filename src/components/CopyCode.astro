@@ -1,0 +1,84 @@
+---
+// This component adds copy buttons to all code blocks
+---
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const codeBlocks = document.querySelectorAll('pre');
+
+    codeBlocks.forEach((pre) => {
+      // Create wrapper
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper';
+      pre.parentNode.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+
+      // Create copy button
+      const button = document.createElement('button');
+      button.className = 'copy-button';
+      button.innerHTML = '📋';
+      button.title = 'Copia codice';
+      button.setAttribute('aria-label', 'Copia codice');
+
+      button.addEventListener('click', async () => {
+        const code = pre.querySelector('code');
+        const text = code ? code.textContent : pre.textContent;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          button.innerHTML = '✓';
+          button.classList.add('copied');
+
+          setTimeout(() => {
+            button.innerHTML = '📋';
+            button.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+          button.innerHTML = '❌';
+          setTimeout(() => {
+            button.innerHTML = '📋';
+          }, 2000);
+        }
+      });
+
+      wrapper.appendChild(button);
+    });
+  });
+</script>
+
+<style is:global>
+  .code-block-wrapper {
+    position: relative;
+  }
+
+  .copy-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.35rem 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: all 0.2s ease;
+    z-index: 10;
+  }
+
+  .code-block-wrapper:hover .copy-button {
+    opacity: 1;
+  }
+
+  .copy-button:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-blue);
+  }
+
+  .copy-button.copied {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+    color: white;
+  }
+</style>

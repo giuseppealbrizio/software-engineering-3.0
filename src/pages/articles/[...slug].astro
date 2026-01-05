@@ -11,7 +11,11 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
-const { Content } = await article.render();
+const { Content, headings } = await article.render();
+
+// Calculate reading time
+const words = article.body.trim().split(/\s+/).length;
+const readingTime = Math.ceil(words / 200);
 ---
 
 <ArticleLayout
@@ -19,6 +23,8 @@ const { Content } = await article.render();
   description={article.data.description}
   icon={article.data.icon}
   category="article"
+  readingTime={readingTime}
+  headings={headings}
 >
   <Content />
 </ArticleLayout>
