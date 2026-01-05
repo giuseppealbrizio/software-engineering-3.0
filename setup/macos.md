@@ -236,7 +236,49 @@ brew install --cask stats
 brew install --cask tableplus
 ```
 
-## 12. Verify Installation
+## 12. Optional: Cloud & DevOps
+
+```bash
+# Google Cloud SDK
+brew install --cask google-cloud-sdk
+```
+
+```bash
+# Initialize gcloud (interactive)
+gcloud init
+```
+
+```bash
+# Kubernetes CLI
+brew install kubectl
+```
+
+```bash
+# Kubernetes context manager (optional)
+brew install kubectx
+```
+
+```bash
+# API testing
+brew install --cask postman
+```
+
+```bash
+# Tunneling for local development
+brew install ngrok/ngrok/ngrok
+```
+
+```bash
+# Configure ngrok (requires free account at ngrok.com)
+ngrok config add-authtoken YOUR_AUTH_TOKEN
+```
+
+```bash
+# MongoDB GUI
+brew install --cask mongodb-compass
+```
+
+## 13. Verify Installation
 
 Run these commands to verify everything is installed:
 

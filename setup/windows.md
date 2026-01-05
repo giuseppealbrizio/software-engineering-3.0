@@ -280,7 +280,49 @@ winget install TablePlus.TablePlus
 winget install Anysphere.Cursor
 ```
 
-## 14. Verify Installation
+## 14. Optional: Cloud & DevOps
+
+```powershell
+# Google Cloud SDK
+winget install Google.CloudSDK
+```
+
+```powershell
+# Initialize gcloud (interactive)
+gcloud init
+```
+
+```powershell
+# Kubernetes CLI
+winget install Kubernetes.kubectl
+```
+
+```powershell
+# Kubernetes context manager (optional)
+scoop install kubectx
+```
+
+```powershell
+# API testing
+winget install Postman.Postman
+```
+
+```powershell
+# Tunneling for local development
+winget install Ngrok.Ngrok
+```
+
+```powershell
+# Configure ngrok (requires free account at ngrok.com)
+ngrok config add-authtoken YOUR_AUTH_TOKEN
+```
+
+```powershell
+# MongoDB GUI
+winget install MongoDB.Compass.Full
+```
+
+## 15. Verify Installation
 
 ```powershell
 Write-Host "=== Verification ===" -ForegroundColor Green
