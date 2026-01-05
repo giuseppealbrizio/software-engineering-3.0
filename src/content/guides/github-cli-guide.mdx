@@ -188,6 +188,72 @@ gh gist list                         # Lista i tuoi gist
 
 ---
 
+## Workflow PR Completo
+
+Workflow tipico per creare una Pull Request da un branch di sviluppo.
+
+<StepHeader number={1} title="Prepara il branch" />
+
+```bash
+# Assicurati di essere sul branch giusto
+git checkout develop
+git pull origin develop
+```
+
+<StepHeader number={2} title="Commit e push" />
+
+```bash
+git add .
+git commit -m "add: nuova feature"
+git push origin develop
+```
+
+<StepHeader number={3} title="Crea la PR" />
+
+```bash
+# PR da develop verso main
+gh pr create --base main --head develop --title "Titolo PR"
+
+# Con body descrittivo
+gh pr create --base main --head develop \
+  --title "Add: nuova feature" \
+  --body "Descrizione delle modifiche"
+```
+
+<StepHeader number={4} title="Mergia la PR" />
+
+```bash
+# Merge standard (dopo review)
+gh pr merge --merge
+
+# Merge come admin (bypassa review)
+gh pr merge --merge --admin
+
+# Squash merge (tutti i commit in uno)
+gh pr merge --squash
+```
+
+<InfoBox type="success" title="Comando Veloce">
+Crea e mergia in un solo comando:
+
+```bash
+gh pr create --base main --head develop --title "Update" && gh pr merge --merge --admin
+```
+</InfoBox>
+
+### Opzioni PR utili
+
+| Flag | Descrizione |
+|------|-------------|
+| `--base` | Branch di destinazione |
+| `--head` | Branch sorgente |
+| `--title` | Titolo della PR |
+| `--body` | Descrizione |
+| `--draft` | Crea come draft |
+| `--web` | Apre nel browser per completare |
+
+---
+
 ## Troubleshooting
 
 <InfoBox type="warning" title="gh non riconosciuto come comando">
