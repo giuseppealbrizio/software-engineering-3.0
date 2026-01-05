@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code vs Cursor - Confronto 2025</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #334155;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --claude-code: #d97706;
+            --cursor: #8b5cf6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--claude-code), var(--cursor));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .source-note {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: inline-block;
+        }
+
+        .source-note a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .source-note a:hover {
+            text-decoration: underline;
+        }
+
+        /* TL;DR Section */
+        .tldr {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
+            border: 1px solid var(--primary);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .tldr h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tldr ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tldr li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .tldr li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--bg-card);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            background: var(--bg-dark);
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .comparison-table th:nth-child(2) {
+            color: var(--claude-code);
+        }
+
+        .comparison-table th:nth-child(3) {
+            color: var(--cursor);
+        }
+
+        .comparison-table tr:hover td {
+            background: var(--bg-card-hover);
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .winner-claude {
+            background: rgba(217, 119, 6, 0.1) !important;
+        }
+
+        .winner-cursor {
+            background: rgba(139, 92, 246, 0.1) !important;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge-claude {
+            background: var(--claude-code);
+            color: white;
+        }
+
+        .badge-cursor {
+            background: var(--cursor);
+            color: white;
+        }
+
+        .badge-tie {
+            background: var(--text-muted);
+            color: white;
+        }
+
+        /* Feature Sections */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+        }
+
+        .feature-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Tool Cards */
+        .tools-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .tool-card {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 2px solid var(--border);
+        }
+
+        .tool-card.claude-code {
+            border-color: var(--claude-code);
+        }
+
+        .tool-card.cursor {
+            border-color: var(--cursor);
+        }
+
+        .tool-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tool-card.claude-code h3 {
+            color: var(--claude-code);
+        }
+
+        .tool-card.cursor h3 {
+            color: var(--cursor);
+        }
+
+        .tool-card .tagline {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .tool-card ul {
+            list-style: none;
+        }
+
+        .tool-card li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .tool-card li::before {
+            content: "✓";
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: var(--bg-card);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .pricing-section h2 {
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .price-card {
+            padding: 1.5rem;
+            background: var(--bg-dark);
+            border-radius: 0.75rem;
+        }
+
+        .price-card h4 {
+            margin-bottom: 1rem;
+        }
+
+        .price-card.claude-code h4 {
+            color: var(--claude-code);
+        }
+
+        .price-card.cursor h4 {
+            color: var(--cursor);
+        }
+
+        .price-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+
+        .price-note {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Winner Section */
+        .verdict {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(99, 102, 241, 0.1) 100%);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--primary);
+        }
+
+        .verdict h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .verdict-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .verdict-item {
+            padding: 1rem;
+            background: var(--bg-dark);
+            border-radius: 0.5rem;
+        }
+
+        .verdict-item h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .verdict-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--warning);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .warning-box h3 {
+            color: var(--warning);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .warning-box p {
+            color: var(--text-secondary);
+        }
+
+        /* Code blocks */
+        code {
+            background: var(--bg-dark);
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .tools-comparison,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚔️ Claude Code vs Cursor</h1>
+            <p class="subtitle">Deep Comparison per Dev Teams — Luglio 2025</p>
+            <div class="source-note">
+                📄 Fonte: <a href="https://www.qodo.ai/blog/claude-code-vs-cursor/" target="_blank">Qodo Blog</a> 
+                — Nota: Qodo è un competitor, quindi l'articolo promuove anche il loro prodotto
+            </div>
+        </header>
+
+        <!-- TL;DR -->
+        <section class="tldr">
+            <h2>⚡ TL;DR</h2>
+            <ul>
+                <li><strong>Claude Code:</strong> Terminal-first, 200K token affidabili, deep repo reasoning, ideale per automazione e CI/CD</li>
+                <li><strong>Cursor:</strong> GUI-first (fork VS Code), 128K normal / 200K max mode, ma in pratica 70k-120k usabili</li>
+                <li><strong>Context Window:</strong> Claude Code più affidabile per grandi codebase</li>
+                <li><strong>Pricing:</strong> Claude usage-based ($20-100/mese) vs Cursor flat tiers ($20-200/mese)</li>
+                <li><strong>Scelta:</strong> CLI workflows → Claude Code | IDE experience → Cursor</li>
+            </ul>
+        </section>
+
+        <!-- Tool Cards -->
+        <section class="tools-comparison">
+            <div class="tool-card claude-code">
+                <h3>🖥️ Claude Code</h3>
+                <p class="tagline">"Lives in your terminal, understands your codebase"</p>
+                <ul>
+                    <li>Terminal-first, editor-agnostic</li>
+                    <li>200K token context window (affidabile)</li>
+                    <li>Modelli Sonnet e Opus di Anthropic</li>
+                    <li>Agenti paralleli per task splitting</li>
+                    <li>Script custom via cartelle <code>.claude</code></li>
+                    <li>Supporta <code>--add-dir</code> per monorepo</li>
+                    <li>Review + fix in un unico flusso</li>
+                    <li>Ideale per CI/CD e automazione</li>
+                </ul>
+            </div>
+            
+            <div class="tool-card cursor">
+                <h3>✨ Cursor</h3>
+                <p class="tagline">"AI-augmented IDE basato su VS Code"</p>
+                <ul>
+                    <li>Fork di VS Code con AI integrata</li>
+                    <li>Normal Mode: 128K tokens</li>
+                    <li>Max Mode: fino a 200K (spesso 70k-120k reali)</li>
+                    <li>3 Agent Modes: Ask, Manual, Agent</li>
+                    <li>Background execution per workflow paralleli</li>
+                    <li>Cursor Rules per comportamento project-specific</li>
+                    <li>MCP integration per tool chaining</li>
+                    <li>Bug Bot per review automatiche</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Comparison Table -->
+        <h2 style="margin: 2rem 0 1rem; color: var(--text-primary);">📊 Confronto Feature-by-Feature</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Claude Code</th>
+                    <th>Cursor</th>
+                    <th>Vincitore</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Interface</td>
+                    <td>Terminal-first, CLI</td>
+                    <td>VS Code-based IDE</td>
+                    <td><span class="badge badge-tie">Dipende</span></td>
+                </tr>
+                <tr class="winner-claude">
+                    <td>Context Window</td>
+                    <td>200K token (affidabile)</td>
+                    <td>Max 200K (spesso 70-120K reali)</td>
+                    <td><span class="badge badge-claude">Claude</span></td>
+                </tr>
+                <tr class="winner-claude">
+                    <td>Prompting & Reasoning</td>
+                    <td>Multi-step reasoning forte, prompt vaghi OK</td>
+                    <td>Preciso con prompt scoped, supporta planning</td>
+                    <td><span class="badge badge-claude">Claude</span></td>
+                </tr>
+                <tr class="winner-claude">
+                    <td>Multi-agent / Automazione</td>
+                    <td>Agenti paralleli, Task Tool, script .claude</td>
+                    <td>Agent Mode + MCP, background execution</td>
+                    <td><span class="badge badge-claude">Claude</span></td>
+                </tr>
+                <tr class="winner-claude">
+                    <td>Code Review</td>
+                    <td>Review + fix in un flusso automatico</td>
+                    <td>Lista issues → applica manualmente</td>
+                    <td><span class="badge badge-claude">Claude</span></td>
+                </tr>
+                <tr>
+                    <td>IDE Integration</td>
+                    <td>VS Code, JetBrains via CLI</td>
+                    <td>Native IDE con autocomplete, diffing</td>
+                    <td><span class="badge badge-cursor">Cursor</span></td>
+                </tr>
+                <tr>
+                    <td>Model Support</td>
+                    <td>Anthropic (Sonnet, Opus)</td>
+                    <td>Claude, GPT-4.1, Gemini (managed/BYOK)</td>
+                    <td><span class="badge badge-cursor">Cursor</span></td>
+                </tr>
+                <tr>
+                    <td>Customization</td>
+                    <td>Prompt files, multi-dir, CLAUDE.md</td>
+                    <td>Cursor Rules, doc injection, model switch</td>
+                    <td><span class="badge badge-tie">Pari</span></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Warning Box -->
+        <div class="warning-box">
+            <h3>⚠️ Nota sul Context Window di Cursor</h3>
+            <p>
+                Nonostante Cursor dichiari 200K token in Max Mode, sviluppatori hanno riportato che 
+                <strong>in pratica il context usabile è spesso 70k-120k</strong>. Questo è dovuto a 
+                troncamento interno, safeguard per performance, o controlli sui costi API applicati 
+                silenziosamente. Cursor può automaticamente accorciare il context inviato al modello.
+            </p>
+        </div>
+
+        <!-- Pricing -->
+        <section class="pricing-section">
+            <h2>💰 Pricing</h2>
+            <div class="pricing-grid">
+                <div class="price-card claude-code">
+                    <h4>Claude Code</h4>
+                    <p class="price-amount">$20 - $100/mese</p>
+                    <p class="price-note">
+                        <strong>Usage-based:</strong><br>
+                        • Pro ($20): Claude 3.5 Sonnet + basic usage<br>
+                        • Max 5× ($100): Claude 4 Opus, priorità, sessioni veloci
+                    </p>
+                </div>
+                <div class="price-card cursor">
+                    <h4>Cursor</h4>
+                    <p class="price-amount">$0 - $200/mese</p>
+                    <p class="price-note">
+                        <strong>Flat tiers:</strong><br>
+                        • Hobby: Gratis (limitato)<br>
+                        • Pro ($20): 500 fast requests, Max Mode<br>
+                        • Teams ($40) / Ultra ($200): Limiti più alti
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <h2 style="margin: 2rem 0 1rem; color: var(--text-primary);">🎯 Punti Chiave</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>🔧 CLI vs GUI</h3>
+                <p>
+                    Claude Code eccelle per workflow da terminale, server remoti, scripting e CI/CD. 
+                    Cursor è ottimizzato per sviluppo interattivo in-editor con feedback visivo.
+                </p>
+            </div>
+            <div class="feature-card">
+                <h3>📏 Context Affidabile</h3>
+                <p>
+                    Claude Code fornisce 200K token in modo consistente. Cursor può ridurre 
+                    silenziosamente il context per mantenere performance e costi sotto controllo.
+                </p>
+            </div>
+            <div class="feature-card">
+                <h3>🤖 Agent Modes</h3>
+                <p>
+                    Cursor offre Ask, Manual, Agent e Background modes. Claude Code supporta 
+                    agenti paralleli e orchestrazione system-level via Task Tool.
+                </p>
+            </div>
+            <div class="feature-card">
+                <h3>🔄 Review Workflow</h3>
+                <p>
+                    Claude Code fa review e fix insieme automaticamente. Cursor separa diagnosi 
+                    da risoluzione — lista i problemi, poi aspetta conferma per applicare fix.
+                </p>
+            </div>
+        </div>
+
+        <!-- Verdict -->
+        <section class="verdict">
+            <h2>🏆 Quando Scegliere Cosa</h2>
+            <div class="verdict-grid">
+                <div class="verdict-item">
+                    <h4>Scegli Claude Code se:</h4>
+                    <p>
+                        Lavori molto da terminale, hai bisogno di automazione su larga scala, 
+                        gestisci monorepo, fai CI/CD automation, o vuoi context window affidabile 
+                        per grandi codebase.
+                    </p>
+                </div>
+                <div class="verdict-item">
+                    <h4>Scegli Cursor se:</h4>
+                    <p>
+                        Preferisci un'esperienza IDE visual, usi già VS Code, vuoi autocomplete 
+                        inline immediato, hai bisogno di diff preview e checkpoints, o vuoi 
+                        cambiare modello (GPT-4, Gemini, Claude).
+                    </p>
+                </div>
+                <div class="verdict-item">
+                    <h4>Considera entrambi se:</h4>
+                    <p>
+                        Puoi usare Claude Code per task di automazione e refactoring pesanti, 
+                        e Cursor per sviluppo quotidiano in-editor. Non sono mutualmente esclusivi.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Per Giuseppe -->
+        <div class="warning-box" style="border-color: var(--secondary); background: rgba(16, 185, 129, 0.1);">
+            <h3 style="color: var(--secondary);">💡 Nota per il Tuo Setup</h3>
+            <p>
+                Tu stai già usando <strong>Claude Code</strong> nel tuo stack AI tools. 
+                Questo confronto conferma che per workflow CLI-first, automazione, e context window 
+                affidabile è la scelta giusta. Cursor potrebbe essere un complemento per editing visuale, 
+                ma secondo la tua roadmap lo valuterai dopo settimana 6-7 — considera se il valore 
+                aggiunto giustifica la subscription aggiuntiva rispetto a VSCode + Continue.
+            </p>
+        </div>
+
+        <footer>
+            <p>Documento generato: Gennaio 2025 | Fonte: Qodo Blog</p>
+            <p style="margin-top: 0.5rem;">Software Engineer 3.0 Paradigm — Giuseppe @ Skeldon</p>
+        </footer>
+    </div>
+</body>
+</html>
