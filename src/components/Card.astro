@@ -1,0 +1,27 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  icon: string;
+  href: string;
+  type: 'article' | 'guide';
+  tag?: string;
+}
+
+const { title, description, icon, href, type, tag = type === 'article' ? 'Analisi' : 'Tutorial' } = Astro.props;
+---
+
+<a href={href} class="card" data-type={type}>
+  <div class="card-header">
+    <span class="card-icon">{icon}</span>
+    <span class={`badge badge-${type}`}>
+      {type === 'article' ? 'Articolo' : 'Guida'}
+    </span>
+  </div>
+  <h2 class="card-title">{title}</h2>
+  <p class="card-description">{description}</p>
+  <div class="card-footer">
+    <span>{type === 'article' ? '📄' : '📖'}</span>
+    <span>{tag}</span>
+  </div>
+</a>

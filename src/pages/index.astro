@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import { getCollection } from 'astro:content';
+
+const articles = await getCollection('articles');
+const guides = await getCollection('guides');
+---
+
+<BaseLayout title="Home">
+  <header>
+    <div class="logo">🚀</div>
+    <h1 class="gradient-title">Software Engineering 3.0</h1>
+    <p class="tagline">Raccolta di articoli e guide sul mondo dello sviluppo software nell'era dell'AI</p>
+  </header>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">Tutti</button>
+    <button class="filter-btn" data-filter="article">Articoli</button>
+    <button class="filter-btn" data-filter="guide">Guide</button>
+  </div>
+
+  <div class="cards-grid">
+    {articles.map((article) => (
+      <Card
+        title={article.data.title}
+        description={article.data.description}
+        icon={article.data.icon}
+        href={`/software-engineering-3.0/articles/${article.slug}`}
+        type="article"
+        tag={article.data.tag}
+      />
+    ))}
+
+    {guides.map((guide) => (
+      <Card
+        title={guide.data.title}
+        description={guide.data.description}
+        icon={guide.data.icon}
+        href={`/software-engineering-3.0/guides/${guide.slug}`}
+        type="guide"
+        tag={guide.data.tag}
+      />
+    ))}
+  </div>
+
+  <div class="setup-section">
+    <h2>Setup Automation</h2>
+    <p>Configura il tuo ambiente di sviluppo automaticamente con Claude Code.</p>
+    <div class="setup-cards">
+      <a href="/software-engineering-3.0/setup/macos.md" class="setup-card">
+        <span class="setup-icon">🍎</span>
+        <span class="setup-title">macOS Setup</span>
+        <span class="setup-desc">Homebrew, Node, Python, Docker</span>
+      </a>
+      <a href="/software-engineering-3.0/setup/windows.md" class="setup-card">
+        <span class="setup-icon">🪟</span>
+        <span class="setup-title">Windows Setup</span>
+        <span class="setup-desc">winget, Scoop, WSL2, Node, Python</span>
+      </a>
+    </div>
+    <p class="setup-hint">Apri questa repo con <a href="https://claude.ai/claude-code" target="_blank">Claude Code</a> e chiedi di leggere il file di setup ed eseguire i comandi.</p>
+  </div>
+</BaseLayout>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.type === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
