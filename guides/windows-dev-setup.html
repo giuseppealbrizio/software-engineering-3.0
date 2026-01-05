@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Dev Environment Setup - Guida Completa</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-orange: #d29922;
+            --accent-red: #f85149;
+            --accent-purple: #a371f7;
+            --border-color: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .info-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-box.tip {
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .info-box.warning {
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .info-box.note {
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .info-box-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        pre {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        code {
+            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-green);
+        }
+
+        pre code {
+            color: var(--text-primary);
+        }
+
+        .comment {
+            color: var(--text-secondary);
+        }
+
+        .command {
+            color: var(--accent-blue);
+        }
+
+        .string {
+            color: var(--accent-green);
+        }
+
+        .shell-badge {
+            display: inline-block;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        ul, ol {
+            margin: 1rem 0 1rem 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        .section-number {
+            color: var(--accent-purple);
+            font-weight: 600;
+        }
+
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--accent-blue);
+        }
+
+        .toc ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .toc li {
+            margin: 0.5rem 0;
+        }
+
+        .toc a {
+            color: var(--text-secondary);
+        }
+
+        .toc a:hover {
+            color: var(--accent-blue);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin-top: 1rem;
+        }
+
+        .tab {
+            padding: 0.5rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-bottom: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            border-radius: 8px 8px 0 0;
+            margin-right: -1px;
+        }
+
+        .tab.active {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--bg-secondary);
+            position: relative;
+            z-index: 1;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 0 8px 8px 8px;
+            padding: 1rem;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            pre {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="badge">GUIDA</span>
+            <h1>Windows Dev Environment Setup</h1>
+            <p class="subtitle">Setup completo per sviluppatori - Da zero a production ready</p>
+        </header>
+
+        <div class="toc">
+            <h3>Indice</h3>
+            <ul>
+                <li><a href="#terminal">1. Windows Terminal & PowerShell</a></li>
+                <li><a href="#package-managers">2. Package Managers (winget, Scoop, Chocolatey)</a></li>
+                <li><a href="#wsl">3. WSL2 (Windows Subsystem for Linux)</a></li>
+                <li><a href="#git">4. Git & GitHub CLI</a></li>
+                <li><a href="#node">5. Node.js (fnm)</a></li>
+                <li><a href="#python">6. Python (pyenv-win + uv)</a></li>
+                <li><a href="#editors">7. Editor & IDE</a></li>
+                <li><a href="#docker">8. Docker</a></li>
+                <li><a href="#extras">9. Tools Extra</a></li>
+            </ul>
+        </div>
+
+        <section id="terminal">
+            <h2><span class="section-number">1.</span> Windows Terminal & PowerShell</h2>
+
+            <h3>Installa Windows Terminal</h3>
+            <p>Windows Terminal è il terminale moderno di Microsoft. Installalo dal Microsoft Store o via winget:</p>
+            <pre><code><span class="shell-badge">PowerShell (Admin)</span>
+winget install Microsoft.WindowsTerminal</code></pre>
+
+            <h3>Aggiorna PowerShell</h3>
+            <pre><code><span class="shell-badge">PowerShell (Admin)</span>
+winget install Microsoft.PowerShell</code></pre>
+
+            <div class="info-box note">
+                <div class="info-box-title">PowerShell 5 vs 7</div>
+                <p>Windows include PowerShell 5.1 di default. PowerShell 7 è la versione moderna, cross-platform e con più features. Usala!</p>
+            </div>
+
+            <h3>Oh My Posh (Prompt Moderno)</h3>
+            <pre><code><span class="shell-badge">PowerShell</span>
+<span class="comment"># Installa Oh My Posh</span>
+winget install JanDeDobbeleer.OhMyPosh
+
+<span class="comment"># Installa font Nerd Font</span>
+oh-my-posh font install FiraCode
+
+<span class="comment"># Crea/modifica profilo PowerShell</span>
+notepad $PROFILE</code></pre>
+
+            <h3>Configura $PROFILE</h3>
+            <pre><code><span class="comment"># Aggiungi al file $PROFILE</span>
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\catppuccin.omp.json" | Invoke-Expression
+
+<span class="comment"># Alias utili</span>
+Set-Alias -Name g -Value git
+Set-Alias -Name c -Value code
+Set-Alias -Name ll -Value Get-ChildItem</code></pre>
+
+            <h3>PSReadLine (Autocompletamento)</h3>
+            <pre><code><span class="shell-badge">PowerShell</span>
+<span class="comment"># Installa PSReadLine</span>
+Install-Module PSReadLine -Force
+
+<span class="comment"># Aggiungi al $PROFILE</span>
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle ListView</code></pre>
+        </section>
+
+        <section id="package-managers">
+            <h2><span class="section-number">2.</span> Package Managers</h2>
+
+            <p>Windows ha tre principali package manager. Ecco quando usare ciascuno:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Manager</th>
+                        <th>Pro</th>
+                        <th>Quando Usarlo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>winget</strong></td>
+                        <td>Integrato, ufficiale Microsoft</td>
+                        <td>App GUI, software mainstream</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Scoop</strong></td>
+                        <td>Portable, no admin, CLI-focused</td>
+                        <td>Dev tools, utilities CLI</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chocolatey</strong></td>
+                        <td>Più pacchetti, maturo</td>
+                        <td>Software legacy, enterprise</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>winget (Pre-installato)</h3>
+            <pre><code><span class="shell-badge">PowerShell</span>
+<span class="comment"># Cerca pacchetto</span>
+winget search vscode
+
+<span class="comment"># Installa pacchetto</span>
+winget install Microsoft.VisualStudioCode
+
+<span class="comment"># Aggiorna tutto</span>
+winget upgrade --all
+
+<span class="comment"># Esporta lista app installate</span>
+winget export -o packages.json</code></pre>
+
+            <h3>Scoop (Consigliato per Dev Tools)</h3>
+            <pre><code><span class="shell-badge">PowerShell</span>
+<span class="comment"># Installa Scoop</span>
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+
+<span class="comment"># Aggiungi bucket extras</span>
+scoop bucket add extras
+scoop bucket add nerd-fonts
+
+<span class="comment"># Installa pacchetti</span>
+scoop install git curl wget jq ripgrep fzf
+
+<span class="comment"># Installa font</span>
+scoop install nerd-fonts/FiraCode-NF</code></pre>
+
+            <h3>Chocolatey</h3>
+            <pre><code><span class="shell-badge">PowerShell (Admin)</span>
+<span class="comment"># Installa Chocolatey</span>
+Set-ExecutionPolicy Bypass -Scope Process -Force
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+<span class="comment"># Installa pacchetti</span>
+choco install nodejs python vscode -y</code></pre>
+        </section>
+
+        <section id="wsl">
+            <h2><span class="section-number">3.</span> WSL2 (Windows Subsystem for Linux)</h2>
+
+            <p>WSL2 ti permette di eseguire Linux nativamente su Windows. Essenziale per sviluppo web moderno.</p>
+
+            <h3>Installazione</h3>
+            <pre><code><span class="shell-badge">PowerShell (Admin)</span>
+<span class="comment"># Installa WSL con Ubuntu (default)</span>
+wsl --install
+
+<span class="comment"># Riavvia il PC</span>
+
+<span class="comment"># Verifica versione</span>
+wsl --version
+
+<span class="comment"># Lista distro disponibili</span>
+wsl --list --online
+
+<span class="comment"># Installa distro specifica</span>
+wsl --install -d Ubuntu-24.04</code></pre>
+
+            <h3>Configurazione WSL</h3>
+            <pre><code><span class="shell-badge">WSL/Ubuntu</span>
+<span class="comment"># Aggiorna pacchetti</span>
+sudo apt update && sudo apt upgrade -y
+
+<span class="comment"># Installa tools essenziali</span>
+sudo apt install -y build-essential curl wget git unzip</code></pre>
+
+            <div class="info-box tip">
+                <div class="info-box-title">Tip: Integrazione VS Code</div>
+                <p>Installa l'estensione "WSL" in VS Code per editare file Linux direttamente. Usa <code>code .</code> da WSL per aprire VS Code.</p>
+            </div>
+
+            <h3>Accedi ai File</h3>
+            <pre><code><span class="comment"># Da Windows, accedi ai file WSL:</span>
+\\wsl$\Ubuntu\home\tuouser
+
+<span class="comment"># Da WSL, accedi ai file Windows:</span>
+/mnt/c/Users/TuoUser</code></pre>
+        </section>
+
+        <section id="git">
+            <h2><span class="section-number">4.</span> Git & GitHub CLI</h2>
+
+            <h3>Installazione</h3>
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab(event, 'git-winget')">winget</div>
+                <div class="tab" onclick="switchTab(event, 'git-scoop')">Scoop</div>
+            </div>
+            <div id="git-winget" class="tab-content active">
+                <pre><code>winget install Git.Git
+winget install GitHub.cli</code></pre>
+            </div>
+            <div id="git-scoop" class="tab-content">
+                <pre><code>scoop install git gh</code></pre>
+            </div>
+
+            <h3>Configurazione Git</h3>
+            <pre><code><span class="shell-badge">PowerShell</span>
+<span class="comment"># Configura identità</span>
+git config --global user.name "Il Tuo Nome"
+git config --global user.email "tua@email.com"
+
+<span class="comment"># Editor default</span>
+git config --global core.editor "code --wait"
+
+<span class="comment"># Branch default</span>
+git config --global init.defaultBranch main
+
+<span class="comment"># Line endings (importante su Windows!)</span>
+git config --global core.autocrlf true
+
+<span class="comment"># Alias utili</span>
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.st status
+git config --global alias.lg "log --oneline --graph --all"</code></pre>
+
+            <h3>GitHub CLI Login</h3>
+            <pre><code>gh auth login
+gh auth status</code></pre>
+
+            <h3>SSH Key</h3>
+            <pre><code><span class="shell-badge">PowerShell</span>
+<span class="comment"># Genera chiave SSH</span>
+ssh-keygen -t ed25519 -C "tua@email.com"
+
+<span class="comment"># Avvia ssh-agent</span>
+Get-Service ssh-agent | Set-Service -StartupType Automatic
+Start-Service ssh-agent
+
+<span class="comment"># Aggiungi chiave</span>
+ssh-add $env:USERPROFILE\.ssh\id_ed25519
+
+<span class="comment"># Copia chiave pubblica</span>
+Get-Content $env:USERPROFILE\.ssh\id_ed25519.pub | Set-Clipboard
+
+<span class="comment"># Aggiungi su GitHub: Settings → SSH Keys → New</span></code></pre>
+        </section>
+
+        <section id="node">
+            <h2><span class="section-number">5.</span> Node.js con fnm</h2>
+
+            <h3>Installazione fnm</h3>
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab(event, 'fnm-winget')">winget</div>
+                <div class="tab" onclick="switchTab(event, 'fnm-scoop')">Scoop</div>
+            </div>
+            <div id="fnm-winget" class="tab-content active">
+                <pre><code>winget install Schniz.fnm</code></pre>
+            </div>
+            <div id="fnm-scoop" class="tab-content">
+                <pre><code>scoop install fnm</code></pre>
+            </div>
+
+            <h3>Configurazione Shell</h3>
+            <pre><code><span class="shell-badge">PowerShell</span>
+<span class="comment"># Aggiungi al $PROFILE</span>
+notepad $PROFILE
+
+<span class="comment"># Inserisci questa riga:</span>
+fnm env --use-on-cd --shell power-shell | Out-String | Invoke-Expression</code></pre>
+
+            <h3>Installa Node.js</h3>
+            <pre><code><span class="comment"># Installa ultima LTS</span>
+fnm install --lts
+
+<span class="comment"># Imposta come default</span>
+fnm default lts-latest
+
+<span class="comment"># Verifica</span>
+node --version
+npm --version</code></pre>
+
+            <h3>Comandi fnm</h3>
+            <pre><code><span class="comment"># Lista versioni installate</span>
+fnm list
+
+<span class="comment"># Lista versioni disponibili</span>
+fnm list-remote
+
+<span class="comment"># Installa versione specifica</span>
+fnm install 20
+
+<span class="comment"># Usa versione specifica</span>
+fnm use 20
+
+<span class="comment"># Auto-switch con .node-version</span>
+echo "20" > .node-version</code></pre>
+
+            <h3>Package Manager Globali</h3>
+            <pre><code><span class="comment"># pnpm (consigliato)</span>
+npm install -g pnpm
+
+<span class="comment"># yarn</span>
+npm install -g yarn</code></pre>
+        </section>
+
+        <section id="python">
+            <h2><span class="section-number">6.</span> Python con pyenv-win + uv</h2>
+
+            <h3>Installa pyenv-win</h3>
+            <pre><code><span class="shell-badge">PowerShell</span>
+<span class="comment"># Con Scoop (consigliato)</span>
+scoop install pyenv
+
+<span class="comment"># Oppure manualmente</span>
+Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./install-pyenv-win.ps1"; &"./install-pyenv-win.ps1"</code></pre>
+
+            <h3>Configura Environment Variables</h3>
+            <pre><code><span class="shell-badge">PowerShell (Admin)</span>
+<span class="comment"># Aggiungi al PATH di sistema</span>
+[Environment]::SetEnvironmentVariable("PYENV", "$env:USERPROFILE\.pyenv\pyenv-win", "User")
+[Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.pyenv\pyenv-win\bin;$env:USERPROFILE\.pyenv\pyenv-win\shims;$env:PATH", "User")
+
+<span class="comment"># Riavvia PowerShell</span></code></pre>
+
+            <h3>Installa Python</h3>
+            <pre><code><span class="comment"># Lista versioni disponibili</span>
+pyenv install --list
+
+<span class="comment"># Installa versione</span>
+pyenv install 3.12.0
+
+<span class="comment"># Imposta come globale</span>
+pyenv global 3.12.0
+
+<span class="comment"># Verifica</span>
+python --version</code></pre>
+
+            <h3>Installa uv (Package Manager Veloce)</h3>
+            <pre><code><span class="shell-badge">PowerShell</span>
+<span class="comment"># Con Scoop</span>
+scoop install uv
+
+<span class="comment"># Oppure con installer ufficiale</span>
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"</code></pre>
+
+            <h3>Comandi uv Essenziali</h3>
+            <pre><code><span class="comment"># Crea nuovo progetto</span>
+uv init mio-progetto
+cd mio-progetto
+
+<span class="comment"># Aggiungi dipendenze</span>
+uv add requests pandas
+
+<span class="comment"># Esegui script</span>
+uv run python main.py
+
+<span class="comment"># Crea virtual environment</span>
+uv venv
+
+<span class="comment"># Installa da requirements.txt</span>
+uv pip install -r requirements.txt</code></pre>
+        </section>
+
+        <section id="editors">
+            <h2><span class="section-number">7.</span> Editor & IDE</h2>
+
+            <h3>Visual Studio Code</h3>
+            <pre><code>winget install Microsoft.VisualStudioCode</code></pre>
+
+            <h3>Estensioni VS Code Essenziali</h3>
+            <pre><code><span class="shell-badge">PowerShell</span>
+<span class="comment"># Installa estensioni da CLI</span>
+code --install-extension ms-python.python
+code --install-extension dbaeumer.vscode-eslint
+code --install-extension esbenp.prettier-vscode
+code --install-extension bradlc.vscode-tailwindcss
+code --install-extension eamodio.gitlens
+code --install-extension github.copilot
+code --install-extension ms-vscode-remote.remote-wsl</code></pre>
+
+            <h3>Altri Editor</h3>
+            <pre><code><span class="comment"># Cursor (VS Code + AI)</span>
+winget install Anysphere.Cursor
+
+<span class="comment"># JetBrains Toolbox</span>
+winget install JetBrains.Toolbox
+
+<span class="comment"># Sublime Text</span>
+winget install SublimeHQ.SublimeText.4</code></pre>
+        </section>
+
+        <section id="docker">
+            <h2><span class="section-number">8.</span> Docker</h2>
+
+            <h3>Docker Desktop</h3>
+            <pre><code>winget install Docker.DockerDesktop</code></pre>
+
+            <div class="info-box warning">
+                <div class="info-box-title">Requisiti</div>
+                <ul>
+                    <li>Windows 10/11 Pro, Enterprise o Education per Hyper-V</li>
+                    <li>Su Windows Home, Docker usa WSL2 backend</li>
+                    <li>Virtualizzazione abilitata nel BIOS</li>
+                </ul>
+            </div>
+
+            <h3>Configura Docker con WSL2</h3>
+            <ol>
+                <li>Apri Docker Desktop Settings</li>
+                <li>General → "Use the WSL 2 based engine" ✓</li>
+                <li>Resources → WSL Integration → Abilita per la tua distro</li>
+            </ol>
+
+            <h3>Verifica</h3>
+            <pre><code>docker --version
+docker run hello-world</code></pre>
+        </section>
+
+        <section id="extras">
+            <h2><span class="section-number">9.</span> Tools Extra</h2>
+
+            <h3>CLI Utilities (via Scoop)</h3>
+            <pre><code>scoop install `
+  curl `
+  wget `
+  jq `
+  yq `
+  tree `
+  bat `
+  eza `
+  ripgrep `
+  fzf `
+  tldr</code></pre>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Descrizione</th>
+                        <th>Sostituisce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>bat</code></td>
+                        <td>cat con syntax highlighting</td>
+                        <td>type/cat</td>
+                    </tr>
+                    <tr>
+                        <td><code>eza</code></td>
+                        <td>ls moderno con icone e git</td>
+                        <td>dir/ls</td>
+                    </tr>
+                    <tr>
+                        <td><code>ripgrep</code></td>
+                        <td>grep velocissimo</td>
+                        <td>findstr/grep</td>
+                    </tr>
+                    <tr>
+                        <td><code>fzf</code></td>
+                        <td>fuzzy finder interattivo</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td><code>tldr</code></td>
+                        <td>man pages semplificati</td>
+                        <td>help</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Applicazioni GUI Utili</h3>
+            <pre><code>winget install `
+  Microsoft.PowerToys `
+  voidtools.Everything `
+  Notepad++.Notepad++ `
+  7zip.7zip</code></pre>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>App</th>
+                        <th>Descrizione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>PowerToys</strong></td>
+                        <td>Utilities Microsoft (FancyZones, PowerRename, etc.)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Everything</strong></td>
+                        <td>Ricerca file istantanea</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Notepad++</strong></td>
+                        <td>Editor di testo avanzato</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Database Tools</h3>
+            <pre><code><span class="comment"># Client database</span>
+winget install TablePlus.TablePlus
+winget install dbeaver.dbeaver
+
+<span class="comment"># Database locali (via Docker consigliato)</span>
+docker run -d --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres
+docker run -d --name redis -p 6379:6379 redis</code></pre>
+        </section>
+
+        <div class="info-box tip">
+            <div class="info-box-title">Quick Export/Import Setup</div>
+            <pre><code><span class="comment"># Esporta lista app winget</span>
+winget export -o winget-packages.json
+
+<span class="comment"># Esporta lista app Scoop</span>
+scoop export > scoop-packages.json
+
+<span class="comment"># Importa su nuovo PC</span>
+winget import -i winget-packages.json
+scoop import scoop-packages.json</code></pre>
+        </div>
+
+        <footer>
+            <p>Windows Dev Environment Setup - Software Engineering 3.0</p>
+            <p><a href="../index.html">← Torna alla Home</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function switchTab(evt, tabId) {
+            const tabGroup = evt.target.parentElement;
+            const tabs = tabGroup.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            evt.target.classList.add('active');
+
+            let sibling = tabGroup.nextElementSibling;
+            while (sibling && sibling.classList.contains('tab-content')) {
+                sibling.classList.remove('active');
+                if (sibling.id === tabId) {
+                    sibling.classList.add('active');
+                }
+                sibling = sibling.nextElementSibling;
+            }
+        }
+    </script>
+</body>
+</html>

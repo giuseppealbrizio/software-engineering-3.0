@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>macOS Dev Environment Setup - Guida Completa</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-tertiary: #21262d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-orange: #d29922;
+            --accent-red: #f85149;
+            --accent-purple: #a371f7;
+            --border-color: #30363d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-green);
+            color: var(--bg-primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            color: var(--accent-blue);
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        h3 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .info-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .info-box.tip {
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .info-box.warning {
+            border-left: 4px solid var(--accent-orange);
+        }
+
+        .info-box.note {
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .info-box-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        pre {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        code {
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9rem;
+            color: var(--accent-green);
+        }
+
+        pre code {
+            color: var(--text-primary);
+        }
+
+        .comment {
+            color: var(--text-secondary);
+        }
+
+        .command {
+            color: var(--accent-blue);
+        }
+
+        .string {
+            color: var(--accent-green);
+        }
+
+        ul, ol {
+            margin: 1rem 0 1rem 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        td {
+            color: var(--text-secondary);
+        }
+
+        .section-number {
+            color: var(--accent-purple);
+            font-weight: 600;
+        }
+
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: var(--accent-blue);
+        }
+
+        .toc ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .toc li {
+            margin: 0.5rem 0;
+        }
+
+        .toc a {
+            color: var(--text-secondary);
+        }
+
+        .toc a:hover {
+            color: var(--accent-blue);
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            pre {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <span class="badge">GUIDA</span>
+            <h1>macOS Dev Environment Setup</h1>
+            <p class="subtitle">Setup completo per sviluppatori - Da zero a production ready</p>
+        </header>
+
+        <div class="toc">
+            <h3>Indice</h3>
+            <ul>
+                <li><a href="#homebrew">1. Homebrew - Package Manager</a></li>
+                <li><a href="#terminal">2. Terminal & Shell (iTerm2, Oh My Zsh)</a></li>
+                <li><a href="#git">3. Git & GitHub CLI</a></li>
+                <li><a href="#node">4. Node.js (fnm)</a></li>
+                <li><a href="#python">5. Python (pyenv + uv)</a></li>
+                <li><a href="#editors">6. Editor & IDE</a></li>
+                <li><a href="#docker">7. Docker</a></li>
+                <li><a href="#extras">8. Tools Extra</a></li>
+                <li><a href="#dotfiles">9. Backup Dotfiles</a></li>
+            </ul>
+        </div>
+
+        <section id="homebrew">
+            <h2><span class="section-number">1.</span> Homebrew - Package Manager</h2>
+
+            <p>Homebrew è il package manager essenziale per macOS. Installa tutto il resto.</p>
+
+            <h3>Installazione</h3>
+            <pre><code><span class="comment"># Installa Homebrew</span>
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+
+            <h3>Configurazione PATH (Apple Silicon)</h3>
+            <pre><code><span class="comment"># Aggiungi Homebrew al PATH (per Mac M1/M2/M3)</span>
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"</code></pre>
+
+            <div class="info-box note">
+                <div class="info-box-title">Nota: Intel vs Apple Silicon</div>
+                <p>Su Mac Intel, Homebrew si installa in <code>/usr/local</code>. Su Apple Silicon (M1/M2/M3) in <code>/opt/homebrew</code>.</p>
+            </div>
+
+            <h3>Comandi Essenziali</h3>
+            <pre><code><span class="comment"># Aggiorna Homebrew e tutti i pacchetti</span>
+brew update && brew upgrade
+
+<span class="comment"># Cerca un pacchetto</span>
+brew search nome-pacchetto
+
+<span class="comment"># Installa un pacchetto</span>
+brew install nome-pacchetto
+
+<span class="comment"># Installa app GUI (cask)</span>
+brew install --cask nome-app
+
+<span class="comment"># Lista pacchetti installati</span>
+brew list
+
+<span class="comment"># Pulizia cache e vecchie versioni</span>
+brew cleanup</code></pre>
+
+            <h3>Esporta/Importa Configurazione</h3>
+            <pre><code><span class="comment"># Esporta lista pacchetti in Brewfile</span>
+brew bundle dump --file=~/Brewfile
+
+<span class="comment"># Installa tutto da Brewfile</span>
+brew bundle install --file=~/Brewfile</code></pre>
+        </section>
+
+        <section id="terminal">
+            <h2><span class="section-number">2.</span> Terminal & Shell</h2>
+
+            <h3>iTerm2 (Opzionale ma consigliato)</h3>
+            <pre><code>brew install --cask iterm2</code></pre>
+
+            <h3>Oh My Zsh</h3>
+            <pre><code><span class="comment"># Installa Oh My Zsh</span>
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"</code></pre>
+
+            <h3>Plugin Essenziali</h3>
+            <pre><code><span class="comment"># Installa zsh-autosuggestions</span>
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+<span class="comment"># Installa zsh-syntax-highlighting</span>
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting</code></pre>
+
+            <h3>Configura ~/.zshrc</h3>
+            <pre><code><span class="comment"># Modifica la riga plugins in ~/.zshrc</span>
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)</code></pre>
+
+            <h3>Font Consigliati (Nerd Fonts)</h3>
+            <pre><code><span class="comment"># Installa font per icone nel terminale</span>
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code-nerd-font
+brew install --cask font-jetbrains-mono-nerd-font</code></pre>
+        </section>
+
+        <section id="git">
+            <h2><span class="section-number">3.</span> Git & GitHub CLI</h2>
+
+            <h3>Installazione</h3>
+            <pre><code>brew install git gh</code></pre>
+
+            <h3>Configurazione Git</h3>
+            <pre><code><span class="comment"># Configura identità</span>
+git config --global user.name "Il Tuo Nome"
+git config --global user.email "tua@email.com"
+
+<span class="comment"># Editor default</span>
+git config --global core.editor "code --wait"
+
+<span class="comment"># Branch default</span>
+git config --global init.defaultBranch main
+
+<span class="comment"># Alias utili</span>
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.st status
+git config --global alias.lg "log --oneline --graph --all"</code></pre>
+
+            <h3>GitHub CLI Login</h3>
+            <pre><code><span class="comment"># Autenticazione con GitHub</span>
+gh auth login
+
+<span class="comment"># Verifica</span>
+gh auth status</code></pre>
+
+            <h3>SSH Key (Opzionale)</h3>
+            <pre><code><span class="comment"># Genera chiave SSH</span>
+ssh-keygen -t ed25519 -C "tua@email.com"
+
+<span class="comment"># Avvia ssh-agent</span>
+eval "$(ssh-agent -s)"
+
+<span class="comment"># Aggiungi chiave</span>
+ssh-add ~/.ssh/id_ed25519
+
+<span class="comment"># Copia chiave pubblica</span>
+pbcopy < ~/.ssh/id_ed25519.pub
+
+<span class="comment"># Aggiungi su GitHub: Settings → SSH Keys → New</span></code></pre>
+        </section>
+
+        <section id="node">
+            <h2><span class="section-number">4.</span> Node.js con fnm</h2>
+
+            <p><strong>fnm</strong> (Fast Node Manager) è il version manager consigliato per Node.js. Più veloce di nvm.</p>
+
+            <h3>Installazione fnm</h3>
+            <pre><code>brew install fnm</code></pre>
+
+            <h3>Configurazione Shell</h3>
+            <pre><code><span class="comment"># Aggiungi a ~/.zshrc</span>
+echo 'eval "$(fnm env --use-on-cd --shell zsh)"' >> ~/.zshrc
+source ~/.zshrc</code></pre>
+
+            <h3>Installa Node.js</h3>
+            <pre><code><span class="comment"># Installa ultima LTS</span>
+fnm install --lts
+
+<span class="comment"># Imposta come default</span>
+fnm default lts-latest
+
+<span class="comment"># Verifica</span>
+node --version
+npm --version</code></pre>
+
+            <h3>Comandi fnm</h3>
+            <pre><code><span class="comment"># Lista versioni installate</span>
+fnm list
+
+<span class="comment"># Lista versioni disponibili</span>
+fnm list-remote
+
+<span class="comment"># Installa versione specifica</span>
+fnm install 20
+
+<span class="comment"># Usa versione specifica</span>
+fnm use 20
+
+<span class="comment"># Auto-switch con .node-version</span>
+echo "20" > .node-version</code></pre>
+
+            <h3>Package Manager Globali</h3>
+            <pre><code><span class="comment"># pnpm (consigliato)</span>
+npm install -g pnpm
+
+<span class="comment"># yarn</span>
+npm install -g yarn</code></pre>
+        </section>
+
+        <section id="python">
+            <h2><span class="section-number">5.</span> Python con pyenv + uv</h2>
+
+            <h3>Installa pyenv</h3>
+            <pre><code>brew install pyenv</code></pre>
+
+            <h3>Configurazione Shell</h3>
+            <pre><code><span class="comment"># Aggiungi a ~/.zshrc</span>
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+source ~/.zshrc</code></pre>
+
+            <h3>Installa Python</h3>
+            <pre><code><span class="comment"># Installa ultima versione stabile</span>
+pyenv install 3.12
+
+<span class="comment"># Imposta come globale</span>
+pyenv global 3.12
+
+<span class="comment"># Verifica</span>
+python --version</code></pre>
+
+            <h3>Installa uv (Package Manager Veloce)</h3>
+            <pre><code><span class="comment"># Installa uv</span>
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+<span class="comment"># Oppure con brew</span>
+brew install uv</code></pre>
+
+            <h3>Comandi uv Essenziali</h3>
+            <pre><code><span class="comment"># Crea nuovo progetto</span>
+uv init mio-progetto
+cd mio-progetto
+
+<span class="comment"># Aggiungi dipendenze</span>
+uv add requests pandas
+
+<span class="comment"># Esegui script</span>
+uv run python main.py
+
+<span class="comment"># Crea virtual environment</span>
+uv venv
+
+<span class="comment"># Installa da requirements.txt</span>
+uv pip install -r requirements.txt</code></pre>
+        </section>
+
+        <section id="editors">
+            <h2><span class="section-number">6.</span> Editor & IDE</h2>
+
+            <h3>Visual Studio Code</h3>
+            <pre><code>brew install --cask visual-studio-code
+
+<span class="comment"># Abilita comando 'code' nel PATH</span>
+<span class="comment"># Cmd+Shift+P → "Shell Command: Install 'code' command in PATH"</span></code></pre>
+
+            <h3>Estensioni VS Code Essenziali</h3>
+            <pre><code><span class="comment"># Installa estensioni da CLI</span>
+code --install-extension ms-python.python
+code --install-extension dbaeumer.vscode-eslint
+code --install-extension esbenp.prettier-vscode
+code --install-extension bradlc.vscode-tailwindcss
+code --install-extension eamodio.gitlens
+code --install-extension github.copilot</code></pre>
+
+            <h3>Altri Editor</h3>
+            <pre><code><span class="comment"># Cursor (VS Code + AI)</span>
+brew install --cask cursor
+
+<span class="comment"># JetBrains Toolbox</span>
+brew install --cask jetbrains-toolbox
+
+<span class="comment"># Sublime Text</span>
+brew install --cask sublime-text</code></pre>
+        </section>
+
+        <section id="docker">
+            <h2><span class="section-number">7.</span> Docker</h2>
+
+            <h3>Docker Desktop</h3>
+            <pre><code>brew install --cask docker</code></pre>
+
+            <div class="info-box tip">
+                <div class="info-box-title">Tip: Alternativa Leggera</div>
+                <p>Per un'alternativa più leggera a Docker Desktop, considera <strong>Colima</strong>:</p>
+                <pre><code>brew install colima docker
+colima start</code></pre>
+            </div>
+
+            <h3>Verifica Installazione</h3>
+            <pre><code>docker --version
+docker run hello-world</code></pre>
+        </section>
+
+        <section id="extras">
+            <h2><span class="section-number">8.</span> Tools Extra</h2>
+
+            <h3>CLI Utilities</h3>
+            <pre><code><span class="comment"># Tools essenziali</span>
+brew install \
+  wget \
+  curl \
+  jq \
+  yq \
+  tree \
+  htop \
+  bat \
+  eza \
+  ripgrep \
+  fzf \
+  tldr</code></pre>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Descrizione</th>
+                        <th>Sostituisce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>bat</code></td>
+                        <td>cat con syntax highlighting</td>
+                        <td>cat</td>
+                    </tr>
+                    <tr>
+                        <td><code>eza</code></td>
+                        <td>ls moderno con icone e git</td>
+                        <td>ls</td>
+                    </tr>
+                    <tr>
+                        <td><code>ripgrep</code></td>
+                        <td>grep velocissimo</td>
+                        <td>grep</td>
+                    </tr>
+                    <tr>
+                        <td><code>fzf</code></td>
+                        <td>fuzzy finder interattivo</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td><code>tldr</code></td>
+                        <td>man pages semplificati</td>
+                        <td>man</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Applicazioni GUI Utili</h3>
+            <pre><code>brew install --cask \
+  raycast \
+  rectangle \
+  alt-tab \
+  stats \
+  hiddenbar</code></pre>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>App</th>
+                        <th>Descrizione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Raycast</strong></td>
+                        <td>Spotlight replacement con superpowers</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rectangle</strong></td>
+                        <td>Window manager con shortcuts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alt-Tab</strong></td>
+                        <td>Windows-style alt-tab</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stats</strong></td>
+                        <td>System monitor nella menubar</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HiddenBar</strong></td>
+                        <td>Nascondi icone menubar</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Database Tools</h3>
+            <pre><code><span class="comment"># Client database</span>
+brew install --cask tableplus
+brew install --cask dbeaver-community
+
+<span class="comment"># Database CLI</span>
+brew install postgresql
+brew install mysql
+brew install redis</code></pre>
+        </section>
+
+        <section id="dotfiles">
+            <h2><span class="section-number">9.</span> Backup Dotfiles</h2>
+
+            <p>Salva le tue configurazioni in un repo Git per ripristinarle facilmente.</p>
+
+            <h3>File da Salvare</h3>
+            <pre><code><span class="comment"># File di configurazione importanti</span>
+~/.zshrc
+~/.gitconfig
+~/.ssh/config
+~/Brewfile</code></pre>
+
+            <h3>Script di Backup</h3>
+            <pre><code><span class="comment"># Crea Brewfile con tutti i pacchetti</span>
+brew bundle dump --file=~/dotfiles/Brewfile --force
+
+<span class="comment"># Copia configurazioni</span>
+cp ~/.zshrc ~/dotfiles/
+cp ~/.gitconfig ~/dotfiles/</code></pre>
+
+            <h3>Esempio Brewfile</h3>
+            <pre><code><span class="comment"># ~/Brewfile</span>
+tap "homebrew/bundle"
+tap "homebrew/cask-fonts"
+
+<span class="comment"># CLI Tools</span>
+brew "git"
+brew "gh"
+brew "fnm"
+brew "pyenv"
+brew "uv"
+brew "jq"
+brew "ripgrep"
+brew "fzf"
+
+<span class="comment"># Apps</span>
+cask "visual-studio-code"
+cask "iterm2"
+cask "docker"
+cask "raycast"
+cask "rectangle"
+
+<span class="comment"># Fonts</span>
+cask "font-fira-code-nerd-font"</code></pre>
+        </section>
+
+        <div class="info-box tip">
+            <div class="info-box-title">Quick Start - Tutto in Un Comando</div>
+            <p>Dopo aver installato Homebrew e creato un Brewfile, puoi ripristinare tutto con:</p>
+            <pre><code>brew bundle install --file=~/Brewfile</code></pre>
+        </div>
+
+        <footer>
+            <p>macOS Dev Environment Setup - Software Engineering 3.0</p>
+            <p><a href="../index.html">← Torna alla Home</a></p>
+        </footer>
+    </div>
+</body>
+</html>

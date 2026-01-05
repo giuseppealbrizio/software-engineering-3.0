@@ -30,6 +30,8 @@ Apri `index.html` nel browser per navigare il sito con interfaccia dark minimal 
 
 | File | Titolo |
 |------|--------|
+| [macos-dev-setup.html](guides/macos-dev-setup.html) | macOS Dev Environment Setup - Guida Completa |
+| [windows-dev-setup.html](guides/windows-dev-setup.html) | Windows Dev Environment Setup - Guida Completa |
 | [claude-code-setup-macos.html](guides/claude-code-setup-macos.html) | Installazione Claude Code su macOS |
 | [claude-code-setup-windows.html](guides/claude-code-setup-windows.html) | Installazione Claude Code su Windows |
 | [github-cli-guide.html](guides/github-cli-guide.html) | GitHub CLI - Guida Completa |
@@ -37,6 +39,10 @@ Apri `index.html` nel browser per navigare il sito con interfaccia dark minimal 
 | [windows-terminal-setup.html](guides/windows-terminal-setup.html) | Windows Terminal Setup - Guida Completa |
 
 ## Changelog
+
+### v1.3.0 - 2026-01-05
+- Aggiunte guide complete Dev Environment Setup per macOS e Windows
+- Boilerplate per setup automatizzato con Claude Code
 
 ### v1.2.0 - 2026-01-04
 - Aggiunta homepage `index.html` con design dark minimal
