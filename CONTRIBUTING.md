@@ -15,6 +15,15 @@ Thank you for your interest in contributing! This guide will help you get starte
 2. For significant contributions, open an Issue first to discuss your idea
 3. Ensure content is **agnostic** (no personal/company-specific references)
 
+## Branch Strategy
+
+```
+main     → Production (protected, deploy automatico)
+develop  → Development (target per le PR)
+```
+
+**Important:** All Pull Requests must target the `develop` branch, NOT `main`.
+
 ## Workflow
 
 ### 1. Fork and Clone
@@ -29,9 +38,15 @@ npm install
 ### 2. Create a Branch
 
 ```bash
-# Use descriptive names
+# Start from develop
+git checkout develop
+git pull origin develop
+
+# Create your feature branch
 git checkout -b feature/docker-guide
+# or
 git checkout -b fix/typo-readme
+# or
 git checkout -b article/llm-analysis-2026
 ```
 
@@ -68,6 +83,9 @@ import InfoBox from '../../components/InfoBox.astro';
 import ProsCons from '../../components/ProsCons.astro';
 import Quote from '../../components/Quote.astro';
 import StepHeader from '../../components/StepHeader.astro';
+import StatCard from '../../components/StatCard.astro';
+import ComparisonTable from '../../components/ComparisonTable.astro';
+import VersionBadge from '../../components/VersionBadge.astro';
 ```
 
 Example usage:
@@ -77,10 +95,22 @@ Example usage:
 Content here...
 </InfoBox>
 
+<InfoBox type="warning" title="Attention">
+Warning content...
+</InfoBox>
+
+<InfoBox type="success" title="Done">
+Success message...
+</InfoBox>
+
 <ProsCons
   pros={["Pro 1", "Pro 2"]}
   cons={["Con 1", "Con 2"]}
 />
+
+<Quote author="Author Name">
+Quote text here...
+</Quote>
 ```
 
 ### 4. Test Locally
@@ -122,9 +152,23 @@ docs: description    # README, CONTRIBUTING, etc.
 
 ### 7. Open a Pull Request
 
-1. Go to GitHub and open a PR to `main`
-2. Fill out the PR template
-3. Wait for review
+1. Go to GitHub and open a PR
+2. **Target branch: `develop`** (NOT main!)
+3. Fill out the PR template
+4. Wait for review
+
+```bash
+# Or via CLI:
+gh pr create --base develop --title "Add: Docker guide"
+```
+
+## Review Process
+
+1. **You open PR** → targeting `develop`
+2. **Maintainer reviews** → may request changes
+3. **PR approved and merged** → into `develop`
+4. **Periodically**, maintainer merges `develop` → `main`
+5. **Auto-deploy** → site updated
 
 ## Content Guidelines
 
@@ -148,13 +192,14 @@ docs: description    # README, CONTRIBUTING, etc.
 - English accepted for technical content
 - Code and commands always in English
 
-## Code Review
+## Code Review Checklist
 
 PRs are reviewed for:
 
 1. **Content quality** - Accuracy, usefulness, clarity
 2. **Style consistency** - Alignment with existing design
-3. **Functionality** - Links, responsive, no errors
+3. **Functionality** - Links work, responsive, no errors
+4. **Build passes** - `npm run build` succeeds
 
 ## Questions?
 
