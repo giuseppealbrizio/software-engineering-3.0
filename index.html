@@ -225,6 +225,78 @@
         .card.hidden {
             display: none;
         }
+
+        /* Setup section */
+        .setup-section {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .setup-section h2 {
+            color: var(--accent-purple);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .setup-section > p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .setup-cards {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .setup-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            min-width: 180px;
+        }
+
+        .setup-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+
+        .setup-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .setup-title {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .setup-desc {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .setup-hint {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .setup-hint a {
+            color: var(--accent-blue);
+        }
     </style>
 </head>
 <body>
@@ -425,6 +497,24 @@
                     <span>Tutorial</span>
                 </div>
             </a>
+        </div>
+
+        <div class="setup-section">
+            <h2>Setup Automation</h2>
+            <p>Configura il tuo ambiente di sviluppo automaticamente con Claude Code.</p>
+            <div class="setup-cards">
+                <a href="setup/macos.md" class="setup-card">
+                    <span class="setup-icon">🍎</span>
+                    <span class="setup-title">macOS Setup</span>
+                    <span class="setup-desc">Homebrew, Node, Python, Docker</span>
+                </a>
+                <a href="setup/windows.md" class="setup-card">
+                    <span class="setup-icon">🪟</span>
+                    <span class="setup-title">Windows Setup</span>
+                    <span class="setup-desc">winget, Scoop, WSL2, Node, Python</span>
+                </a>
+            </div>
+            <p class="setup-hint">Apri questa repo con <a href="https://claude.ai/claude-code" target="_blank">Claude Code</a> e chiedi di leggere il file di setup ed eseguire i comandi.</p>
         </div>
 
         <footer>

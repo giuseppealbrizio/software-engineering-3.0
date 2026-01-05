@@ -7,7 +7,8 @@ Raccolta di articoli e guide sul mondo dello sviluppo software nell'era dell'AI.
 ```
 ├── index.html   # Homepage del sito
 ├── articles/    # Articoli, analisi, roadmap
-└── guides/      # Guide pratiche, tutorial, cheatsheet
+├── guides/      # Guide pratiche, tutorial, cheatsheet
+└── setup/       # File di contesto per Claude Code (automazione setup)
 ```
 
 ## Live Site
@@ -38,7 +39,24 @@ Apri `index.html` nel browser per navigare il sito con interfaccia dark minimal 
 | [uv-cheatsheet.html](guides/uv-cheatsheet.html) | UV Cheatsheet |
 | [windows-terminal-setup.html](guides/windows-terminal-setup.html) | Windows Terminal Setup - Guida Completa |
 
+## Setup (for Claude Code)
+
+File di contesto per automatizzare il setup dell'ambiente di sviluppo con Claude Code.
+
+| File | Descrizione |
+|------|-------------|
+| [macos.md](setup/macos.md) | Setup completo macOS (Homebrew, Node, Python, Docker, etc.) |
+| [windows.md](setup/windows.md) | Setup completo Windows (winget, Scoop, WSL2, Node, Python, etc.) |
+
+**Come usare:** Apri la repo con Claude Code e chiedi di leggere il file di setup appropriato ed eseguire i comandi.
+
 ## Changelog
+
+### v1.4.0 - 2026-01-05
+- Aggiunta cartella `setup/` con file di contesto per Claude Code
+- File markdown ottimizzati per automazione (macos.md, windows.md)
+- Aggiunta documentazione open source (CONTRIBUTING, CODE_OF_CONDUCT, LICENSE)
+- Aggiunti template GitHub per issues e PR
 
 ### v1.3.0 - 2026-01-05
 - Aggiunte guide complete Dev Environment Setup per macOS e Windows
