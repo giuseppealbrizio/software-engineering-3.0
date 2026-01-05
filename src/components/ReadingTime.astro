@@ -1,0 +1,34 @@
+---
+interface Props {
+  content: string;
+}
+
+const { content } = Astro.props;
+
+// Calculate reading time (average 200 words per minute for technical content)
+const words = content.trim().split(/\s+/).length;
+const minutes = Math.ceil(words / 200);
+const readingTime = minutes === 1 ? '1 min' : `${minutes} min`;
+---
+
+<span class="reading-time">
+  <span class="reading-time-icon">📖</span>
+  {readingTime} lettura
+</span>
+
+<style>
+  .reading-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    background: var(--bg-tertiary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+  }
+
+  .reading-time-icon {
+    font-size: 0.85rem;
+  }
+</style>
