@@ -40,6 +40,7 @@ legacy-html/         # Versioni HTML originali (retrocompatibilità)
 | [ai-developer-roadmap-2026](src/content/articles/ai-developer-roadmap-2026.mdx) | Roadmap AI Developer 2026 |
 | [ai-jobs-overview-2026](src/content/articles/ai-jobs-overview-2026.mdx) | AI, Lavoro e Futuro dei Programmatori |
 | [claude-code-vs-cursor-comparison](src/content/articles/claude-code-vs-cursor-comparison.mdx) | Claude Code vs Cursor - Confronto 2025 |
+| [hyper-human-manifesto](src/content/articles/hyper-human-manifesto.mdx) | The Hyper-Human Manifesto 2.0 |
 | [memory-war-enterprise](src/content/articles/memory-war-enterprise.mdx) | The Memory War That Will Define AI |
 | [python-fundamentals-to-generative](src/content/articles/python-fundamentals-to-generative.mdx) | Da Python Fundamentals a Generative Programming |
 | [welcome-to-the-machine-analysis](src/content/articles/welcome-to-the-machine-analysis.mdx) | Welcome to the Machine - Analisi |
@@ -75,6 +76,16 @@ File di contesto per automatizzare il setup dell'ambiente di sviluppo con Claude
 - **GitHub Pages** - Hosting statico
 
 ## Changelog
+
+### v2.3.0 - 2026-01-05
+- Aggiunto articolo "The Hyper-Human Manifesto 2.0"
+- Quick Wins UI:
+  - Toggle dark/light mode con persistenza localStorage
+  - Tempo di lettura stimato sugli articoli
+  - Indice dei contenuti collassabile
+  - Pulsante copia sui blocchi di codice
+  - Pulsante "Torna su" flottante
+- Integrato Pagefind per ricerca full-text
 
 ### v2.2.0 - 2026-01-05
 - Aggiunto articolo "Claude Code vs Cursor - Confronto 2025"
