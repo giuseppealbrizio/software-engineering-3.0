@@ -6,61 +6,47 @@ tag: "Tutorial"
 date: 2026-01-05
 ---
 
-## 1. Installa un Node Version Manager
+import InfoBox from '../../components/InfoBox.astro';
+import ProsCons from '../../components/ProsCons.astro';
+import StepHeader from '../../components/StepHeader.astro';
+
+---
+
+<StepHeader number={1} title="Installa un Node Version Manager" />
 
 Usare un version manager per Node.js ti permette di gestire multiple versioni senza problemi di permessi. Su macOS hai due ottime opzioni:
 
 ### fnm (Consigliato)
 
-#### Installa fnm con Homebrew
-
 ```bash
+# Installa fnm con Homebrew
 brew install fnm
-```
 
-#### Configura la shell
-
-Aggiungi questa riga al tuo `~/.zshrc`:
-
-```bash
-eval "$(fnm env --use-on-cd)"
-```
-
-Oppure esegui questo comando per aggiungerla automaticamente:
-
-```bash
+# Configura la shell - aggiungi a ~/.zshrc
 echo 'eval "$(fnm env --use-on-cd)"' >> ~/.zshrc
 ```
 
-**Vantaggi di fnm:**
-
-- **Velocissimo** - Scritto in Rust, fnm e molto piu veloce di nvm
+<InfoBox type="success" title="Vantaggi di fnm">
+- **Velocissimo** - Scritto in Rust, molto più veloce di nvm
 - **Auto-switch** - Cambia versione automaticamente con .node-version
 - **Cross-platform** - Funziona identicamente su macOS, Linux e Windows
 - **Homebrew native** - Installazione e aggiornamenti semplici
+</InfoBox>
 
 ### nvm
 
-#### Installa nvm
-
 ```bash
+# Installa nvm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 ```
 
-Lo script aggiungerà automaticamente le righe necessarie al tuo `~/.zshrc`.
-
-**Vantaggi di nvm:**
-
-- **Standard de facto** - Il version manager Node.js piu usato
-- **Documentazione ampia** - Molto supporto online e community attiva
-- **Compatibile .nvmrc** - Supporta il file .nvmrc presente in molti progetti
-- **No dipendenze** - Non richiede Homebrew o altri tool
-
-> **Dopo l'installazione:** Chiudi e riapri il terminale, oppure esegui `source ~/.zshrc` per ricaricare la configurazione.
+<InfoBox type="info" title="Dopo l'installazione">
+Chiudi e riapri il terminale, oppure esegui `source ~/.zshrc` per ricaricare la configurazione.
+</InfoBox>
 
 ---
 
-## 2. Installa Node.js
+<StepHeader number={2} title="Installa Node.js" />
 
 Apri Terminal e installa la versione LTS (Long Term Support) di Node.js:
 
@@ -85,11 +71,13 @@ node --version
 npm --version
 ```
 
-> **Output atteso:** Dovresti vedere i numeri di versione, es. `v22.x.x` e `10.x.x`
+<InfoBox type="success" title="Output atteso">
+Dovresti vedere i numeri di versione, es. `v22.x.x` e `10.x.x`
+</InfoBox>
 
 ---
 
-## 3. Installa Claude Code
+<StepHeader number={3} title="Installa Claude Code" />
 
 Con npm disponibile, installa Claude Code globalmente:
 
@@ -103,15 +91,17 @@ npm install -g @anthropic-ai/claude-code
 claude --help
 ```
 
-> **Installazione completata:** Il comando `claude` e ora disponibile in qualsiasi finestra di Terminal.
+<InfoBox type="success" title="Installazione completata!">
+Il comando `claude` è ora disponibile in qualsiasi finestra di Terminal.
+</InfoBox>
 
 ---
 
-## 4. Primi passi con Claude Code
+<StepHeader number={4} title="Primi passi con Claude Code" />
 
 ### Autenticazione
 
-Al primo avvio, Claude Code ti chiedera di autenticarti con il tuo account Anthropic:
+Al primo avvio, Claude Code ti chiederà di autenticarti con il tuo account Anthropic:
 
 ```bash
 claude
@@ -137,8 +127,7 @@ claude --help
 
 ## Troubleshooting
 
-### "fnm" o "nvm" non riconosciuto
-
+<InfoBox type="warning" title="fnm o nvm non riconosciuto">
 Verifica che la configurazione sia presente nel tuo `~/.zshrc`:
 
 ```bash
@@ -146,30 +135,17 @@ cat ~/.zshrc | grep -E "(fnm|nvm)"
 ```
 
 Se non vedi output, ripeti il passo di configurazione della shell.
+</InfoBox>
 
-### "claude" non riconosciuto dopo l'installazione
-
+<InfoBox type="warning" title="claude non riconosciuto dopo l'installazione">
 Verifica che npm abbia installato correttamente:
 
 ```bash
 npm list -g @anthropic-ai/claude-code
 ```
 
-Se il pacchetto e presente, riavvia il terminale.
-
-### Errori di permessi con npm
-
-Se usi un version manager (fnm/nvm) non dovresti avere problemi di permessi. Se hai installato Node tramite Homebrew o dal sito ufficiale, potresti avere conflitti. Rimuovilo e usa fnm/nvm.
-
-### Conflitto con Node installato via Homebrew
-
-Se hai Node installato anche via Homebrew:
-
-```bash
-brew uninstall node
-```
-
-Poi reinstalla tramite fnm o nvm.
+Se il pacchetto è presente, riavvia il terminale.
+</InfoBox>
 
 ### Comandi utili per debug
 
@@ -183,9 +159,6 @@ fnm list
 # Verifica le versioni installate (nvm)
 nvm list
 
-# Verifica il PATH di npm
-npm config get prefix
-
 # Reinstalla Claude Code
 npm uninstall -g @anthropic-ai/claude-code
 npm install -g @anthropic-ai/claude-code
@@ -195,22 +168,12 @@ npm install -g @anthropic-ai/claude-code
 
 ## Aggiornamenti
 
-### Aggiornare Node.js
-
-#### Con fnm
+### Aggiornare Node.js (fnm)
 
 ```bash
 fnm install --lts
 fnm use lts-latest
 fnm default lts-latest
-```
-
-#### Con nvm
-
-```bash
-nvm install --lts
-nvm use --lts
-nvm alias default 'lts/*'
 ```
 
 ### Aggiornare Claude Code

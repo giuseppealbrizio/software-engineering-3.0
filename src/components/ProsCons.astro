@@ -1,0 +1,80 @@
+---
+interface Props {
+  pros: string[];
+  cons: string[];
+}
+
+const { pros, cons } = Astro.props;
+---
+
+<div class="pros-cons-grid">
+  <div class="pros">
+    <h4>✅ PRO</h4>
+    <ul>
+      {pros.map((pro) => <li>{pro}</li>)}
+    </ul>
+  </div>
+  <div class="cons">
+    <h4>❌ CONTRO</h4>
+    <ul>
+      {cons.map((con) => <li>{con}</li>)}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .pros-cons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .pros, .cons {
+    padding: 1.25rem;
+    border-radius: 8px;
+  }
+
+  .pros {
+    background: rgba(63, 185, 80, 0.1);
+    border-left: 4px solid var(--accent-green);
+  }
+
+  .cons {
+    background: rgba(248, 81, 73, 0.1);
+    border-left: 4px solid var(--accent-red);
+  }
+
+  .pros h4 {
+    color: var(--accent-green);
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+  }
+
+  .cons h4 {
+    color: var(--accent-red);
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.25rem;
+    list-style-type: disc;
+  }
+
+  li {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  li:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .pros-cons-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

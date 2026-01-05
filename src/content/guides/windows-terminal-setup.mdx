@@ -6,11 +6,14 @@ tag: "Tutorial"
 date: 2026-01-05
 ---
 
+import InfoBox from '../../components/InfoBox.astro';
+import StepHeader from '../../components/StepHeader.astro';
+
 Guida per configurare PowerShell 7 con autocompletamento, Oh My Posh e icone
 
-## 1. Installa PowerShell 7
+---
 
-Apri il terminale e lancia:
+<StepHeader number={1} title="Installa PowerShell 7" />
 
 ```powershell
 winget install Microsoft.PowerShell
@@ -18,7 +21,9 @@ winget install Microsoft.PowerShell
 
 Chiudi e riapri Windows Terminal. Ora vedrai "PowerShell" come nuovo profilo.
 
-## 2. Abilita esecuzione script
+---
+
+<StepHeader number={2} title="Abilita esecuzione script" />
 
 Apri PowerShell 7 **come amministratore** ed esegui:
 
@@ -28,7 +33,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 Conferma con `Y` quando richiesto.
 
-## 3. Installa Oh My Posh
+---
+
+<StepHeader number={3} title="Installa Oh My Posh" />
 
 ```powershell
 winget install JanDeDobbeleer.OhMyPosh
@@ -40,7 +47,9 @@ Testa che funzioni:
 oh-my-posh init pwsh | Invoke-Expression
 ```
 
-## 4. Installa un Nerd Font
+---
+
+<StepHeader number={4} title="Installa un Nerd Font" />
 
 Necessario per visualizzare le icone nel prompt:
 
@@ -50,16 +59,21 @@ oh-my-posh font install
 
 Scegli **CaskaydiaCove** o **FiraCode**.
 
-> **Configurazione Font**
-> Vai in Windows Terminal -> Settings -> Profiles -> Defaults -> Appearance -> Font face e seleziona il font installato (es. "CaskaydiaCove Nerd Font").
+<InfoBox type="info" title="Configurazione Font">
+Vai in Windows Terminal → Settings → Profiles → Defaults → Appearance → Font face e seleziona il font installato (es. "CaskaydiaCove Nerd Font").
+</InfoBox>
 
-## 5. Installa Terminal-Icons
+---
+
+<StepHeader number={5} title="Installa Terminal-Icons" />
 
 ```powershell
 Install-Module -Name Terminal-Icons -Repository PSGallery -Force
 ```
 
-## 6. Crea il file $PROFILE
+---
+
+<StepHeader number={6} title="Crea il file $PROFILE" />
 
 Questo file viene eseguito ad ogni avvio di PowerShell:
 
@@ -87,14 +101,14 @@ Import-Module Terminal-Icons
 
 Copia questo contenuto nel file e salva.
 
-## 7. Imposta PowerShell 7 come default
+---
+
+<StepHeader number={7} title="Imposta PowerShell 7 come default" />
 
 **In Windows Terminal:**
-
-Settings -> Startup -> Default profile -> seleziona "PowerShell"
+Settings → Startup → Default profile → seleziona "PowerShell"
 
 **In VS Code:**
-
 Apri settings.json e aggiungi:
 
 ```json
@@ -103,7 +117,9 @@ Apri settings.json e aggiungi:
 }
 ```
 
-## 8. Riavvia e verifica
+---
+
+<StepHeader number={8} title="Riavvia e verifica" />
 
 Chiudi tutto e riapri Windows Terminal. Verifica con:
 
@@ -115,11 +131,13 @@ $PSVersionTable.PSVersion
 Get-Module PSReadLine
 ```
 
-> **Troubleshooting**
-> Se PSReadLine non supporta `-PredictionSource`, aggiornalo manualmente:
-> ```powershell
-> Install-Module PSReadLine -Force -SkipPublisherCheck
-> ```
+<InfoBox type="warning" title="Troubleshooting">
+Se PSReadLine non supporta `-PredictionSource`, aggiornalo manualmente:
+
+```powershell
+Install-Module PSReadLine -Force -SkipPublisherCheck
+```
+</InfoBox>
 
 ---
 

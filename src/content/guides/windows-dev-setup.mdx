@@ -1,0 +1,249 @@
+---
+title: "Windows Dev Environment Setup"
+description: "Setup completo da zero: winget, Scoop, WSL2, Git, Node.js, Python, Docker e tools essenziali"
+icon: "🪟"
+tag: "Boilerplate"
+date: 2026-01-05
+---
+
+import InfoBox from '../../components/InfoBox.astro';
+import StepHeader from '../../components/StepHeader.astro';
+
+---
+
+## Indice
+
+1. [Windows Terminal & PowerShell](#1-windows-terminal--powershell)
+2. [Package Managers](#2-package-managers)
+3. [WSL2](#3-wsl2-windows-subsystem-for-linux)
+4. [Git & GitHub CLI](#4-git--github-cli)
+5. [Node.js (fnm)](#5-nodejs-con-fnm)
+6. [Python (pyenv-win + uv)](#6-python-con-pyenv-win--uv)
+7. [Editor & IDE](#7-editor--ide)
+8. [Docker](#8-docker)
+9. [Tools Extra](#9-tools-extra)
+
+---
+
+<StepHeader number={1} title="Windows Terminal & PowerShell" />
+
+```powershell
+# Installa Windows Terminal e PowerShell 7
+winget install Microsoft.WindowsTerminal
+winget install Microsoft.PowerShell
+```
+
+<InfoBox type="info" title="PowerShell 5 vs 7">
+Windows include PowerShell 5.1 di default. PowerShell 7 è la versione moderna, cross-platform e con più features. Usala!
+</InfoBox>
+
+### Oh My Posh (Prompt Moderno)
+
+```powershell
+winget install JanDeDobbeleer.OhMyPosh
+oh-my-posh font install FiraCode
+
+# Crea/modifica profilo PowerShell
+notepad $PROFILE
+```
+
+### Configura $PROFILE
+
+```powershell
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\catppuccin.omp.json" | Invoke-Expression
+
+# PSReadLine - Autocompletamento
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle ListView
+```
+
+---
+
+<StepHeader number={2} title="Package Managers" />
+
+| Manager | Pro | Quando Usarlo |
+|---------|-----|---------------|
+| **winget** | Integrato, ufficiale Microsoft | App GUI, software mainstream |
+| **Scoop** | Portable, no admin, CLI-focused | Dev tools, utilities CLI |
+| **Chocolatey** | Più pacchetti, maturo | Software legacy, enterprise |
+
+### winget (Pre-installato)
+
+```powershell
+winget search vscode
+winget install Microsoft.VisualStudioCode
+winget upgrade --all
+```
+
+### Scoop (Consigliato per Dev Tools)
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+
+scoop bucket add extras
+scoop bucket add nerd-fonts
+scoop install git curl wget jq ripgrep fzf
+```
+
+---
+
+<StepHeader number={3} title="WSL2 (Windows Subsystem for Linux)" />
+
+WSL2 ti permette di eseguire Linux nativamente su Windows. Essenziale per sviluppo web moderno.
+
+```powershell
+# PowerShell (Admin)
+wsl --install
+
+# Riavvia il PC, poi:
+wsl --version
+wsl --install -d Ubuntu-24.04
+```
+
+<InfoBox type="success" title="Integrazione VS Code">
+Installa l'estensione "WSL" in VS Code per editare file Linux direttamente. Usa `code .` da WSL per aprire VS Code.
+</InfoBox>
+
+### Accedi ai File
+
+```powershell
+# Da Windows ai file WSL:
+\\wsl$\Ubuntu\home\tuouser
+
+# Da WSL ai file Windows:
+/mnt/c/Users/TuoUser
+```
+
+---
+
+<StepHeader number={4} title="Git & GitHub CLI" />
+
+```powershell
+winget install Git.Git
+winget install GitHub.cli
+```
+
+### Configurazione Git
+
+```powershell
+git config --global user.name "Il Tuo Nome"
+git config --global user.email "tua@email.com"
+git config --global core.editor "code --wait"
+git config --global init.defaultBranch main
+git config --global core.autocrlf true  # Importante su Windows!
+```
+
+### SSH Key
+
+```powershell
+ssh-keygen -t ed25519 -C "tua@email.com"
+Get-Service ssh-agent | Set-Service -StartupType Automatic
+Start-Service ssh-agent
+ssh-add $env:USERPROFILE\.ssh\id_ed25519
+Get-Content $env:USERPROFILE\.ssh\id_ed25519.pub | Set-Clipboard
+```
+
+---
+
+<StepHeader number={5} title="Node.js con fnm" />
+
+```powershell
+winget install Schniz.fnm
+
+# Aggiungi al $PROFILE
+notepad $PROFILE
+# Inserisci: fnm env --use-on-cd --shell power-shell | Out-String | Invoke-Expression
+
+fnm install --lts
+fnm default lts-latest
+
+node --version
+npm --version
+
+# Package manager
+npm install -g pnpm
+```
+
+---
+
+<StepHeader number={6} title="Python con pyenv-win + uv" />
+
+```powershell
+# Con Scoop
+scoop install pyenv
+
+# Installa Python
+pyenv install 3.12.0
+pyenv global 3.12.0
+python --version
+
+# Installa uv
+scoop install uv
+
+# Comandi uv
+uv init mio-progetto
+uv add requests pandas
+uv run python main.py
+```
+
+---
+
+<StepHeader number={7} title="Editor & IDE" />
+
+```powershell
+winget install Microsoft.VisualStudioCode
+
+# Estensioni essenziali
+code --install-extension ms-python.python
+code --install-extension dbaeumer.vscode-eslint
+code --install-extension esbenp.prettier-vscode
+code --install-extension eamodio.gitlens
+code --install-extension github.copilot
+code --install-extension ms-vscode-remote.remote-wsl
+```
+
+---
+
+<StepHeader number={8} title="Docker" />
+
+```powershell
+winget install Docker.DockerDesktop
+```
+
+<InfoBox type="warning" title="Requisiti">
+- Windows 10/11 Pro, Enterprise o Education per Hyper-V
+- Su Windows Home, Docker usa WSL2 backend
+- Virtualizzazione abilitata nel BIOS
+</InfoBox>
+
+---
+
+<StepHeader number={9} title="Tools Extra" />
+
+```powershell
+scoop install curl wget jq yq tree bat eza ripgrep fzf tldr
+
+winget install Microsoft.PowerToys
+winget install voidtools.Everything
+```
+
+| Tool | Descrizione |
+|------|-------------|
+| `bat` | cat con syntax highlighting |
+| `eza` | ls moderno con icone |
+| `ripgrep` | grep velocissimo |
+| `fzf` | fuzzy finder |
+| **PowerToys** | Utilities Microsoft |
+| **Everything** | Ricerca file istantanea |
+
+### Export/Import Setup
+
+```powershell
+winget export -o winget-packages.json
+scoop export > scoop-packages.json
+
+# Su nuovo PC
+winget import -i winget-packages.json
+scoop import scoop-packages.json
+```

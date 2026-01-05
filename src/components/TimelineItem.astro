@@ -1,0 +1,75 @@
+---
+interface Props {
+  period: string;
+  title: string;
+}
+
+const { period, title } = Astro.props;
+---
+
+<div class="timeline-item">
+  <div class="timeline-marker"></div>
+  <div class="timeline-content">
+    <span class="period">{period}</span>
+    <h4>{title}</h4>
+    <div class="description">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<style>
+  .timeline-item {
+    position: relative;
+    padding-left: 2.5rem;
+    padding-bottom: 2rem;
+    border-left: 2px solid var(--border-color);
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+    border-left-color: transparent;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: -8px;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+    border-radius: 50%;
+    border: 2px solid var(--bg-primary);
+  }
+
+  .period {
+    display: inline-block;
+    background: rgba(88, 166, 255, 0.1);
+    color: var(--accent-blue);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  h4 {
+    color: var(--text-primary);
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+  }
+
+  .description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  .description :global(p) {
+    margin: 0.25rem 0;
+  }
+
+  .description :global(ul) {
+    margin: 0.5rem 0;
+    padding-left: 1.25rem;
+  }
+</style>

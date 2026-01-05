@@ -1,0 +1,222 @@
+---
+title: "GitHub CLI - Guida Completa"
+description: "Padroneggia gh: comandi essenziali, workflow, alias e integrazioni avanzate"
+icon: "🐙"
+tag: "Tutorial"
+date: 2026-01-05
+---
+
+import InfoBox from '../../components/InfoBox.astro';
+import StepHeader from '../../components/StepHeader.astro';
+
+---
+
+## Installazione
+
+### Windows
+
+```bash
+winget install GitHub.cli
+```
+
+<InfoBox type="info" title="Dopo l'installazione">
+Chiudi e riapri il terminale per aggiornare il PATH.
+</InfoBox>
+
+### macOS
+
+```bash
+brew install gh
+```
+
+---
+
+## Autenticazione
+
+```bash
+gh auth login
+```
+
+### Procedura guidata
+
+1. **Scegli l'host** - Seleziona `GitHub.com`
+2. **Protocollo preferito** - Scegli `HTTPS` (raccomandato) o `SSH`
+3. **Metodo di autenticazione** - Seleziona `Login with a web browser`
+4. **Copia il codice** - Incollalo nella pagina web che si apre
+
+### Verifica autenticazione
+
+```bash
+gh auth status
+```
+
+<InfoBox type="success" title="Output atteso">
+```
+github.com
+  ✓ Logged in to github.com as TUOUSERNAME
+  ✓ Git operations for github.com configured to use https protocol.
+```
+</InfoBox>
+
+---
+
+## Creare una nuova repository
+
+### Opzione 1: Crea repo e clona in locale
+
+```bash
+# Crea repo pubblica
+gh repo create nome-progetto --public --clone
+
+# Crea repo privata
+gh repo create nome-progetto --private --clone
+```
+
+### Opzione 2: Wizard interattivo
+
+```bash
+gh repo create
+```
+
+### Opzioni utili
+
+| Flag | Descrizione |
+|------|-------------|
+| `--public` | Repository pubblica |
+| `--private` | Repository privata |
+| `--clone` | Clona subito in locale |
+| `--description "testo"` | Aggiunge descrizione |
+| `--gitignore node` | Aggiunge .gitignore |
+| `--license mit` | Aggiunge licenza |
+
+### Esempio completo
+
+```bash
+gh repo create mio-progetto \
+  --public \
+  --clone \
+  --description "Il mio progetto Node.js" \
+  --gitignore node \
+  --license mit
+```
+
+---
+
+## Push di un progetto locale esistente
+
+<StepHeader number={1} title="Entra nella cartella del progetto" />
+
+```bash
+cd /percorso/al/tuo/progetto
+```
+
+<StepHeader number={2} title="Inizializza git (se non già fatto)" />
+
+```bash
+git init
+```
+
+<StepHeader number={3} title="Aggiungi e committa i file" />
+
+```bash
+git add .
+git commit -m "Initial commit"
+```
+
+<StepHeader number={4} title="Crea la repo su GitHub e collega" />
+
+```bash
+# Crea repo e imposta come remote
+gh repo create --source=. --public --push
+
+# Oppure con nome custom
+gh repo create nome-repo --source=. --private --push
+```
+
+<InfoBox type="success" title="Fatto!">
+Il comando `--push` fa automaticamente il push del branch corrente.
+</InfoBox>
+
+---
+
+## Comandi utili quotidiani
+
+### Repository
+
+| Comando | Descrizione |
+|---------|-------------|
+| `gh repo list` | Lista le tue repo |
+| `gh repo clone owner/repo` | Clona una repo |
+| `gh repo view` | Info sulla repo corrente |
+| `gh repo view --web` | Apre la repo nel browser |
+| `gh repo fork owner/repo --clone` | Forka e clona |
+
+### Pull Request
+
+| Comando | Descrizione |
+|---------|-------------|
+| `gh pr create` | Crea una PR (wizard) |
+| `gh pr list` | Lista PR aperte |
+| `gh pr view 123` | Dettagli PR #123 |
+| `gh pr checkout 123` | Checkout del branch PR |
+| `gh pr merge 123` | Mergia la PR |
+
+### Issues
+
+| Comando | Descrizione |
+|---------|-------------|
+| `gh issue create` | Crea una issue |
+| `gh issue list` | Lista issue aperte |
+| `gh issue view 42` | Dettagli issue #42 |
+| `gh issue close 42` | Chiude issue #42 |
+
+### Workflow (GitHub Actions)
+
+| Comando | Descrizione |
+|---------|-------------|
+| `gh run list` | Lista run recenti |
+| `gh run view` | Dettagli ultimo run |
+| `gh run watch` | Watch live del run |
+
+### Gist
+
+```bash
+gh gist create file.js --public     # Crea gist pubblico
+gh gist create file1.js file2.py    # Multipli file
+gh gist list                         # Lista i tuoi gist
+```
+
+---
+
+## Troubleshooting
+
+<InfoBox type="warning" title="gh non riconosciuto come comando">
+**Windows:** Chiudi e riapri il terminale. Se non basta, fai logout/login.
+
+**macOS:** Esegui `source ~/.zshrc` o riapri il terminale.
+</InfoBox>
+
+<InfoBox type="warning" title="Errore di autenticazione">
+Prova a riautenticarti:
+
+```bash
+gh auth logout
+gh auth login
+```
+</InfoBox>
+
+### Comandi di debug
+
+```bash
+gh auth status      # Stato autenticazione
+gh --version        # Versione installata
+gh config list      # Configurazione attuale
+
+# Aggiorna gh
+winget upgrade GitHub.cli   # Windows
+brew upgrade gh             # macOS
+```
+
+---
+
+**Documentazione ufficiale:** [cli.github.com/manual](https://cli.github.com/manual/)

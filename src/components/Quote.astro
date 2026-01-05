@@ -1,0 +1,72 @@
+---
+interface Props {
+  author?: string;
+  source?: string;
+}
+
+const { author, source } = Astro.props;
+---
+
+<blockquote class="quote-component">
+  <div class="quote-content">
+    <slot />
+  </div>
+  {(author || source) && (
+    <footer class="quote-footer">
+      {author && <cite class="author">— {author}</cite>}
+      {source && <span class="source">{source}</span>}
+    </footer>
+  )}
+</blockquote>
+
+<style>
+  .quote-component {
+    background: linear-gradient(135deg, rgba(88, 166, 255, 0.05), rgba(163, 113, 247, 0.05));
+    border-left: 4px solid var(--accent-purple);
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    position: relative;
+  }
+
+  .quote-component::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    font-size: 4rem;
+    color: var(--accent-purple);
+    opacity: 0.3;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  .quote-content {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  .quote-content :global(p) {
+    margin: 0;
+  }
+
+  .quote-footer {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .author {
+    color: var(--accent-blue);
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  .source {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+</style>

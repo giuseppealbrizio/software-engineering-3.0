@@ -1,0 +1,22 @@
+---
+interface Props {
+  version: string;
+}
+
+const { version } = Astro.props;
+---
+
+<span class="version-badge-component">{version}</span>
+
+<style>
+  .version-badge-component {
+    display: inline-block;
+    background: rgba(163, 113, 247, 0.2);
+    color: var(--accent-purple);
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 0.5rem 0;
+  }
+</style>

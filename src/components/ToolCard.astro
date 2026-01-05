@@ -1,0 +1,76 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  pricing?: string;
+}
+
+const { title, subtitle, pricing } = Astro.props;
+---
+
+<div class="tool-card-component">
+  <h4>{title}</h4>
+  {subtitle && <p class="subtitle">{subtitle}</p>}
+  {pricing && <div class="pricing">{pricing}</div>}
+  <div class="content">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .tool-card-component {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.25rem 0;
+    transition: all 0.3s ease;
+  }
+
+  .tool-card-component:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  h4 {
+    color: var(--accent-blue);
+    margin: 0 0 0.5rem 0;
+    font-size: 1.2rem;
+  }
+
+  .subtitle {
+    color: var(--accent-purple);
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    font-size: 0.95rem;
+  }
+
+  .pricing {
+    display: inline-block;
+    background: rgba(210, 153, 34, 0.15);
+    color: var(--accent-orange);
+    padding: 0.3rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .content {
+    color: var(--text-secondary);
+  }
+
+  .content :global(p) {
+    margin: 0.5rem 0;
+  }
+
+  .content :global(ul) {
+    margin: 0.5rem 0;
+    padding-left: 1.25rem;
+  }
+
+  .content :global(li) {
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+  }
+</style>

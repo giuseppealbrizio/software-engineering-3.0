@@ -1,0 +1,35 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+---
+
+<ul class="checklist-component">
+  {items.map((item) => <li>{item}</li>)}
+</ul>
+
+<style>
+  .checklist-component {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+  }
+
+  li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+  }
+
+  li::before {
+    content: "☐";
+    position: absolute;
+    left: 0;
+    color: var(--accent-purple);
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+</style>

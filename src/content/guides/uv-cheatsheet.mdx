@@ -6,7 +6,11 @@ tag: "Cheatsheet"
 date: 2026-01-05
 ---
 
+import InfoBox from '../../components/InfoBox.astro';
+
 Il gestore Python ultrarapido scritto in Rust
+
+---
 
 ## Gestione Progetti
 
@@ -19,6 +23,8 @@ Il gestore Python ultrarapido scritto in Rust
 | `uv run script.py` | Esegue script |
 | `uv run pytest` | Esegue comando nel venv |
 
+---
+
 ## Dipendenze
 
 | Comando | Descrizione |
@@ -29,6 +35,8 @@ Il gestore Python ultrarapido scritto in Rust
 | `uv add --group test pytest` | In gruppo specifico |
 | `uv remove requests` | Rimuove dipendenza |
 | `uv tree` | Albero dipendenze |
+
+---
 
 ## Gestione Python
 
@@ -41,6 +49,8 @@ Il gestore Python ultrarapido scritto in Rust
 | `uv python pin 3.12` | Fissa per progetto |
 | `uv python find` | Trova interprete attivo |
 
+---
+
 ## Ambienti Virtuali
 
 | Comando | Descrizione |
@@ -49,7 +59,9 @@ Il gestore Python ultrarapido scritto in Rust
 | `uv venv --python 3.11` | Con versione specifica |
 | `uv venv myenv` | Nome personalizzato |
 
-## Modalita pip (senza progetto)
+---
+
+## Modalità pip (senza progetto)
 
 | Comando | Descrizione |
 |---------|-------------|
@@ -59,6 +71,8 @@ Il gestore Python ultrarapido scritto in Rust
 | `uv pip list` | Lista pacchetti |
 | `uv pip freeze` | Output requirements |
 | `uv pip compile req.in` | Genera lockfile |
+
+---
 
 ## Tool Globali
 
@@ -70,12 +84,16 @@ Il gestore Python ultrarapido scritto in Rust
 | `uv tool uninstall ruff` | Rimuove tool |
 | `uvx ruff check .` | Esegue senza installare |
 
+---
+
 ## Script Standalone
 
 | Comando | Descrizione |
 |---------|-------------|
 | `uv run --with requests script.py` | Con dipendenza temp |
 | `uv add --script script.py requests` | Dipendenza inline |
+
+---
 
 ## Cache e Manutenzione
 
@@ -86,16 +104,22 @@ Il gestore Python ultrarapido scritto in Rust
 | `uv cache dir` | Mostra path cache |
 | `uv self update` | Aggiorna uv |
 
+---
+
 ## Modello Mentale
 
+<InfoBox type="highlight" title="Come Pensare a uv">
 - `uv python ...` - gestione interpreti Python
 - `uv add/remove` - dipendenze del progetto
 - `uv run` - esegui qualsiasi cosa nel contesto del progetto
 - `uv tool` - CLI globali (ruff, black, mypy...)
-- `uv pip` - modalita classica compatibile pip
+- `uv pip` - modalità classica compatibile pip
+</InfoBox>
 
-> **Tip:** `uv run` crea automaticamente il venv se non esiste e installa le dipendenze.
-> E il modo piu semplice per lavorare: basta `uv run python script.py` e sei operativo.
+<InfoBox type="success" title="Tip">
+`uv run` crea automaticamente il venv se non esiste e installa le dipendenze.
+È il modo più semplice per lavorare: basta `uv run python script.py` e sei operativo.
+</InfoBox>
 
 ---
 

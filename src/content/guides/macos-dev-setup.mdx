@@ -1,0 +1,273 @@
+---
+title: "macOS Dev Environment Setup"
+description: "Setup completo da zero: Homebrew, Git, Node.js, Python, Docker e tutti i tools essenziali"
+icon: "🍎"
+tag: "Boilerplate"
+date: 2026-01-05
+---
+
+import InfoBox from '../../components/InfoBox.astro';
+import StepHeader from '../../components/StepHeader.astro';
+import ToolCard from '../../components/ToolCard.astro';
+
+---
+
+## Indice
+
+1. [Homebrew](#1-homebrew---package-manager)
+2. [Terminal & Shell](#2-terminal--shell)
+3. [Git & GitHub CLI](#3-git--github-cli)
+4. [Node.js (fnm)](#4-nodejs-con-fnm)
+5. [Python (pyenv + uv)](#5-python-con-pyenv--uv)
+6. [Editor & IDE](#6-editor--ide)
+7. [Docker](#7-docker)
+8. [Tools Extra](#8-tools-extra)
+9. [Backup Dotfiles](#9-backup-dotfiles)
+
+---
+
+<StepHeader number={1} title="Homebrew - Package Manager" />
+
+Homebrew è il package manager essenziale per macOS. Installa tutto il resto.
+
+```bash
+# Installa Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Configurazione PATH (Apple Silicon - M1/M2/M3)
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
+<InfoBox type="info" title="Intel vs Apple Silicon">
+Su Mac Intel, Homebrew si installa in `/usr/local`. Su Apple Silicon (M1/M2/M3) in `/opt/homebrew`.
+</InfoBox>
+
+### Comandi Essenziali
+
+```bash
+brew update && brew upgrade    # Aggiorna tutto
+brew search nome-pacchetto     # Cerca un pacchetto
+brew install nome-pacchetto    # Installa
+brew install --cask nome-app   # Installa app GUI
+brew list                      # Lista installati
+brew cleanup                   # Pulizia
+```
+
+---
+
+<StepHeader number={2} title="Terminal & Shell" />
+
+### iTerm2 + Oh My Zsh
+
+```bash
+# iTerm2
+brew install --cask iterm2
+
+# Oh My Zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# Plugin essenziali
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+### Configura ~/.zshrc
+
+```bash
+# Modifica la riga plugins
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+```
+
+### Font Nerd Fonts
+
+```bash
+brew tap homebrew/cask-fonts
+brew install --cask font-fira-code-nerd-font
+brew install --cask font-jetbrains-mono-nerd-font
+```
+
+---
+
+<StepHeader number={3} title="Git & GitHub CLI" />
+
+```bash
+brew install git gh
+```
+
+### Configurazione Git
+
+```bash
+git config --global user.name "Il Tuo Nome"
+git config --global user.email "tua@email.com"
+git config --global core.editor "code --wait"
+git config --global init.defaultBranch main
+
+# Alias utili
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.st status
+git config --global alias.lg "log --oneline --graph --all"
+```
+
+### GitHub CLI Login
+
+```bash
+gh auth login
+gh auth status
+```
+
+### SSH Key
+
+```bash
+ssh-keygen -t ed25519 -C "tua@email.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+pbcopy < ~/.ssh/id_ed25519.pub
+# Aggiungi su GitHub: Settings -> SSH Keys -> New
+```
+
+---
+
+<StepHeader number={4} title="Node.js con fnm" />
+
+**fnm** (Fast Node Manager) è il version manager consigliato per Node.js. Più veloce di nvm.
+
+```bash
+brew install fnm
+
+# Aggiungi a ~/.zshrc
+echo 'eval "$(fnm env --use-on-cd --shell zsh)"' >> ~/.zshrc
+source ~/.zshrc
+
+# Installa Node.js
+fnm install --lts
+fnm default lts-latest
+
+# Verifica
+node --version
+npm --version
+```
+
+### Package Manager Globali
+
+```bash
+npm install -g pnpm   # pnpm (consigliato)
+npm install -g yarn   # yarn
+```
+
+---
+
+<StepHeader number={5} title="Python con pyenv + uv" />
+
+```bash
+# Installa pyenv
+brew install pyenv
+
+# Aggiungi a ~/.zshrc
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+source ~/.zshrc
+
+# Installa Python
+pyenv install 3.12
+pyenv global 3.12
+python --version
+```
+
+### Installa uv (Package Manager Veloce)
+
+```bash
+brew install uv
+
+# Comandi essenziali
+uv init mio-progetto      # Crea nuovo progetto
+uv add requests pandas    # Aggiungi dipendenze
+uv run python main.py     # Esegui script
+```
+
+---
+
+<StepHeader number={6} title="Editor & IDE" />
+
+```bash
+brew install --cask visual-studio-code
+
+# Estensioni essenziali
+code --install-extension ms-python.python
+code --install-extension dbaeumer.vscode-eslint
+code --install-extension esbenp.prettier-vscode
+code --install-extension bradlc.vscode-tailwindcss
+code --install-extension eamodio.gitlens
+code --install-extension github.copilot
+```
+
+### Altri Editor
+
+```bash
+brew install --cask cursor           # Cursor (VS Code + AI)
+brew install --cask jetbrains-toolbox # JetBrains
+```
+
+---
+
+<StepHeader number={7} title="Docker" />
+
+```bash
+brew install --cask docker
+```
+
+<InfoBox type="info" title="Alternativa Leggera">
+Per un'alternativa più leggera a Docker Desktop, considera **Colima**:
+
+```bash
+brew install colima docker
+colima start
+```
+</InfoBox>
+
+---
+
+<StepHeader number={8} title="Tools Extra" />
+
+### CLI Utilities
+
+```bash
+brew install wget curl jq yq tree htop bat eza ripgrep fzf tldr
+```
+
+| Tool | Descrizione | Sostituisce |
+|------|-------------|-------------|
+| `bat` | cat con syntax highlighting | cat |
+| `eza` | ls moderno con icone e git | ls |
+| `ripgrep` | grep velocissimo | grep |
+| `fzf` | fuzzy finder interattivo | - |
+| `tldr` | man pages semplificati | man |
+
+### App GUI Utili
+
+```bash
+brew install --cask raycast rectangle alt-tab stats hiddenbar
+```
+
+---
+
+<StepHeader number={9} title="Backup Dotfiles" />
+
+```bash
+# Esporta lista pacchetti
+brew bundle dump --file=~/dotfiles/Brewfile --force
+
+# Copia configurazioni
+cp ~/.zshrc ~/dotfiles/
+cp ~/.gitconfig ~/dotfiles/
+```
+
+<InfoBox type="success" title="Quick Start - Ripristino">
+Dopo aver installato Homebrew e creato un Brewfile, puoi ripristinare tutto con:
+
+```bash
+brew bundle install --file=~/Brewfile
+```
+</InfoBox>

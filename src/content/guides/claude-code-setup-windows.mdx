@@ -6,7 +6,12 @@ tag: "Tutorial"
 date: 2026-01-05
 ---
 
-## 1. Installa nvm-windows
+import InfoBox from '../../components/InfoBox.astro';
+import StepHeader from '../../components/StepHeader.astro';
+
+---
+
+<StepHeader number={1} title="Installa nvm-windows" />
 
 nvm-windows è un version manager per Node.js che permette di installare e gestire multiple versioni di Node senza problemi di permessi.
 
@@ -22,18 +27,18 @@ Scarica `nvm-setup.exe` dall'ultima release:
 - Accetta le opzioni di default
 - Chiudi e riapri il terminale dopo l'installazione
 
-### Vantaggi di nvm-windows
-
+<InfoBox type="success" title="Vantaggi di nvm-windows">
 | Vantaggio | Descrizione |
 |-----------|-------------|
 | **Multiple versioni** | Switcha tra Node 18, 20, 22 a seconda del progetto |
 | **Niente admin** | Installa pacchetti globali senza permessi elevati |
 | **Aggiornamenti puliti** | Un comando per aggiornare Node |
 | **Rollback facile** | Torna alla versione precedente se qualcosa si rompe |
+</InfoBox>
 
 ---
 
-## 2. Installa Node.js
+<StepHeader number={2} title="Installa Node.js" />
 
 Apri PowerShell e installa la versione LTS (Long Term Support) di Node.js:
 
@@ -49,11 +54,13 @@ node --version
 npm --version
 ```
 
-> **Output atteso:** Dovresti vedere i numeri di versione, es. `v22.x.x` e `10.x.x`
+<InfoBox type="success" title="Output atteso">
+Dovresti vedere i numeri di versione, es. `v22.x.x` e `10.x.x`
+</InfoBox>
 
 ---
 
-## 3. Installa Claude Code
+<StepHeader number={3} title="Installa Claude Code" />
 
 Con npm disponibile, installa Claude Code globalmente:
 
@@ -67,11 +74,13 @@ npm install -g @anthropic-ai/claude-code
 claude --help
 ```
 
-> **Installazione completata:** Il comando `claude` è ora disponibile in qualsiasi terminale.
+<InfoBox type="success" title="Installazione completata!">
+Il comando `claude` è ora disponibile in qualsiasi terminale.
+</InfoBox>
 
 ---
 
-## 4. Primi passi con Claude Code
+<StepHeader number={4} title="Primi passi con Claude Code" />
 
 ### Autenticazione
 
@@ -101,12 +110,11 @@ claude --help
 
 ## Troubleshooting
 
-### "nvm" non riconosciuto
-
+<InfoBox type="warning" title="nvm non riconosciuto">
 Chiudi completamente il terminale e riaprilo. Se non funziona, prova a fare logout/login da Windows.
+</InfoBox>
 
-### "claude" non riconosciuto dopo l'installazione
-
+<InfoBox type="warning" title="claude non riconosciuto dopo l'installazione">
 Verifica che npm abbia installato correttamente:
 
 ```powershell
@@ -114,10 +122,7 @@ npm list -g @anthropic-ai/claude-code
 ```
 
 Se il pacchetto è presente, riavvia il terminale.
-
-### Errori di permessi
-
-Con nvm-windows non dovresti avere problemi di permessi. Se ne hai, verifica di non aver installato Node anche tramite l'installer ufficiale (può creare conflitti).
+</InfoBox>
 
 ### Comandi utili per debug
 
