@@ -1,16 +1,17 @@
 {
   "name": "software-engineering-3.0",
   "type": "module",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",
-    "astro": "^5.16.6"
+    "astro": "^5.16.6",
+    "pagefind": "^1.4.0"
   }
 }
