@@ -27,7 +27,7 @@ const base = import.meta.env.BASE_URL;
         title={article.data.title}
         description={article.data.description}
         icon={article.data.icon}
-        href={`${base}articles/${article.slug}`}
+        href={`${base}/articles/${article.slug}`}
         type="article"
         tag={article.data.tag}
       />
@@ -38,7 +38,7 @@ const base = import.meta.env.BASE_URL;
         title={guide.data.title}
         description={guide.data.description}
         icon={guide.data.icon}
-        href={`${base}guides/${guide.slug}`}
+        href={`${base}/guides/${guide.slug}`}
         type="guide"
         tag={guide.data.tag}
       />
@@ -49,12 +49,12 @@ const base = import.meta.env.BASE_URL;
     <h2>Setup Automation</h2>
     <p>Configura il tuo ambiente di sviluppo automaticamente con Claude Code.</p>
     <div class="setup-cards">
-      <a href={`${base}setup/macos.md`} class="setup-card">
+      <a href={`${base}/setup/macos.md`} class="setup-card">
         <span class="setup-icon">🍎</span>
         <span class="setup-title">macOS Setup</span>
         <span class="setup-desc">Homebrew, Node, Python, Docker</span>
       </a>
-      <a href={`${base}setup/windows.md`} class="setup-card">
+      <a href={`${base}/setup/windows.md`} class="setup-card">
         <span class="setup-icon">🪟</span>
         <span class="setup-title">Windows Setup</span>
         <span class="setup-desc">winget, Scoop, WSL2, Node, Python</span>
