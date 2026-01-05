@@ -20,8 +20,8 @@ npm run preview    # Preview build di produzione
 ```
 src/
 ├── content/
-│   ├── articles/    # Articoli in Markdown
-│   └── guides/      # Guide in Markdown
+│   ├── articles/    # Articoli in MDX
+│   └── guides/      # Guide in MDX
 ├── pages/           # Route Astro
 ├── layouts/         # Layout riutilizzabili
 ├── components/      # Componenti Astro
@@ -35,25 +35,25 @@ legacy-html/         # Versioni HTML originali (retrocompatibilità)
 
 | Articolo | Descrizione |
 |----------|-------------|
-| [ai-developer-paradigm](src/content/articles/ai-developer-paradigm.md) | Il Nuovo Paradigma dello Sviluppatore AI |
-| [ai-developer-paradigm-python](src/content/articles/ai-developer-paradigm-python.md) | Il Nuovo Paradigma - Python Edition |
-| [ai-developer-roadmap-2026](src/content/articles/ai-developer-roadmap-2026.md) | Roadmap AI Developer 2026 |
-| [ai-jobs-overview-2026](src/content/articles/ai-jobs-overview-2026.md) | AI, Lavoro e Futuro dei Programmatori |
-| [memory-war-enterprise](src/content/articles/memory-war-enterprise.md) | The Memory War That Will Define AI |
-| [python-fundamentals-to-generative](src/content/articles/python-fundamentals-to-generative.md) | Da Python Fundamentals a Generative Programming |
-| [welcome-to-the-machine-analysis](src/content/articles/welcome-to-the-machine-analysis.md) | Welcome to the Machine - Analisi |
+| [ai-developer-paradigm](src/content/articles/ai-developer-paradigm.mdx) | Il Nuovo Paradigma dello Sviluppatore AI |
+| [ai-developer-paradigm-python](src/content/articles/ai-developer-paradigm-python.mdx) | Il Nuovo Paradigma - Python Edition |
+| [ai-developer-roadmap-2026](src/content/articles/ai-developer-roadmap-2026.mdx) | Roadmap AI Developer 2026 |
+| [ai-jobs-overview-2026](src/content/articles/ai-jobs-overview-2026.mdx) | AI, Lavoro e Futuro dei Programmatori |
+| [memory-war-enterprise](src/content/articles/memory-war-enterprise.mdx) | The Memory War That Will Define AI |
+| [python-fundamentals-to-generative](src/content/articles/python-fundamentals-to-generative.mdx) | Da Python Fundamentals a Generative Programming |
+| [welcome-to-the-machine-analysis](src/content/articles/welcome-to-the-machine-analysis.mdx) | Welcome to the Machine - Analisi |
 
 ## Guide
 
 | Guida | Descrizione |
 |-------|-------------|
-| [macos-dev-setup](src/content/guides/macos-dev-setup.md) | macOS Dev Environment Setup |
-| [windows-dev-setup](src/content/guides/windows-dev-setup.md) | Windows Dev Environment Setup |
-| [claude-code-setup-macos](src/content/guides/claude-code-setup-macos.md) | Installazione Claude Code su macOS |
-| [claude-code-setup-windows](src/content/guides/claude-code-setup-windows.md) | Installazione Claude Code su Windows |
-| [github-cli-guide](src/content/guides/github-cli-guide.md) | GitHub CLI - Guida Completa |
-| [uv-cheatsheet](src/content/guides/uv-cheatsheet.md) | UV Cheatsheet |
-| [windows-terminal-setup](src/content/guides/windows-terminal-setup.md) | Windows Terminal Setup |
+| [macos-dev-setup](src/content/guides/macos-dev-setup.mdx) | macOS Dev Environment Setup |
+| [windows-dev-setup](src/content/guides/windows-dev-setup.mdx) | Windows Dev Environment Setup |
+| [claude-code-setup-macos](src/content/guides/claude-code-setup-macos.mdx) | Installazione Claude Code su macOS |
+| [claude-code-setup-windows](src/content/guides/claude-code-setup-windows.mdx) | Installazione Claude Code su Windows |
+| [github-cli-guide](src/content/guides/github-cli-guide.mdx) | GitHub CLI - Guida Completa |
+| [uv-cheatsheet](src/content/guides/uv-cheatsheet.mdx) | UV Cheatsheet |
+| [windows-terminal-setup](src/content/guides/windows-terminal-setup.mdx) | Windows Terminal Setup |
 
 ## Setup Automazione (Claude Code)
 
@@ -69,10 +69,16 @@ File di contesto per automatizzare il setup dell'ambiente di sviluppo con Claude
 ## Tech Stack
 
 - **[Astro](https://astro.build/)** - Framework per siti statici
-- **Content Collections** - Gestione contenuti Markdown con schema Zod
+- **MDX** - Markdown con componenti Astro
+- **Content Collections** - Gestione contenuti con schema Zod
 - **GitHub Pages** - Hosting statico
 
 ## Changelog
+
+### v2.1.0 - 2026-01-05
+- Convertiti tutti i contenuti da Markdown a MDX
+- Aggiunti 11 componenti Astro per styling avanzato (InfoBox, ProsCons, Quote, etc.)
+- Styling visuale migliorato con box colorati, griglie, timeline
 
 ### v2.0.0 - 2026-01-05
 - Migrazione completa ad Astro framework

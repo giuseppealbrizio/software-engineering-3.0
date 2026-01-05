@@ -7,7 +7,7 @@ Thank you for your interest in contributing! This guide will help you get starte
 - **New articles** - Analysis, insights on AI/dev world
 - **New guides** - Tutorials, setup guides, cheatsheets
 - **Improvements** - Corrections, updates, translations
-- **Bug fixes** - HTML/CSS/JS errors
+- **Bug fixes** - Code/styling errors
 
 ## Before You Start
 
@@ -23,6 +23,7 @@ Thank you for your interest in contributing! This guide will help you get starte
 # Fork via GitHub UI, then:
 git clone https://github.com/YOUR-USERNAME/software-engineering-3.0.git
 cd software-engineering-3.0
+npm install
 ```
 
 ### 2. Create a Branch
@@ -36,64 +37,70 @@ git checkout -b article/llm-analysis-2026
 
 ### 3. Make Your Changes
 
-#### For new articles (`articles/`)
-- Use `kebab-case.html` naming
-- Copy styling from an existing article (dark theme)
-- Include "Back to Home" link in footer
+#### For new articles (`src/content/articles/`)
+- Use `kebab-case.mdx` naming
+- Include required frontmatter (see below)
+- Use Astro components for styling
 
-#### For new guides (`guides/`)
-- Use `kebab-case.html` naming
+#### For new guides (`src/content/guides/`)
+- Use `kebab-case.mdx` naming
 - Follow existing guide structure
 - Include TOC for longer guides
 
-#### Recommended HTML Structure
-```html
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Title - Software Engineering 3.0</title>
-    <style>
-        /* Copy existing dark theme styles */
-    </style>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <span class="badge">ARTICLE/GUIDE</span>
-            <h1>Title</h1>
-        </header>
+#### Required Frontmatter
 
-        <!-- Content -->
-
-        <footer>
-            <p><a href="../index.html">← Back to Home</a></p>
-        </footer>
-    </div>
-</body>
-</html>
+```yaml
+---
+title: "Your Title"
+description: "Brief description shown on cards"
+icon: "🎯"           # Emoji icon
+tag: "Category"      # Optional: Analisi, Tutorial, Cheatsheet, etc.
+date: 2026-01-05     # Optional
+---
 ```
 
-### 4. Update index.html and README
+#### Available Components
 
-- Add the card in `index.html` in the appropriate section
-- Add the row in `README.md` table
-- **DO NOT** modify the Changelog (maintainer will do it)
+Import components at the top of your MDX file:
 
-### 5. Test Locally
+```mdx
+import InfoBox from '../../components/InfoBox.astro';
+import ProsCons from '../../components/ProsCons.astro';
+import Quote from '../../components/Quote.astro';
+import StepHeader from '../../components/StepHeader.astro';
+```
+
+Example usage:
+
+```mdx
+<InfoBox type="info" title="Note">
+Content here...
+</InfoBox>
+
+<ProsCons
+  pros={["Pro 1", "Pro 2"]}
+  cons={["Con 1", "Con 2"]}
+/>
+```
+
+### 4. Test Locally
 
 ```bash
-# Open index.html in browser
-open index.html  # macOS
-start index.html # Windows
+npm run dev   # Start dev server at localhost:4321
 ```
 
 Verify:
+- [ ] Page renders without errors
 - [ ] Links work correctly
 - [ ] Style is consistent with the rest of the site
 - [ ] Responsive on mobile
-- [ ] No browser console errors
+
+### 5. Build and Verify
+
+```bash
+npm run build    # Generate static site
+npm run preview  # Preview production build
+```
 
 ### 6. Commit and Push
 
