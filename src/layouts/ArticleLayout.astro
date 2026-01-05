@@ -22,7 +22,7 @@ const base = import.meta.env.BASE_URL;
 </head>
 <body>
   <div class="container">
-    <header class="article-header">
+    <header class="article-header" data-pagefind-ignore>
       <span class={`badge badge-${category}`}>
         {category === 'article' ? 'ARTICOLO' : 'GUIDA'}
       </span>
@@ -30,7 +30,8 @@ const base = import.meta.env.BASE_URL;
       <p class="tagline">{description}</p>
     </header>
 
-    <article class="article-content">
+    <article class="article-content" data-pagefind-body>
+      <span data-pagefind-meta="title" style="display:none;">{title}</span>
       <slot />
     </article>
 

@@ -1,0 +1,131 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<div class="search-container">
+  <div id="search"></div>
+</div>
+
+<link href={`${base}/pagefind/pagefind-ui.css`} rel="stylesheet" />
+<script is:inline define:vars={{ base }}>
+  window.addEventListener('DOMContentLoaded', () => {
+    const script = document.createElement('script');
+    script.src = `${base}/pagefind/pagefind-ui.js`;
+    script.onload = () => {
+      new PagefindUI({
+        element: '#search',
+        showSubResults: true,
+        showImages: false,
+        translations: {
+          placeholder: 'Cerca articoli e guide...',
+          zero_results: 'Nessun risultato per "[SEARCH_TERM]"',
+          many_results: '[COUNT] risultati per "[SEARCH_TERM]"',
+          one_result: '1 risultato per "[SEARCH_TERM]"',
+          clear_search: 'Cancella',
+          load_more: 'Carica altri risultati',
+        },
+        baseUrl: base
+      });
+    };
+    document.head.appendChild(script);
+  });
+</script>
+
+<style>
+  .search-container {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+
+  :global(.pagefind-ui) {
+    --pagefind-ui-scale: 1;
+    --pagefind-ui-primary: #6366f1;
+    --pagefind-ui-text: #f1f5f9;
+    --pagefind-ui-background: #1e293b;
+    --pagefind-ui-border: #334155;
+    --pagefind-ui-tag: #334155;
+    --pagefind-ui-border-width: 1px;
+    --pagefind-ui-border-radius: 8px;
+    --pagefind-ui-font: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  :global(.pagefind-ui__search-input) {
+    background: var(--pagefind-ui-background) !important;
+    color: var(--pagefind-ui-text) !important;
+    border: 1px solid var(--pagefind-ui-border) !important;
+    padding: 0.75rem 1rem 0.75rem 2.5rem !important;
+    font-size: 1rem !important;
+  }
+
+  :global(.pagefind-ui__search-input::placeholder) {
+    color: #64748b !important;
+  }
+
+  :global(.pagefind-ui__search-input:focus) {
+    border-color: var(--pagefind-ui-primary) !important;
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+  }
+
+  :global(.pagefind-ui__search-clear) {
+    color: #64748b !important;
+    background: transparent !important;
+  }
+
+  :global(.pagefind-ui__results-area) {
+    margin-top: 1rem;
+  }
+
+  :global(.pagefind-ui__result) {
+    background: var(--pagefind-ui-background) !important;
+    border: 1px solid var(--pagefind-ui-border) !important;
+    border-radius: 8px !important;
+    padding: 1rem !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  :global(.pagefind-ui__result:hover) {
+    border-color: var(--pagefind-ui-primary) !important;
+  }
+
+  :global(.pagefind-ui__result-link) {
+    color: var(--pagefind-ui-primary) !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+  }
+
+  :global(.pagefind-ui__result-link:hover) {
+    text-decoration: underline !important;
+  }
+
+  :global(.pagefind-ui__result-title) {
+    color: var(--pagefind-ui-text) !important;
+  }
+
+  :global(.pagefind-ui__result-excerpt) {
+    color: #94a3b8 !important;
+    font-size: 0.9rem !important;
+  }
+
+  :global(.pagefind-ui__result-excerpt mark) {
+    background: rgba(99, 102, 241, 0.3) !important;
+    color: var(--pagefind-ui-text) !important;
+  }
+
+  :global(.pagefind-ui__message) {
+    color: #94a3b8 !important;
+  }
+
+  :global(.pagefind-ui__button) {
+    background: var(--pagefind-ui-primary) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 0.5rem 1rem !important;
+    cursor: pointer !important;
+  }
+
+  :global(.pagefind-ui__button:hover) {
+    opacity: 0.9 !important;
+  }
+</style>
