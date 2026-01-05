@@ -6,93 +6,146 @@ tag: "Tutorial"
 date: 2026-01-05
 ---
 
-## Prerequisiti
+## 1. Installa nvm-windows
 
-- Windows 10/11
-- Node.js 18+
-- Account Anthropic con API key
+nvm-windows è un version manager per Node.js che permette di installare e gestire multiple versioni di Node senza problemi di permessi.
 
-## 1. Installa Node.js
+### Download
 
-### Opzione A: fnm (consigliato)
+Scarica `nvm-setup.exe` dall'ultima release:
+
+[github.com/coreybutler/nvm-windows/releases](https://github.com/coreybutler/nvm-windows/releases)
+
+### Installazione
+
+- Esegui `nvm-setup.exe`
+- Accetta le opzioni di default
+- Chiudi e riapri il terminale dopo l'installazione
+
+### Vantaggi di nvm-windows
+
+| Vantaggio | Descrizione |
+|-----------|-------------|
+| **Multiple versioni** | Switcha tra Node 18, 20, 22 a seconda del progetto |
+| **Niente admin** | Installa pacchetti globali senza permessi elevati |
+| **Aggiornamenti puliti** | Un comando per aggiornare Node |
+| **Rollback facile** | Torna alla versione precedente se qualcosa si rompe |
+
+---
+
+## 2. Installa Node.js
+
+Apri PowerShell e installa la versione LTS (Long Term Support) di Node.js:
 
 ```powershell
-# Installa fnm
-winget install Schniz.fnm
-
-# Configura PowerShell profile
-notepad $PROFILE
-# Aggiungi:
-# fnm env --use-on-cd --shell power-shell | Out-String | Invoke-Expression
-
-# Riavvia PowerShell, poi:
-fnm install --lts
-fnm default lts-latest
-```
-
-### Opzione B: nvm-windows
-
-```powershell
-winget install CoreyButler.NVMforWindows
-# Riavvia PowerShell
 nvm install lts
 nvm use lts
 ```
 
-## 2. Installa Claude Code
+### Verifica l'installazione
+
+```powershell
+node --version
+npm --version
+```
+
+> **Output atteso:** Dovresti vedere i numeri di versione, es. `v22.x.x` e `10.x.x`
+
+---
+
+## 3. Installa Claude Code
+
+Con npm disponibile, installa Claude Code globalmente:
 
 ```powershell
 npm install -g @anthropic-ai/claude-code
 ```
 
-## 3. Configura API Key
+### Verifica l'installazione
 
 ```powershell
-# Temporanea (sessione corrente)
-$env:ANTHROPIC_API_KEY = "sk-ant-..."
-
-# Persistente (utente)
-[Environment]::SetEnvironmentVariable("ANTHROPIC_API_KEY", "sk-ant-...", "User")
-# Riavvia PowerShell
-```
-
-## 4. Verifica Installazione
-
-```powershell
-claude --version
 claude --help
 ```
 
-## 5. Primo Utilizzo
+> **Installazione completata:** Il comando `claude` è ora disponibile in qualsiasi terminale.
+
+---
+
+## 4. Primi passi con Claude Code
+
+### Autenticazione
+
+Al primo avvio, Claude Code ti chiederà di autenticarti con il tuo account Anthropic:
 
 ```powershell
-cd C:\path\to\your\project
 claude
 ```
 
+### Comandi utili
+
+```powershell
+# Avvia una sessione interattiva
+claude
+
+# Esegui un comando singolo
+claude "spiega questo codice"
+
+# Mostra la versione
+claude --version
+
+# Mostra tutti i comandi disponibili
+claude --help
+```
+
+---
+
 ## Troubleshooting
 
-### "claude: command not found"
+### "nvm" non riconosciuto
+
+Chiudi completamente il terminale e riaprilo. Se non funziona, prova a fare logout/login da Windows.
+
+### "claude" non riconosciuto dopo l'installazione
+
+Verifica che npm abbia installato correttamente:
+
 ```powershell
-# Verifica PATH npm
+npm list -g @anthropic-ai/claude-code
+```
+
+Se il pacchetto è presente, riavvia il terminale.
+
+### Errori di permessi
+
+Con nvm-windows non dovresti avere problemi di permessi. Se ne hai, verifica di non aver installato Node anche tramite l'installer ufficiale (può creare conflitti).
+
+### Comandi utili per debug
+
+```powershell
+# Verifica quale Node stai usando
+nvm list
+
+# Verifica il PATH di npm
 npm config get prefix
-# Dovrebbe essere in PATH automaticamente
+
+# Reinstalla Claude Code
+npm uninstall -g @anthropic-ai/claude-code
+npm install -g @anthropic-ai/claude-code
 ```
 
-### Execution Policy
+---
+
+## Aggiornamenti
+
+### Aggiornare Node.js
+
 ```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+nvm install lts
+nvm use lts
 ```
 
-### API Key non riconosciuta
+### Aggiornare Claude Code
+
 ```powershell
-# Verifica
-$env:ANTHROPIC_API_KEY
-# O verifica nelle env vars di sistema
+npm update -g @anthropic-ai/claude-code
 ```
-
-## Tips
-
-- Usa Windows Terminal per esperienza migliore
-- WSL2 + Claude Code funziona benissimo
-- Per progetti cross-platform, usa Git Bash o WSL

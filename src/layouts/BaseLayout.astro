@@ -1,10 +1,13 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description?: string;
 }
 
 const { title, description = "Raccolta di articoli e guide sul mondo dello sviluppo software nell'era dell'AI" } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <!DOCTYPE html>
@@ -14,7 +17,6 @@ const { title, description = "Raccolta di articoli e guide sul mondo dello svilu
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content={description}>
   <title>{title} - Software Engineering 3.0</title>
-  <link rel="stylesheet" href="/software-engineering-3.0/styles/global.css">
 </head>
 <body>
   <div class="container">
@@ -22,7 +24,7 @@ const { title, description = "Raccolta di articoli e guide sul mondo dello svilu
 
     <footer>
       <p>Software Engineering 3.0 &bull; Ultimo aggiornamento: Gennaio 2026</p>
-      <p><a href="/software-engineering-3.0/">GitHub</a></p>
+      <p><a href="https://github.com/giuseppealbrizio/software-engineering-3.0" target="_blank">GitHub</a></p>
     </footer>
   </div>
 </body>

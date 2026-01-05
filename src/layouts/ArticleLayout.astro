@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description: string;
@@ -7,6 +9,7 @@ interface Props {
 }
 
 const { title, description, icon, category } = Astro.props;
+const base = import.meta.env.BASE_URL;
 ---
 
 <!DOCTYPE html>
@@ -16,12 +19,11 @@ const { title, description, icon, category } = Astro.props;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content={description}>
   <title>{title} - Software Engineering 3.0</title>
-  <link rel="stylesheet" href="/software-engineering-3.0/styles/global.css">
 </head>
 <body>
   <div class="container">
     <header class="article-header">
-      <span class="badge badge-{category === 'article' ? 'article' : 'guide'}">
+      <span class={`badge badge-${category}`}>
         {category === 'article' ? 'ARTICOLO' : 'GUIDA'}
       </span>
       <h1>{title}</h1>
@@ -34,7 +36,7 @@ const { title, description, icon, category } = Astro.props;
 
     <footer>
       <p>Software Engineering 3.0</p>
-      <p><a href="/software-engineering-3.0/">← Torna alla Home</a></p>
+      <p><a href={base}>← Torna alla Home</a></p>
     </footer>
   </div>
 </body>

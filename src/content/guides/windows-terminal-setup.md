@@ -6,164 +6,121 @@ tag: "Tutorial"
 date: 2026-01-05
 ---
 
-## Installazione
+Guida per configurare PowerShell 7 con autocompletamento, Oh My Posh e icone
+
+## 1. Installa PowerShell 7
+
+Apri il terminale e lancia:
 
 ```powershell
-winget install Microsoft.WindowsTerminal
+winget install Microsoft.PowerShell
 ```
 
-## Configurazione Base
+Chiudi e riapri Windows Terminal. Ora vedrai "PowerShell" come nuovo profilo.
 
-Apri Settings (Ctrl+,) o modifica `settings.json`.
+## 2. Abilita esecuzione script
 
-### Default Profile
-
-```json
-{
-    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-}
-```
-
-### Font (Nerd Font consigliato)
+Apri PowerShell 7 **come amministratore** ed esegui:
 
 ```powershell
-# Installa font
-scoop bucket add nerd-fonts
-scoop install nerd-fonts/FiraCode-NF
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-```json
-{
-    "profiles": {
-        "defaults": {
-            "font": {
-                "face": "FiraCode Nerd Font",
-                "size": 12
-            }
-        }
-    }
-}
-```
+Conferma con `Y` quando richiesto.
 
-## Temi
-
-### Dark Theme (GitHub Dark)
-
-```json
-{
-    "schemes": [
-        {
-            "name": "GitHub Dark",
-            "background": "#0d1117",
-            "foreground": "#c9d1d9",
-            "black": "#484f58",
-            "red": "#ff7b72",
-            "green": "#3fb950",
-            "yellow": "#d29922",
-            "blue": "#58a6ff",
-            "purple": "#bc8cff",
-            "cyan": "#39c5cf",
-            "white": "#b1bac4"
-        }
-    ]
-}
-```
-
-### Applica tema
-
-```json
-{
-    "profiles": {
-        "defaults": {
-            "colorScheme": "GitHub Dark"
-        }
-    }
-}
-```
-
-## Profili
-
-### PowerShell 7
-
-```json
-{
-    "profiles": {
-        "list": [
-            {
-                "name": "PowerShell",
-                "source": "Windows.Terminal.PowershellCore",
-                "colorScheme": "GitHub Dark",
-                "font": {
-                    "face": "FiraCode Nerd Font"
-                }
-            }
-        ]
-    }
-}
-```
-
-### Git Bash
-
-```json
-{
-    "name": "Git Bash",
-    "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
-    "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
-    "startingDirectory": "%USERPROFILE%"
-}
-```
-
-### WSL
-
-```json
-{
-    "name": "Ubuntu",
-    "source": "Windows.Terminal.Wsl"
-}
-```
-
-## Shortcuts
-
-| Shortcut | Azione |
-|----------|--------|
-| Ctrl+Shift+T | Nuova tab |
-| Ctrl+Shift+W | Chiudi tab |
-| Ctrl+Tab | Tab successiva |
-| Alt+Shift+D | Split pane |
-| Ctrl+Shift+P | Command palette |
-
-## Oh My Posh
+## 3. Installa Oh My Posh
 
 ```powershell
 winget install JanDeDobbeleer.OhMyPosh
 ```
 
-Aggiungi al `$PROFILE`:
+Testa che funzioni:
+
 ```powershell
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\catppuccin.omp.json" | Invoke-Expression
+oh-my-posh init pwsh | Invoke-Expression
 ```
 
-## Tips
+## 4. Installa un Nerd Font
 
-### Background Image
+Necessario per visualizzare le icone nel prompt:
+
+```powershell
+oh-my-posh font install
+```
+
+Scegli **CaskaydiaCove** o **FiraCode**.
+
+> **Configurazione Font**
+> Vai in Windows Terminal -> Settings -> Profiles -> Defaults -> Appearance -> Font face e seleziona il font installato (es. "CaskaydiaCove Nerd Font").
+
+## 5. Installa Terminal-Icons
+
+```powershell
+Install-Module -Name Terminal-Icons -Repository PSGallery -Force
+```
+
+## 6. Crea il file $PROFILE
+
+Questo file viene eseguito ad ogni avvio di PowerShell:
+
+```powershell
+New-Item -Path $PROFILE -Type File -Force
+notepad $PROFILE
+```
+
+### Contenuto del $PROFILE
+
+```powershell
+# Oh My Posh
+oh-my-posh init pwsh | Invoke-Expression
+
+# PSReadLine - Autocompletamento
+Set-PSReadLineOption -PredictionSource HistoryAndPlugin
+Set-PSReadLineOption -PredictionViewStyle ListView
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+
+# Terminal Icons
+Import-Module Terminal-Icons
+```
+
+Copia questo contenuto nel file e salva.
+
+## 7. Imposta PowerShell 7 come default
+
+**In Windows Terminal:**
+
+Settings -> Startup -> Default profile -> seleziona "PowerShell"
+
+**In VS Code:**
+
+Apri settings.json e aggiungi:
+
 ```json
 {
-    "backgroundImage": "C:\\path\\to\\image.png",
-    "backgroundImageOpacity": 0.1
+    "terminal.integrated.defaultProfile.windows": "PowerShell"
 }
 ```
 
-### Acrylic Effect
-```json
-{
-    "useAcrylic": true,
-    "acrylicOpacity": 0.8
-}
+## 8. Riavvia e verifica
+
+Chiudi tutto e riapri Windows Terminal. Verifica con:
+
+```powershell
+# Versione PowerShell (deve essere 7.x)
+$PSVersionTable.PSVersion
+
+# Versione PSReadLine (deve essere 2.2+)
+Get-Module PSReadLine
 ```
 
-### Tab Title
-```json
-{
-    "tabTitle": "My Terminal"
-}
-```
+> **Troubleshooting**
+> Se PSReadLine non supporta `-PredictionSource`, aggiornalo manualmente:
+> ```powershell
+> Install-Module PSReadLine -Force -SkipPublisherCheck
+> ```
+
+---
+
+*Setup testato su Windows 11 con PowerShell 7*

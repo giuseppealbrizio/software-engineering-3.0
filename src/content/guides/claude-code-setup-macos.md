@@ -6,90 +6,221 @@ tag: "Tutorial"
 date: 2026-01-05
 ---
 
-## Prerequisiti
+## 1. Installa un Node Version Manager
 
-- macOS 12 (Monterey) o successivo
-- Node.js 18+
-- Account Anthropic con API key
+Usare un version manager per Node.js ti permette di gestire multiple versioni senza problemi di permessi. Su macOS hai due ottime opzioni:
 
-## 1. Installa Node.js
+### fnm (Consigliato)
 
-### Opzione A: fnm (consigliato)
+#### Installa fnm con Homebrew
 
 ```bash
-# Installa fnm
 brew install fnm
-
-# Configura shell
-echo 'eval "$(fnm env --use-on-cd --shell zsh)"' >> ~/.zshrc
-source ~/.zshrc
-
-# Installa Node
-fnm install --lts
-fnm default lts-latest
 ```
 
-### Opzione B: nvm
+#### Configura la shell
+
+Aggiungi questa riga al tuo `~/.zshrc`:
 
 ```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-source ~/.zshrc
-nvm install --lts
+eval "$(fnm env --use-on-cd)"
 ```
 
-## 2. Installa Claude Code
+Oppure esegui questo comando per aggiungerla automaticamente:
+
+```bash
+echo 'eval "$(fnm env --use-on-cd)"' >> ~/.zshrc
+```
+
+**Vantaggi di fnm:**
+
+- **Velocissimo** - Scritto in Rust, fnm e molto piu veloce di nvm
+- **Auto-switch** - Cambia versione automaticamente con .node-version
+- **Cross-platform** - Funziona identicamente su macOS, Linux e Windows
+- **Homebrew native** - Installazione e aggiornamenti semplici
+
+### nvm
+
+#### Installa nvm
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+```
+
+Lo script aggiungerà automaticamente le righe necessarie al tuo `~/.zshrc`.
+
+**Vantaggi di nvm:**
+
+- **Standard de facto** - Il version manager Node.js piu usato
+- **Documentazione ampia** - Molto supporto online e community attiva
+- **Compatibile .nvmrc** - Supporta il file .nvmrc presente in molti progetti
+- **No dipendenze** - Non richiede Homebrew o altri tool
+
+> **Dopo l'installazione:** Chiudi e riapri il terminale, oppure esegui `source ~/.zshrc` per ricaricare la configurazione.
+
+---
+
+## 2. Installa Node.js
+
+Apri Terminal e installa la versione LTS (Long Term Support) di Node.js:
+
+### Con fnm
+
+```bash
+fnm install --lts
+fnm use lts-latest
+```
+
+### Con nvm
+
+```bash
+nvm install --lts
+nvm use --lts
+```
+
+### Verifica l'installazione
+
+```bash
+node --version
+npm --version
+```
+
+> **Output atteso:** Dovresti vedere i numeri di versione, es. `v22.x.x` e `10.x.x`
+
+---
+
+## 3. Installa Claude Code
+
+Con npm disponibile, installa Claude Code globalmente:
 
 ```bash
 npm install -g @anthropic-ai/claude-code
 ```
 
-## 3. Configura API Key
+### Verifica l'installazione
 
 ```bash
-# Imposta la chiave API
-export ANTHROPIC_API_KEY="sk-ant-..."
-
-# Per renderla persistente, aggiungi a ~/.zshrc:
-echo 'export ANTHROPIC_API_KEY="sk-ant-..."' >> ~/.zshrc
-```
-
-## 4. Verifica Installazione
-
-```bash
-claude --version
 claude --help
 ```
 
-## 5. Primo Utilizzo
+> **Installazione completata:** Il comando `claude` e ora disponibile in qualsiasi finestra di Terminal.
+
+---
+
+## 4. Primi passi con Claude Code
+
+### Autenticazione
+
+Al primo avvio, Claude Code ti chiedera di autenticarti con il tuo account Anthropic:
 
 ```bash
-cd /path/to/your/project
 claude
 ```
 
+### Comandi utili
+
+```bash
+# Avvia una sessione interattiva
+claude
+
+# Esegui un comando singolo
+claude "spiega questo codice"
+
+# Mostra la versione
+claude --version
+
+# Mostra tutti i comandi disponibili
+claude --help
+```
+
+---
+
 ## Troubleshooting
 
-### "command not found: claude"
+### "fnm" o "nvm" non riconosciuto
+
+Verifica che la configurazione sia presente nel tuo `~/.zshrc`:
+
 ```bash
-# Verifica PATH npm
+cat ~/.zshrc | grep -E "(fnm|nvm)"
+```
+
+Se non vedi output, ripeti il passo di configurazione della shell.
+
+### "claude" non riconosciuto dopo l'installazione
+
+Verifica che npm abbia installato correttamente:
+
+```bash
+npm list -g @anthropic-ai/claude-code
+```
+
+Se il pacchetto e presente, riavvia il terminale.
+
+### Errori di permessi con npm
+
+Se usi un version manager (fnm/nvm) non dovresti avere problemi di permessi. Se hai installato Node tramite Homebrew o dal sito ufficiale, potresti avere conflitti. Rimuovilo e usa fnm/nvm.
+
+### Conflitto con Node installato via Homebrew
+
+Se hai Node installato anche via Homebrew:
+
+```bash
+brew uninstall node
+```
+
+Poi reinstalla tramite fnm o nvm.
+
+### Comandi utili per debug
+
+```bash
+# Verifica quale Node stai usando
+which node
+
+# Verifica le versioni installate (fnm)
+fnm list
+
+# Verifica le versioni installate (nvm)
+nvm list
+
+# Verifica il PATH di npm
 npm config get prefix
-# Aggiungi al PATH se necessario
-export PATH="$PATH:$(npm config get prefix)/bin"
+
+# Reinstalla Claude Code
+npm uninstall -g @anthropic-ai/claude-code
+npm install -g @anthropic-ai/claude-code
 ```
 
-### Errori di permessi
+---
+
+## Aggiornamenti
+
+### Aggiornare Node.js
+
+#### Con fnm
+
 ```bash
-sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
+fnm install --lts
+fnm use lts-latest
+fnm default lts-latest
 ```
 
-### API Key non riconosciuta
+#### Con nvm
+
 ```bash
-# Verifica che sia impostata
-echo $ANTHROPIC_API_KEY
+nvm install --lts
+nvm use --lts
+nvm alias default 'lts/*'
 ```
 
-## Tips
+### Aggiornare Claude Code
 
-- Usa `claude` nella root del progetto per dare contesto
-- Leggi i file di setup di questo repo per configurare l'ambiente
-- Claude Code può eseguire comandi: usalo per automatizzare setup
+```bash
+npm update -g @anthropic-ai/claude-code
+```
+
+### Aggiornare fnm (se installato via Homebrew)
+
+```bash
+brew upgrade fnm
+```

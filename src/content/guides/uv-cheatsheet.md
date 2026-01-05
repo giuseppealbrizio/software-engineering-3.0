@@ -6,149 +6,97 @@ tag: "Cheatsheet"
 date: 2026-01-05
 ---
 
-## Installazione
-
-```bash
-# macOS/Linux
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Windows
-powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
-
-# Homebrew
-brew install uv
-```
+Il gestore Python ultrarapido scritto in Rust
 
 ## Gestione Progetti
 
-```bash
-# Crea nuovo progetto
-uv init my-project
-cd my-project
+| Comando | Descrizione |
+|---------|-------------|
+| `uv init` | Crea nuovo progetto |
+| `uv init --lib` | Crea come libreria |
+| `uv sync` | Sincronizza dipendenze |
+| `uv lock` | Aggiorna lockfile |
+| `uv run script.py` | Esegue script |
+| `uv run pytest` | Esegue comando nel venv |
 
-# Aggiungi dipendenza
-uv add requests
-uv add pandas numpy
+## Dipendenze
 
-# Aggiungi dev dependency
-uv add --dev pytest black ruff
+| Comando | Descrizione |
+|---------|-------------|
+| `uv add requests` | Aggiunge dipendenza |
+| `uv add 'requests>=2.28'` | Con vincolo versione |
+| `uv add --dev pytest` | Dipendenza dev |
+| `uv add --group test pytest` | In gruppo specifico |
+| `uv remove requests` | Rimuove dipendenza |
+| `uv tree` | Albero dipendenze |
 
-# Rimuovi dipendenza
-uv remove requests
+## Gestione Python
 
-# Aggiorna dipendenze
-uv lock --upgrade
-```
+| Comando | Descrizione |
+|---------|-------------|
+| `uv python list` | Versioni disponibili |
+| `uv python install 3.12` | Installa versione |
+| `uv python install 3.11 3.12` | Installa multiple |
+| `uv python uninstall 3.11` | Rimuove versione |
+| `uv python pin 3.12` | Fissa per progetto |
+| `uv python find` | Trova interprete attivo |
 
-## Virtual Environment
+## Ambienti Virtuali
 
-```bash
-# Crea venv
-uv venv
+| Comando | Descrizione |
+|---------|-------------|
+| `uv venv` | Crea .venv |
+| `uv venv --python 3.11` | Con versione specifica |
+| `uv venv myenv` | Nome personalizzato |
 
-# Crea venv con Python specifico
-uv venv --python 3.12
+## Modalita pip (senza progetto)
 
-# Attiva venv
-source .venv/bin/activate  # Unix
-.venv\Scripts\activate     # Windows
-```
+| Comando | Descrizione |
+|---------|-------------|
+| `uv pip install requests` | Installa nel venv |
+| `uv pip install -r req.txt` | Da requirements |
+| `uv pip uninstall requests` | Disinstalla |
+| `uv pip list` | Lista pacchetti |
+| `uv pip freeze` | Output requirements |
+| `uv pip compile req.in` | Genera lockfile |
 
-## Esecuzione
+## Tool Globali
 
-```bash
-# Esegui script (crea venv se necessario)
-uv run python main.py
+| Comando | Descrizione |
+|---------|-------------|
+| `uv tool install ruff` | Installa CLI globale |
+| `uv tool upgrade ruff` | Aggiorna tool |
+| `uv tool list` | Lista installati |
+| `uv tool uninstall ruff` | Rimuove tool |
+| `uvx ruff check .` | Esegue senza installare |
 
-# Esegui comando nel venv
-uv run pytest
-uv run black .
-```
+## Script Standalone
 
-## pip Compatibility
+| Comando | Descrizione |
+|---------|-------------|
+| `uv run --with requests script.py` | Con dipendenza temp |
+| `uv add --script script.py requests` | Dipendenza inline |
 
-```bash
-# Installa da requirements.txt
-uv pip install -r requirements.txt
+## Cache e Manutenzione
 
-# Installa pacchetto
-uv pip install requests
+| Comando | Descrizione |
+|---------|-------------|
+| `uv cache clean` | Pulisce cache |
+| `uv cache prune` | Rimuove non usati |
+| `uv cache dir` | Mostra path cache |
+| `uv self update` | Aggiorna uv |
 
-# Lista pacchetti installati
-uv pip list
+## Modello Mentale
 
-# Freeze requirements
-uv pip freeze > requirements.txt
-```
+- `uv python ...` - gestione interpreti Python
+- `uv add/remove` - dipendenze del progetto
+- `uv run` - esegui qualsiasi cosa nel contesto del progetto
+- `uv tool` - CLI globali (ruff, black, mypy...)
+- `uv pip` - modalita classica compatibile pip
 
-## Python Versions
+> **Tip:** `uv run` crea automaticamente il venv se non esiste e installa le dipendenze.
+> E il modo piu semplice per lavorare: basta `uv run python script.py` e sei operativo.
 
-```bash
-# Installa Python
-uv python install 3.12
+---
 
-# Lista Python disponibili
-uv python list
-
-# Usa Python specifico
-uv venv --python 3.11
-```
-
-## Sync & Lock
-
-```bash
-# Sincronizza dipendenze
-uv sync
-
-# Solo dev deps
-uv sync --dev
-
-# Genera lockfile
-uv lock
-```
-
-## pyproject.toml
-
-```toml
-[project]
-name = "my-project"
-version = "0.1.0"
-dependencies = [
-    "requests>=2.28",
-    "pandas>=2.0",
-]
-
-[project.optional-dependencies]
-dev = [
-    "pytest>=7.0",
-    "black>=23.0",
-]
-
-[tool.uv]
-dev-dependencies = [
-    "ruff>=0.1",
-]
-```
-
-## Performance
-
-uv è **10-100x più veloce** di pip:
-
-| Operazione | pip | uv |
-|------------|-----|-----|
-| Install Django | 8s | 0.3s |
-| Fresh venv + deps | 30s | 2s |
-| Lock resolution | 10s | 0.5s |
-
-## Tips
-
-```bash
-# Cache globale (risparmia spazio)
-uv cache clean
-
-# Verbose output
-uv add requests -v
-
-# Offline mode
-uv sync --offline
-```
+Help rapido: `uv --help` o `uv add --help`
