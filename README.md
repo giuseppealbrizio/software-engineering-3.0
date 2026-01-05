@@ -2,44 +2,60 @@
 
 Raccolta di articoli e guide sul mondo dello sviluppo software nell'era dell'AI.
 
+## Live Site
+
+🌐 **[https://giuseppealbrizio.github.io/software-engineering-3.0](https://giuseppealbrizio.github.io/software-engineering-3.0)**
+
+## Sviluppo Locale
+
+```bash
+npm install        # Installa dipendenze
+npm run dev        # Avvia server locale (localhost:4321)
+npm run build      # Genera sito statico in dist/
+npm run preview    # Preview build di produzione
+```
+
 ## Struttura
 
 ```
-├── index.html   # Homepage del sito
-├── articles/    # Articoli, analisi, roadmap
-├── guides/      # Guide pratiche, tutorial, cheatsheet
-└── setup/       # File di contesto per Claude Code (automazione setup)
+src/
+├── content/
+│   ├── articles/    # Articoli in Markdown
+│   └── guides/      # Guide in Markdown
+├── pages/           # Route Astro
+├── layouts/         # Layout riutilizzabili
+├── components/      # Componenti Astro
+└── styles/          # CSS globale
+
+setup/               # File automazione Claude Code
+legacy-html/         # Versioni HTML originali (retrocompatibilità)
 ```
 
-## Live Site
+## Articoli
 
-Apri `index.html` nel browser per navigare il sito con interfaccia dark minimal e filtri per categoria.
+| Articolo | Descrizione |
+|----------|-------------|
+| [ai-developer-paradigm](src/content/articles/ai-developer-paradigm.md) | Il Nuovo Paradigma dello Sviluppatore AI |
+| [ai-developer-paradigm-python](src/content/articles/ai-developer-paradigm-python.md) | Il Nuovo Paradigma - Python Edition |
+| [ai-developer-roadmap-2026](src/content/articles/ai-developer-roadmap-2026.md) | Roadmap AI Developer 2026 |
+| [ai-jobs-overview-2026](src/content/articles/ai-jobs-overview-2026.md) | AI, Lavoro e Futuro dei Programmatori |
+| [memory-war-enterprise](src/content/articles/memory-war-enterprise.md) | The Memory War That Will Define AI |
+| [python-fundamentals-to-generative](src/content/articles/python-fundamentals-to-generative.md) | Da Python Fundamentals a Generative Programming |
+| [welcome-to-the-machine-analysis](src/content/articles/welcome-to-the-machine-analysis.md) | Welcome to the Machine - Analisi |
 
-## Articles
+## Guide
 
-| File | Titolo |
-|------|--------|
-| [ai-developer-paradigm-python-v2.html](articles/ai-developer-paradigm-python-v2.html) | Il Nuovo Paradigma dello Sviluppatore AI - Python Edition |
-| [ai-developer-paradigm-v2.html](articles/ai-developer-paradigm-v2.html) | Il Nuovo Paradigma dello Sviluppatore AI |
-| [ai-developer-roadmap-2026-v3.html](articles/ai-developer-roadmap-2026-v3.html) | Roadmap AI Developer 2026 |
-| [ai-jobs-overview-2026.html](articles/ai-jobs-overview-2026.html) | AI, Lavoro e Futuro dei Programmatori - Overview 2026 |
-| [memory-war-enterprise.html](articles/memory-war-enterprise.html) | The Memory War That Will Define AI - Analisi Strategica |
-| [python-fundamentals-to-generative.html](articles/python-fundamentals-to-generative.html) | Da Python Fundamentals a Generative Programming |
-| [welcome-to-the-machine-analysis.html](articles/welcome-to-the-machine-analysis.html) | Welcome to the Machine - Analisi e Implicazioni |
+| Guida | Descrizione |
+|-------|-------------|
+| [macos-dev-setup](src/content/guides/macos-dev-setup.md) | macOS Dev Environment Setup |
+| [windows-dev-setup](src/content/guides/windows-dev-setup.md) | Windows Dev Environment Setup |
+| [claude-code-setup-macos](src/content/guides/claude-code-setup-macos.md) | Installazione Claude Code su macOS |
+| [claude-code-setup-windows](src/content/guides/claude-code-setup-windows.md) | Installazione Claude Code su Windows |
+| [github-cli-guide](src/content/guides/github-cli-guide.md) | GitHub CLI - Guida Completa |
+| [uv-cheatsheet](src/content/guides/uv-cheatsheet.md) | UV Cheatsheet |
+| [windows-terminal-setup](src/content/guides/windows-terminal-setup.md) | Windows Terminal Setup |
 
-## Guides
-
-| File | Titolo |
-|------|--------|
-| [macos-dev-setup.html](guides/macos-dev-setup.html) | macOS Dev Environment Setup - Guida Completa |
-| [windows-dev-setup.html](guides/windows-dev-setup.html) | Windows Dev Environment Setup - Guida Completa |
-| [claude-code-setup-macos.html](guides/claude-code-setup-macos.html) | Installazione Claude Code su macOS |
-| [claude-code-setup-windows.html](guides/claude-code-setup-windows.html) | Installazione Claude Code su Windows |
-| [github-cli-guide.html](guides/github-cli-guide.html) | GitHub CLI - Guida Completa |
-| [uv-cheatsheet.html](guides/uv-cheatsheet.html) | UV Cheatsheet |
-| [windows-terminal-setup.html](guides/windows-terminal-setup.html) | Windows Terminal Setup - Guida Completa |
-
-## Setup (for Claude Code)
+## Setup Automazione (Claude Code)
 
 File di contesto per automatizzare il setup dell'ambiente di sviluppo con Claude Code.
 
@@ -50,7 +66,19 @@ File di contesto per automatizzare il setup dell'ambiente di sviluppo con Claude
 
 **Come usare:** Apri la repo con Claude Code e chiedi di leggere il file di setup appropriato ed eseguire i comandi.
 
+## Tech Stack
+
+- **[Astro](https://astro.build/)** - Framework per siti statici
+- **Content Collections** - Gestione contenuti Markdown con schema Zod
+- **GitHub Pages** - Hosting statico
+
 ## Changelog
+
+### v2.0.0 - 2026-01-05
+- Migrazione completa ad Astro framework
+- Contenuti convertiti da HTML a Markdown con Content Collections
+- File HTML originali preservati in `legacy-html/` per retrocompatibilità
+- Aggiunto `CLAUDE.md` per guidance Claude Code
 
 ### v1.4.0 - 2026-01-05
 - Aggiunta cartella `setup/` con file di contesto per Claude Code
@@ -63,7 +91,7 @@ File di contesto per automatizzare il setup dell'ambiente di sviluppo con Claude
 - Boilerplate per setup automatizzato con Claude Code
 
 ### v1.2.0 - 2026-01-04
-- Aggiunta homepage `index.html` con design dark minimal
+- Aggiunta homepage con design dark minimal
 - Cards interattive con filtri per categoria (Articoli/Guide)
 - Documenti resi agnostici (rimossi riferimenti personali)
 
