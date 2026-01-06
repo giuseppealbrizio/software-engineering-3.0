@@ -6,12 +6,15 @@ interface Props {
   href: string;
   type: 'article' | 'guide';
   tag?: string;
+  date?: Date;
 }
 
-const { title, description, icon, href, type, tag = type === 'article' ? 'Analisi' : 'Tutorial' } = Astro.props;
+const { title, description, icon, href, type, tag = type === 'article' ? 'Analisi' : 'Tutorial', date } = Astro.props;
+const dateStr = date ? date.toISOString().split('T')[0] : '1970-01-01';
+const displayDate = date ? date.toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' }) : null;
 ---
 
-<a href={href} class="card" data-type={type}>
+<a href={href} class="card" data-type={type} data-date={dateStr} data-title={title.toLowerCase()}>
   <div class="card-header">
     <span class="card-icon">{icon}</span>
     <span class={`badge badge-${type}`}>
@@ -21,7 +24,21 @@ const { title, description, icon, href, type, tag = type === 'article' ? 'Analis
   <h2 class="card-title">{title}</h2>
   <p class="card-description">{description}</p>
   <div class="card-footer">
-    <span>{type === 'article' ? '📄' : '📖'}</span>
-    <span>{tag}</span>
+    <span class="card-tag">{type === 'article' ? '📄' : '📖'} {tag}</span>
+    {displayDate && <span class="card-date">{displayDate}</span>}
   </div>
 </a>
+
+<style>
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-date {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+  }
+</style>

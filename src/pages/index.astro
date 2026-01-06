@@ -18,13 +18,21 @@ const base = import.meta.env.BASE_URL;
 
   <Search />
 
-  <div class="filters">
-    <button class="filter-btn active" data-filter="all">Tutti</button>
-    <button class="filter-btn" data-filter="article">Articoli</button>
-    <button class="filter-btn" data-filter="guide">Guide</button>
+  <div class="controls">
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">Tutti</button>
+      <button class="filter-btn" data-filter="article">Articoli</button>
+      <button class="filter-btn" data-filter="guide">Guide</button>
+    </div>
+    <div class="sorting">
+      <span class="sort-label">Ordina:</span>
+      <button class="sort-btn active" data-sort="date-desc">Più recenti</button>
+      <button class="sort-btn" data-sort="date-asc">Più vecchi</button>
+      <button class="sort-btn" data-sort="alpha">A-Z</button>
+    </div>
   </div>
 
-  <div class="cards-grid">
+  <div class="cards-grid" id="cards-grid">
     {articles.map((article) => (
       <Card
         title={article.data.title}
@@ -33,6 +41,7 @@ const base = import.meta.env.BASE_URL;
         href={`${base}/articles/${article.slug}`}
         type="article"
         tag={article.data.tag}
+        date={article.data.date}
       />
     ))}
 
@@ -44,6 +53,7 @@ const base = import.meta.env.BASE_URL;
         href={`${base}/guides/${guide.slug}`}
         type="guide"
         tag={guide.data.tag}
+        date={guide.data.date}
       />
     ))}
   </div>
@@ -69,22 +79,58 @@ const base = import.meta.env.BASE_URL;
 
 <script>
   const filterBtns = document.querySelectorAll('.filter-btn');
-  const cards = document.querySelectorAll('.card');
+  const sortBtns = document.querySelectorAll('.sort-btn');
+  const grid = document.getElementById('cards-grid');
+  let currentFilter = 'all';
 
+  // Filter functionality
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      const filter = btn.dataset.filter;
-
-      cards.forEach(card => {
-        if (filter === 'all' || card.dataset.type === filter) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
+      currentFilter = btn.dataset.filter;
+      applyFilter();
     });
   });
+
+  function applyFilter() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      if (currentFilter === 'all' || card.dataset.type === currentFilter) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+
+  // Sort functionality
+  sortBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      sortBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      sortCards(btn.dataset.sort);
+    });
+  });
+
+  function sortCards(sortType) {
+    const cards = Array.from(grid.querySelectorAll('.card'));
+
+    cards.sort((a, b) => {
+      if (sortType === 'date-desc') {
+        return b.dataset.date.localeCompare(a.dataset.date);
+      } else if (sortType === 'date-asc') {
+        return a.dataset.date.localeCompare(b.dataset.date);
+      } else if (sortType === 'alpha') {
+        return a.dataset.title.localeCompare(b.dataset.title);
+      }
+      return 0;
+    });
+
+    cards.forEach(card => grid.appendChild(card));
+    applyFilter();
+  }
+
+  // Initial sort by date descending
+  sortCards('date-desc');
 </script>
