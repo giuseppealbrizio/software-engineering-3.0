@@ -10,20 +10,20 @@ Feature e miglioramenti pianificati per il sito.
 - [x] **Copy Code** - Pulsante copia sui blocchi di codice
 - [x] **Back to Top** - Pulsante flottante per tornare in cima
 - [x] **Pagefind Search** - Ricerca full-text integrata
+- [x] **Sitemap XML** - Per indicizzazione search engine
+- [x] **Progress Bar** - Barra di avanzamento lettura articolo
 
 ## In Programma
 
 ### Content & SEO
 
 - [ ] **RSS Feed** - Feed per lettori RSS/Atom
-- [ ] **Sitemap XML** - Per indicizzazione search engine
 - [ ] **Open Graph / Twitter Cards** - Preview social quando condividi link
 - [ ] **Structured Data (JSON-LD)** - Schema.org per rich snippets Google
 - [ ] **Canonical URLs** - Evitare contenuti duplicati
 
 ### UI/UX
 
-- [ ] **Progress Bar** - Barra di avanzamento lettura articolo
 - [ ] **Breadcrumbs** - Navigazione gerarchica (Home > Articoli > Titolo)
 - [ ] **Related Articles** - Suggerimenti articoli correlati in fondo
 - [ ] **Tags/Categories** - Sistema di tagging per filtrare contenuti
