@@ -12,6 +12,8 @@ Feature e miglioramenti pianificati per il sito.
 - [x] **Pagefind Search** - Ricerca full-text integrata
 - [x] **Sitemap XML** - Per indicizzazione search engine
 - [x] **Progress Bar** - Barra di avanzamento lettura articolo
+- [x] **Sorting** - Ordinamento articoli per data (recenti/vecchi) e alfabetico
+- [x] **Light Mode Search** - Pagefind con colori corretti in light mode
 
 ## In Programma
 
@@ -68,4 +70,4 @@ Vuoi suggerire una feature? Apri una [Issue](https://github.com/giuseppealbrizio
 ## Priorità
 
 Le feature sono ordinate per priorità approssimativa dentro ogni categoria.
-Inizieremo dalle più impattanti con minor sforzo (RSS, Sitemap, Progress Bar).
+Prossimi step consigliati: RSS Feed, Open Graph, Breadcrumbs.
